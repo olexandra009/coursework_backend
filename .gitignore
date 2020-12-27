@@ -1,0 +1,6 @@
+.vs/*
+DataBaseEntityFramework/bin/*
+DataBaseEntityFramework/obj/*
+DataBaseEntityFramework/bin/Debug/*
+DataBaseEntityFramework/obj/Debug/*
+CommunicationPlatform.sln.DotSettings.user
