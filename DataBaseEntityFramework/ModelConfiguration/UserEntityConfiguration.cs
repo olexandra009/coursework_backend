@@ -44,6 +44,16 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             HasMany(u => u.CreatedPetitions)
                 .WithRequired(an => an.Author)
                 .HasForeignKey(an => an.Author.Id).WillCascadeOnDelete(false);
+
+            //many to many
+            HasMany(s => s.VotedPetitions)
+                .WithMany(c => c.UserVotes)
+                .Map(cs =>
+                {
+                    cs.MapLeftKey("UserId");
+                    cs.MapRightKey("PetitionId");
+                    cs.ToTable("Votes");
+                });
         }
     }
 }
