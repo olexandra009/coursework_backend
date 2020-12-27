@@ -13,6 +13,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private DateTime _dateTimeCreation;
         private bool _edited;
         private User _author;
+        private Guid _authorId;
         #endregion
 
         #region Properties
@@ -50,6 +51,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         {
             get { return _author; }
             private set { _author = value; }
+        }
+        public Guid AuthorId
+        {
+            get { return _authorId; }
+            private set { _authorId = value; }
         }
 
         #endregion

@@ -14,6 +14,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private DateTime _starDate;
         private DateTime _finishDate;
         private User _author;
+        private Guid _authorId;
         private List<User> _votes;
         #endregion
 
@@ -52,6 +53,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         {
             get => _author;
             private set => _author = value;
+        }
+        public Guid AuthorId
+        {
+            get => _authorId;
+            private set => _authorId = value;
         }
 
         public List<User> UserVotes

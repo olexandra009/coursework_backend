@@ -14,7 +14,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private DateTime _openDate;
         private DateTime _closeDate;
         private User _author;
+        private Guid _authorId;
         private User _answerer;
+        private Guid _answerId;
         #endregion
 
         #region Properties
@@ -22,6 +24,16 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         {
             get => _id;
             private set => _id = value;
+        }
+        public Guid AuthorId
+        {
+            get => _authorId;
+            private set => _authorId = value;
+        }
+        public Guid AnswerId
+        {
+            get => _answerId;
+            private set => _answerId = value;
         }
         public string Subject
         {

@@ -14,6 +14,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _edited;
         private bool _emailNotification;
         private User _author;
+        private Guid _authorId;
         #endregion
 
         #region Properties
@@ -52,6 +53,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         {
             get => _author;
             private set => _author = value;
+        }
+        public Guid AuthorId
+        {
+            get => _authorId;
+            private set => _authorId = value;
         }
         public Guid Id
         {

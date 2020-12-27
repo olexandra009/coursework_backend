@@ -27,23 +27,23 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             //one to many
             HasMany(u=>u.AnswerApplications)
                 .WithRequired(an=>an.Answerer)
-                .HasForeignKey(an=>an.Answerer.Id).WillCascadeOnDelete(false);
+                .HasForeignKey(an=>an.AnswerId).WillCascadeOnDelete(false);
 
             HasMany(u => u.CreatedApplications)
                 .WithRequired(an => an.Author)
-                .HasForeignKey(an => an.Author.Id).WillCascadeOnDelete(false);
+                .HasForeignKey(an => an.AuthorId).WillCascadeOnDelete(false);
 
             HasMany(u => u.CreatedEvents)
                 .WithRequired(an => an.Author)
-                .HasForeignKey(an => an.Author.Id).WillCascadeOnDelete(false);
+                .HasForeignKey(an => an.AuthorId).WillCascadeOnDelete(false);
 
             HasMany(u => u.CreatedNews)
                 .WithRequired(an => an.Author)
-                .HasForeignKey(an => an.Author.Id).WillCascadeOnDelete(false);
+                .HasForeignKey(an => an.AuthorId).WillCascadeOnDelete(false);
 
             HasMany(u => u.CreatedPetitions)
                 .WithRequired(an => an.Author)
-                .HasForeignKey(an => an.Author.Id).WillCascadeOnDelete(false);
+                .HasForeignKey(an => an.AuthorId).WillCascadeOnDelete(false);
 
             //many to many
             HasMany(s => s.VotedPetitions)
