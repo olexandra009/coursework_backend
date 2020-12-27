@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    class Petition :IDbModel
+    public class Petition :IDbModel
     {
         #region Fields
 

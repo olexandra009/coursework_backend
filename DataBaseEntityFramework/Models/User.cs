@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     public class User : IDbModel
@@ -13,6 +15,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _login;
         private string _password;
         private Organization _userOrganization;
+        private Rights _userRights;
+        private List<News> _createdNews;
+        private List<Event> _createdEvents;
+        private List<Application> _createdApplications;
+        private List<Application> _answerApplications;
+        private List<Petition> _createdPetitions;
+        private List<Petition> _votedPetitions;
+
         #endregion
 
         #region Properties
@@ -66,8 +76,50 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         public Organization UserOrganization
         {
-            get { return _userOrganization; }
-            private set { _userOrganization = value; }
+            get => _userOrganization;
+            private set => _userOrganization = value;
+        }
+
+        public Rights UserRights
+        {
+            get => _userRights;
+            private set => _userRights = value;
+        }
+
+        public List<News> CreatedNews
+        {
+            get => _createdNews;
+            private set => _createdNews = value;
+        }
+
+        public List<Event> CreatedEvents
+        {
+            get => _createdEvents;
+            private set => _createdEvents = value;
+        }
+
+        public List<Application> CreatedApplications
+        {
+            get => _createdApplications;
+            private set => _createdApplications = value;
+        }
+
+        public List<Application> AnswerApplications
+        {
+            get => _answerApplications;
+            private set => _answerApplications = value;
+        }
+
+        public List<Petition> CreatedPetitions
+        {
+            get => _createdPetitions;
+            private set => _createdPetitions = value;
+        }
+
+        public List<Petition> VotedPetitions
+        {
+            get => _votedPetitions;
+            private set => _votedPetitions = value;
         }
 
         #endregion

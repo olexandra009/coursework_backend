@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
@@ -9,6 +10,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _name;
         private string _address;
         private string _phoneNumber;
+        private List<User> _users;
         #endregion
 
         #region Properties
@@ -34,6 +36,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         {
             get => _phoneNumber;
             private set => _phoneNumber = value;
+        }
+
+        public List<User> Users
+        {
+            get => _users;
+            private set => _users = value;
         }
 
         #endregion

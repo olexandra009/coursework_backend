@@ -2,7 +2,7 @@
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    class Event :IDbModel
+    public class Event :IDbModel
     {
 
         #region Fields
