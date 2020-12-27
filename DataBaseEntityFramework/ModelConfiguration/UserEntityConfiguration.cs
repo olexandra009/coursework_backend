@@ -24,13 +24,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
                 .WithRequiredPrincipal(r => r.User)
                 .WillCascadeOnDelete(false);
 
-
-            //many to many
-            HasMany(u=>u.VotedPetitions)
-                .WithRequired(p=>p.Author)
-                .HasForeignKey(p=>p.Author.Id)
-                .WillCascadeOnDelete(false);
-
             //one to many
             HasMany(u=>u.AnswerApplications)
                 .WithRequired(an=>an.Answerer)
