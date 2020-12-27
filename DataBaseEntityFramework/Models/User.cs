@@ -21,7 +21,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private List<Application> _createdApplications;
         private List<Application> _answerApplications;
         private List<Petition> _createdPetitions;
-        private List<Petition> _votedPetitions;
+        private List<Votes> _votedPetitions; //many to many
 
         #endregion
 
@@ -116,7 +116,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _createdPetitions = value;
         }
 
-        public List<Petition> VotedPetitions
+        public List<Votes> VotedPetitions
         {
             get => _votedPetitions;
             private set => _votedPetitions = value;
