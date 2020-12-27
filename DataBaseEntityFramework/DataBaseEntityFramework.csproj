@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ModelConfiguration\ApplicationEntityConfiguration.cs" />
     <Compile Include="ModelConfiguration\EventEntityConfiguration.cs" />
     <Compile Include="ModelConfiguration\NewsEntityConfiguration.cs" />

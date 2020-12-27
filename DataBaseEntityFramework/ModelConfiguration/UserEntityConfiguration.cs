@@ -18,6 +18,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             Property(u => u.Email).HasColumnName("Email").IsOptional();
             Property(u => u.Login).HasColumnName("Login").IsRequired();
             Property(u => u.Password).HasColumnName("Password").IsRequired();
+            Property(u => u.UserOrganizationId).HasColumnName("OrganizationId").IsOptional();
 
             //one to one
             HasRequired(u => u.UserRights)

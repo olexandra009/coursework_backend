@@ -21,7 +21,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
            
             HasMany(o=>o.Users)
                 .WithOptional(u=>u.UserOrganization)
-                .HasForeignKey(u=>u.UserOrganization.Id)
+                .HasForeignKey(u=>u.UserOrganizationId)
                 .WillCascadeOnDelete(false);
         }
     }
