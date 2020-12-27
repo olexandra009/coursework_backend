@@ -12,6 +12,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _email;
         private string _login;
         private string _password;
+        private Organization _userOrganization;
         #endregion
 
         #region Properties
@@ -61,6 +62,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         {
             get => _password;
             private set => _password = value;
+        }
+
+        public Organization UserOrganization
+        {
+            get { return _userOrganization; }
+            private set { _userOrganization = value; }
         }
 
         #endregion
