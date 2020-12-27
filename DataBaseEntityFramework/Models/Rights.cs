@@ -15,6 +15,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _createApplication;
         private bool _handlingApplication;
         private User _user;
+        
         #endregion
 
         #region Properties
@@ -77,6 +78,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _user;
             private set => _user = value;
         }
+      
         #endregion
 
     }
