@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity.ModelConfiguration;
+﻿using System.Data.Entity.ModelConfiguration;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration
