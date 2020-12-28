@@ -25,7 +25,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
        public virtual DbSet<Application> Applications { get; set; }
        public virtual DbSet<Votes> Votes { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+      
+
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
        {
            base.OnModelCreating(modelBuilder);
            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
