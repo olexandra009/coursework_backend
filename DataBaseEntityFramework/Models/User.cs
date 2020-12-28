@@ -22,7 +22,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private List<Application> _createdApplications;
         private List<Application> _answerApplications;
         private List<Petition> _createdPetitions;
-        private List<Petition> _votedPetitions; //many to many
+        private List<Votes> _votedPetitions; //many to many
 
         #endregion
 
@@ -122,7 +122,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _createdPetitions = value;
         }
 
-        public List<Petition> VotedPetitions
+        public List<Votes> VotedPetitions
         {
             get => _votedPetitions;
             private set => _votedPetitions = value;
@@ -136,7 +136,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
                     string phoneNumber, string email, string login, string password, 
                     Organization userOrganization, Guid userOrganizationId, Rights userRights, 
                     List<News> createdNews, List<Event> createdEvents, List<Application> createdApplications, 
-                    List<Application> answerApplications, List<Petition> createdPetitions, List<Petition> votedPetitions) :this()
+                    List<Application> answerApplications, List<Petition> createdPetitions, List<Votes> votedPetitions) :this()
         {
             Id = guid;
             FirstName = firstName;
