@@ -7,13 +7,13 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class first_migration : IMigrationMetadata
+    public sealed partial class first : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(first_migration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(first));
         
         string IMigrationMetadata.Id
         {
-            get { return "202012271833456_first_migration"; }
+            get { return "202012281204533_first"; }
         }
         
         string IMigrationMetadata.Source

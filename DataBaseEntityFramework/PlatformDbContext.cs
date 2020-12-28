@@ -8,7 +8,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
    public class PlatformDbContext : DbContext
    {
 
-       public PlatformDbContext() : base("PlatformDB")
+       public PlatformDbContext() : base("CommunityInfoPlatformDB")
        {
           
        }
