@@ -3,4 +3,12 @@ DataBaseEntityFramework/bin/*
 DataBaseEntityFramework/obj/*
 DataBaseEntityFramework/bin/Debug/*
 DataBaseEntityFramework/obj/Debug/*
+
+ServerHttpPlatform/bin/*
+ServerHttpPlatform/obj/*
+ServerHttpPlatform/bin/Debug/*
+ServerHttpPlatform/obj/Debug/*
+
+appsettings.Development.json
+
 CommunicationPlatform.sln.DotSettings.user

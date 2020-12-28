@@ -15,7 +15,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
            : base(options)
        {
        }
-
        public virtual DbSet<User> Users { get; set; }
        public virtual DbSet<Rights> Rights { get; set; }
        public virtual DbSet<Petition> Petitions{ get; set; }
