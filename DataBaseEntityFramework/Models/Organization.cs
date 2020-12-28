@@ -48,7 +48,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public Organization(Guid id, string name,  List<User> users, string address=null, string phoneNumber=null)
+        public Organization(Guid id, string name,  List<User> users, 
+                            string address=null, string phoneNumber=null) : this()
         {
             Id = id;
             Name = name;
@@ -57,6 +58,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             Users = users;
         }
 
+        public Organization()
+        {
+            
+        }
         #endregion
     }
 }
