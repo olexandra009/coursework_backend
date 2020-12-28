@@ -45,5 +45,18 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
 
         #endregion
+
+        #region Constructors
+
+        public Organization(Guid id, string name,  List<User> users, string address=null, string phoneNumber=null)
+        {
+            Id = id;
+            Name = name;
+            Address = address;
+            PhoneNumber = phoneNumber;
+            Users = users;
+        }
+
+        #endregion
     }
 }

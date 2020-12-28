@@ -78,8 +78,32 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _user;
             private set => _user = value;
         }
-      
+
         #endregion
 
+        #region Constructors
+
+        public Rights(Guid id, bool addingUser, bool editRights, bool createPetitions, 
+                        bool votePetitions, bool createNewsAndEvents, bool moderateNewsAndEvents, 
+                        bool createApplication, bool handlingApplication, User user) :this()
+        {
+            Id = id;
+            AddingUser = addingUser;
+            EditRights = editRights;
+            CreatePetitions = createPetitions;
+            VotePetitions = votePetitions;
+            CreateNewsAndEvents = createNewsAndEvents;
+            ModerateNewsAndEvents = moderateNewsAndEvents;
+            CreateApplication = createApplication;
+            HandlingApplication = handlingApplication;
+            User = user;
+        }
+
+        public Rights()
+        {
+            
+        }
+
+        #endregion
     }
 }

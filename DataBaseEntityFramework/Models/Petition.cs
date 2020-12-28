@@ -66,5 +66,28 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _votes = value;
         }
         #endregion
+
+        #region Constructors
+
+        public Petition(Guid id, string header, string text, 
+                        DateTime starDate, DateTime finishDate, 
+                        User author, Guid authorId, List<User> votes) : this()
+        {
+            Id = id;
+            Header = header;
+            Text = text;
+            StarDate = starDate;
+            FinishDate = finishDate;
+            Author = author;
+            AuthorId = authorId;
+            UserVotes = votes;
+        }
+
+        public Petition()
+        {
+
+        }
+
+        #endregion
     }
 }

@@ -12,7 +12,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _status; //TODO: change to enum
         private string _result;
         private DateTime _openDate;
-        private DateTime _closeDate;
+        private DateTime? _closeDate;
         private User _author;
         private Guid _authorId;
         private User _answerer;
@@ -65,7 +65,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _openDate = value;
         }
 
-        public DateTime CloseDate
+        public DateTime? CloseDate
         {
             get => _closeDate;
             private set => _closeDate = value;
@@ -81,6 +81,33 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         {
             get => _answerer;
             private set => _answerer = value;
+        }
+
+        #endregion
+
+        #region Constructors
+
+        public Application(Guid id, string subject, string text, string status, 
+                           DateTime openDate, User author, Guid authorId,
+                           User answerer = null, Guid answerId = default, 
+                           DateTime? closeDate = null, string result = null) : this()
+        {
+            Id = id;
+            Subject = subject;
+            Text = text;
+            Status = status;
+            Result = result;
+            OpenDate = openDate;
+            CloseDate = closeDate;
+            Author = author;
+            AuthorId = authorId;
+            Answerer = answerer;
+            AnswerId = answerId;
+        }
+
+        public Application()
+        {
+
         }
 
         #endregion

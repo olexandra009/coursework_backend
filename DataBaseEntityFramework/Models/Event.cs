@@ -66,5 +66,24 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
 
         #endregion
+
+        #region Constructors
+
+        public Event(Guid id, string name, string description, 
+                     DateTime startDate, DateTime endDate, bool edited, 
+                     bool emailNotification, User author, Guid authorId) : this() 
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            StartDate = startDate;
+            EndDate = endDate;
+            Edited = edited;
+            EmailNotification = emailNotification;
+            Author = author;
+            AuthorId = authorId;
+        }
+        public Event() { }
+        #endregion
     }
 }

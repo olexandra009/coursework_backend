@@ -60,5 +60,22 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #endregion
 
+        #region Constructors
+
+        public News(Guid id, string header, string text, DateTime dateTimeCreation, 
+                    bool edited, User author, Guid authorId) : this()
+        {
+            Id = id;
+            Header = header;
+            Text = text;
+            DateTimeCreation = dateTimeCreation;
+            Edited = edited;
+            Author = author;
+            AuthorId = authorId;
+        }
+
+        public News() { }
+
+        #endregion
     }
 }

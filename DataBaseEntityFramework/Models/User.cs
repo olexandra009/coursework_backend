@@ -130,6 +130,39 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #endregion
 
+        #region Constructors
+
+        public User(Guid guid, string firstName, string secondName, string lastName, 
+                    string phoneNumber, string email, string login, string password, 
+                    Organization userOrganization, Guid userOrganizationId, Rights userRights, 
+                    List<News> createdNews, List<Event> createdEvents, List<Application> createdApplications, 
+                    List<Application> answerApplications, List<Petition> createdPetitions, List<Petition> votedPetitions) :this()
+        {
+            Id = guid;
+            FirstName = firstName;
+            SecondName = secondName;
+            LastName = lastName;
+            PhoneNumber = phoneNumber;
+            Email = email;
+            Login = login;
+            Password = password;
+            UserOrganization = userOrganization;
+            UserOrganizationId = userOrganizationId;
+            UserRights = userRights;
+            CreatedNews = createdNews;
+            CreatedEvents = createdEvents;
+            CreatedApplications = createdApplications;
+            AnswerApplications = answerApplications;
+            CreatedPetitions = createdPetitions;
+            VotedPetitions = votedPetitions;
+        }
+
+        public User()
+        {
+            
+        }
+
+        #endregion
 
 
     }
