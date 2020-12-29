@@ -1,75 +1,79 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitPlatformUTCDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Organizations",
+                name: "Organization",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Organizationname = table.Column<string>(name: "Organization name", type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Address = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     PhoneNumber = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Organizations", x => x.Id);
+                    table.PrimaryKey("PK_Organization", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     SecondName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     LastName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     PhoneNumber = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Login = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Password = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    UserOrganizationId = table.Column<Guid>(type: "char(36)", nullable: false)
+                    Login = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
+                    Password = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
+                    UserOrganizationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Organizations_UserOrganizationId",
+                        name: "FK_Users_Organization_UserOrganizationId",
                         column: x => x.UserOrganizationId,
-                        principalTable: "Organizations",
+                        principalTable: "Organization",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Applications",
+                name: "Application",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    AnswerId = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
+                    AnswerId = table.Column<int>(type: "int", nullable: false),
                     Subject = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Text = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Status = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Result = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    OpenDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    CloseDate = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    Open = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Close = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Applications", x => x.Id);
+                    table.PrimaryKey("PK_Application", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Applications_Users_AnswerId",
+                        name: "FK_Application_Users_AnswerId",
                         column: x => x.AnswerId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Applications_Users_AuthorId",
+                        name: "FK_Application_Users_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -77,23 +81,25 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 });
 
             migrationBuilder.CreateTable(
-                name: "Events",
+                name: "Event",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    EventName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Description = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    End = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Edited = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ShowAuthor = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     EmailNotification = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "char(36)", nullable: false)
+                    AuthorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Events", x => x.Id);
+                    table.PrimaryKey("PK_Event", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_Users_AuthorId",
+                        name: "FK_Event_Users_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -101,21 +107,23 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 });
 
             migrationBuilder.CreateTable(
-                name: "Newses",
+                name: "News",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Header = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Text = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    DateTimeCreation = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Edited = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "char(36)", nullable: false)
+                    ShowAuthor = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Newses", x => x.Id);
+                    table.PrimaryKey("PK_News", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Newses_Users_AuthorId",
+                        name: "FK_News_Users_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -123,21 +131,22 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 });
 
             migrationBuilder.CreateTable(
-                name: "Petitions",
+                name: "Petition",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Header = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
                     Text = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    StarDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    FinishDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    AuthorId = table.Column<Guid>(type: "char(36)", nullable: false)
+                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    End = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Petitions", x => x.Id);
+                    table.PrimaryKey("PK_Petition", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Petitions_Users_AuthorId",
+                        name: "FK_Petition_Users_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -148,7 +157,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "Rights",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     AddingUser = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     EditRights = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreatePetitions = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -157,7 +167,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     ModerateNewsAndEvents = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     CreateApplication = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     HandlingApplication = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    UserId = table.Column<Guid>(type: "char(36)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -171,21 +181,56 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 });
 
             migrationBuilder.CreateTable(
+                name: "Multimedia",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Url = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
+                    EventId = table.Column<int>(type: "int", nullable: true),
+                    NewsId = table.Column<int>(type: "int", nullable: true),
+                    ApplicationId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Multimedia", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Multimedia_Application_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Application",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Multimedia_Event_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Event",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Multimedia_News_NewsId",
+                        column: x => x.NewsId,
+                        principalTable: "News",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Votes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
-                    UserId = table.Column<Guid>(type: "char(36)", nullable: false),
-                    PetitionId = table.Column<Guid>(type: "char(36)", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    PetitionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Votes", x => x.Id);
                     table.UniqueConstraint("AK_Votes_PetitionId_UserId", x => new { x.PetitionId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_Votes_Petitions_PetitionId",
+                        name: "FK_Votes_Petition_PetitionId",
                         column: x => x.PetitionId,
-                        principalTable: "Petitions",
+                        principalTable: "Petition",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Votes_Users_UserId",
@@ -195,28 +240,43 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applications_AnswerId",
-                table: "Applications",
+                name: "IX_Application_AnswerId",
+                table: "Application",
                 column: "AnswerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Applications_AuthorId",
-                table: "Applications",
+                name: "IX_Application_AuthorId",
+                table: "Application",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_AuthorId",
-                table: "Events",
+                name: "IX_Event_AuthorId",
+                table: "Event",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Newses_AuthorId",
-                table: "Newses",
+                name: "IX_Multimedia_ApplicationId",
+                table: "Multimedia",
+                column: "ApplicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Multimedia_EventId",
+                table: "Multimedia",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Multimedia_NewsId",
+                table: "Multimedia",
+                column: "NewsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_News_AuthorId",
+                table: "News",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Petitions_AuthorId",
-                table: "Petitions",
+                name: "IX_Petition_AuthorId",
+                table: "Petition",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
@@ -239,13 +299,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Applications");
-
-            migrationBuilder.DropTable(
-                name: "Events");
-
-            migrationBuilder.DropTable(
-                name: "Newses");
+                name: "Multimedia");
 
             migrationBuilder.DropTable(
                 name: "Rights");
@@ -254,13 +308,22 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "Votes");
 
             migrationBuilder.DropTable(
-                name: "Petitions");
+                name: "Application");
+
+            migrationBuilder.DropTable(
+                name: "Event");
+
+            migrationBuilder.DropTable(
+                name: "News");
+
+            migrationBuilder.DropTable(
+                name: "Petition");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Organizations");
+                name: "Organization");
         }
     }
 }

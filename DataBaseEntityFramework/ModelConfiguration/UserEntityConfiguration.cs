@@ -21,7 +21,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.Property(u => u.UserOrganizationId).IsRequired(false); 
 
             //one to one
-            builder.HasOne(u => u.UserRights)
+            builder.HasOne<Rights>()
                 .WithOne(r => r.User)
                 .HasForeignKey<Rights>(r => r.UserId)
                 .OnDelete(DeleteBehavior.Cascade);

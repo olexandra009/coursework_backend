@@ -19,15 +19,15 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Application", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("AnswerId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("AnswerId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CloseDate")
                         .HasColumnType("datetime(6)")
@@ -67,12 +67,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Event", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -113,18 +113,18 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Multimedia", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("ApplicationId")
-                        .HasColumnType("char(36)");
+                    b.Property<int?>("ApplicationId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("EventId")
-                        .HasColumnType("char(36)");
+                    b.Property<int?>("EventId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("NewsId")
-                        .HasColumnType("char(36)");
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -144,12 +144,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.News", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateTimeCreation")
                         .HasColumnType("datetime(6)")
@@ -182,9 +182,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Organization", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Address")
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
@@ -206,12 +206,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Petition", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime(6)")
@@ -240,9 +240,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Rights", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
                     b.Property<bool>("AddingUser")
                         .HasColumnType("tinyint(1)");
@@ -265,8 +265,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.Property<bool>("ModerateNewsAndEvents")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("VotePetitions")
                         .HasColumnType("tinyint(1)");
@@ -281,9 +281,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.User", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -310,8 +310,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.Property<string>("SecondName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<Guid?>("UserOrganizationId")
-                        .HasColumnType("char(36)");
+                    b.Property<int?>("UserOrganizationId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -322,15 +322,15 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Votes", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("PetitionId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("PetitionId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -418,7 +418,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Rights", b =>
                 {
                     b.HasOne("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.User", "User")
-                        .WithOne("UserRights")
+                        .WithOne()
                         .HasForeignKey("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Rights", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -491,8 +491,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.Navigation("CreatedNews");
 
                     b.Navigation("CreatedPetitions");
-
-                    b.Navigation("UserRights");
 
                     b.Navigation("VotedPetitions");
                 });

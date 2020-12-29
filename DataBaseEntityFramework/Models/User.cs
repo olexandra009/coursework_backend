@@ -16,7 +16,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _password;
         private Organization _userOrganization;
         private int? _userOrganizationId;
-        private Rights _userRights;
         private List<News> _createdNews;
         private List<Event> _createdEvents;
         private List<Application> _createdApplications;
@@ -86,11 +85,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _userOrganizationId = value;
         }
 
-        public Rights UserRights
-        {
-            get => _userRights;
-            private set => _userRights = value;
-        }
+        //public Rights UserRights
+        //{
+        //    get => _userRights;
+        //    private set => _userRights = value;
+        //}
 
         public List<News> CreatedNews
         {
@@ -148,7 +147,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             Password = password;
             UserOrganization = userOrganization;
             UserOrganizationId = userOrganizationId;
-            UserRights = userRights;
+           // UserRights = userRights;
             CreatedNews = createdNews;
             CreatedEvents = createdEvents;
             CreatedApplications = createdApplications;
