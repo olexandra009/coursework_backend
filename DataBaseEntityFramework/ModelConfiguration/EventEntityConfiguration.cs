@@ -1,5 +1,4 @@
-﻿//using System.Data.Entity.ModelConfiguration;
-using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
+﻿using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
