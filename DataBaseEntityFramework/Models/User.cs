@@ -133,7 +133,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         public User(int guid, string firstName, string secondName, string lastName, 
                     string phoneNumber, string email, string login, string password, 
-                    Organization userOrganization, int? userOrganizationId, Rights userRights, 
+                    Organization userOrganization, int? userOrganizationId,// Rights userRights, 
                     List<News> createdNews, List<Event> createdEvents, List<Application> createdApplications, 
                     List<Application> answerApplications, List<Petition> createdPetitions, List<Votes> votedPetitions) :this()
         {
