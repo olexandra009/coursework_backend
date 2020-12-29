@@ -9,6 +9,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
     {
         public void Configure(EntityTypeBuilder<Votes> builder)
         {
+            builder.ToTable("Votes");
             builder.HasKey(cs => cs.Id);
             builder.HasAlternateKey(cs => new { cs.PetitionId, cs.UserId});
            

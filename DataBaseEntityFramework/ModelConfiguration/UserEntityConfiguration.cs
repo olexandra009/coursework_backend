@@ -1,5 +1,4 @@
-﻿//using System.Data.Entity.ModelConfiguration;
-using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
+﻿using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -7,20 +6,19 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
 {
     class UserEntityConfiguration : IEntityTypeConfiguration<User>
     {
-       
         public void Configure(EntityTypeBuilder<User> builder)
         {
-
+            builder.ToTable("Users");
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Id).IsRequired();
             builder.Property(u => u.FirstName).IsRequired();
-            builder.Property(u => u.SecondName);
+            builder.Property(u => u.SecondName).IsRequired(false);
             builder.Property(u => u.LastName).IsRequired();
-            builder.Property(u => u.PhoneNumber);
-            builder.Property(u => u.Email);
-            builder.Property(u => u.Login);
-            builder.Property(u => u.Password);
-            builder.Property(u => u.UserOrganizationId);
+            builder.Property(u => u.PhoneNumber).IsRequired(false);
+            builder.Property(u => u.Email).IsRequired(false);
+            builder.Property(u => u.Login).IsRequired();
+            builder.Property(u => u.Password).IsRequired();
+            builder.Property(u => u.UserOrganizationId).IsRequired(false); 
 
             //one to one
             builder.HasOne(u => u.UserRights)
