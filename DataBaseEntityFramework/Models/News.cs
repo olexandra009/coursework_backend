@@ -16,6 +16,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private User _author;
         private Guid _authorId;
         private List<Multimedia> _multimedias;
+
+        private bool _showAuthor;
+
         #endregion
 
         #region Properties
@@ -48,6 +51,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _edited;
             private set => _edited = value;
         }
+        public bool ShowAuthor
+        {
+            get => _showAuthor;
+            private set => _showAuthor = value;
+        }
 
         public User Author
         {
@@ -68,7 +76,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public News(Guid id, string header, string text, DateTime dateTimeCreation, 
+        public News(Guid id, string header, string text, DateTime dateTimeCreation, bool showAuthor, 
                     bool edited, User author, Guid authorId, List<Multimedia> multimedias) : this()
         {
             Id = id;
@@ -78,6 +86,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             Edited = edited;
             Author = author;
             AuthorId = authorId;
+            ShowAuthor = showAuthor;
             Multimedias = multimedias;
         }
 

@@ -13,6 +13,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private DateTime _startDate;
         private DateTime _endDate;
         private bool _edited;
+        private bool _showAuthor;
         private bool _emailNotification;
         private User _author;
         private Guid _authorId;
@@ -44,6 +45,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         {
             get => _edited;
             private set => _edited = value;
+        }
+        public bool ShowAuthor
+        {
+            get => _showAuthor;
+            private set => _showAuthor = value;
         }
         public bool EmailNotification
         {
@@ -79,7 +85,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         public Event(Guid id, string name, string description, 
                      DateTime startDate, DateTime endDate, bool edited, 
                      bool emailNotification, User author, Guid authorId,
-                     List<Multimedia> multimedias) : this() 
+                     List<Multimedia> multimedias, bool showAuthor) : this() 
         {
             Id = id;
             Name = name;
@@ -87,6 +93,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             StartDate = startDate;
             EndDate = endDate;
             Edited = edited;
+            ShowAuthor = showAuthor;
             EmailNotification = emailNotification;
             Author = author;
             AuthorId = authorId;

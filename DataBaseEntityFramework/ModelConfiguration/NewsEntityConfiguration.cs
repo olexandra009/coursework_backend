@@ -13,6 +13,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.Property(n => n.Header).HasColumnName("Header").IsRequired();
             builder.Property(n => n.Text).HasColumnName("Text").IsRequired();
             builder.Property(n => n.Edited).HasColumnName("Edited").IsRequired();
+            builder.Property(n => n.ShowAuthor).HasColumnName("ShowAuthor").IsRequired();
             builder.Property(n => n.DateTimeCreation).HasColumnName("Created").IsRequired();
 
             //relationship many to one with Multimedia

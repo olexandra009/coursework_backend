@@ -13,6 +13,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.Property(n => n.Name).HasColumnName("EventName").IsRequired();
             builder.Property(n => n.Description).HasColumnName("Description").IsRequired();
             builder.Property(n => n.Edited).HasColumnName("Edited").IsRequired();
+            builder.Property(n => n.ShowAuthor).HasColumnName("ShowAuthor").IsRequired();
             builder.Property(n => n.StartDate).HasColumnName("Start").IsRequired();
             builder.Property(n => n.EndDate).HasColumnName("End").IsRequired();
             builder.Property(n => n.EmailNotification).HasColumnName("EmailNotification").IsRequired();
