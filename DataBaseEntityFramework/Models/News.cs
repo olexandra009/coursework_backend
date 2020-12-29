@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
@@ -14,6 +15,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _edited;
         private User _author;
         private Guid _authorId;
+        private List<Multimedia> _multimedias;
         #endregion
 
         #region Properties
@@ -57,13 +59,17 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get { return _authorId; }
             private set { _authorId = value; }
         }
-
+        public List<Multimedia> Multimedias
+        {
+            get => _multimedias;
+            set => _multimedias = value;
+        }
         #endregion
 
         #region Constructors
 
         public News(Guid id, string header, string text, DateTime dateTimeCreation, 
-                    bool edited, User author, Guid authorId) : this()
+                    bool edited, User author, Guid authorId, List<Multimedia> multimedias) : this()
         {
             Id = id;
             Header = header;
@@ -72,6 +78,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             Edited = edited;
             Author = author;
             AuthorId = authorId;
+            Multimedias = multimedias;
         }
 
         public News() { }

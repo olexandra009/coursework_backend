@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
@@ -17,6 +18,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private Guid _authorId;
         private User _answerer;
         private Guid _answerId;
+        private List<Multimedia> _multimedias;
         #endregion
 
         #region Properties
@@ -82,13 +84,18 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _answerer;
             private set => _answerer = value;
         }
-
+        public List<Multimedia> Multimedias
+        {
+            get => _multimedias;
+            set => _multimedias = value;
+        }
         #endregion
 
         #region Constructors
 
         public Application(Guid id, string subject, string text, string status, 
                            DateTime openDate, User author, Guid authorId,
+                           List<Multimedia> multimedias,
                            User answerer = null, Guid answerId = default, 
                            DateTime? closeDate = null, string result = null) : this()
         {
@@ -103,6 +110,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             AuthorId = authorId;
             Answerer = answerer;
             AnswerId = answerId;
+            Multimedias = multimedias;
         }
 
         public Application()

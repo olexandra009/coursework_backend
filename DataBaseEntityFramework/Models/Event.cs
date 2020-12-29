@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
@@ -15,6 +16,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _emailNotification;
         private User _author;
         private Guid _authorId;
+        private List<Multimedia> _multimedias;
         #endregion
 
         #region Properties
@@ -64,6 +66,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get =>  _id; 
             set => _id = value; 
         }
+        public List<Multimedia> Multimedias
+        {
+            get => _multimedias;
+            set => _multimedias = value;
+        }
 
         #endregion
 
@@ -71,7 +78,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         public Event(Guid id, string name, string description, 
                      DateTime startDate, DateTime endDate, bool edited, 
-                     bool emailNotification, User author, Guid authorId) : this() 
+                     bool emailNotification, User author, Guid authorId,
+                     List<Multimedia> multimedias) : this() 
         {
             Id = id;
             Name = name;
@@ -82,6 +90,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             EmailNotification = emailNotification;
             Author = author;
             AuthorId = authorId;
+            Multimedias = multimedias;
         }
         public Event() { }
         #endregion

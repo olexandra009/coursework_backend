@@ -13,7 +13,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.HasKey(cs => cs.Id);
             builder.HasAlternateKey(cs => new { cs.PetitionId, cs.UserId});
            
-            //many to one Many Petition
+           
             builder.HasOne(s => s.Petition)
                 .WithMany(c => c.UserVotes)
                 .HasForeignKey(p=>p.PetitionId).OnDelete(DeleteBehavior.NoAction);
