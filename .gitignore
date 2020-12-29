@@ -13,6 +13,8 @@ OuterReadOnlyDatabase/bin/*
 OuterReadOnlyDatabase/obj/*
 OuterReadOnlyDatabase/bin/Debug/*
 OuterReadOnlyDatabase/obj/Debug/*
+OuterReadOnlyDatabase/obj/Debug/*
+
 
 
 appsettings.Development.json
