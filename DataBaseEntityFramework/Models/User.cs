@@ -15,7 +15,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _login;
         private string _password;
         private Organization _userOrganization;
-        private Guid _userOrganizationId;
+        private Guid? _userOrganizationId;
         private Rights _userRights;
         private List<News> _createdNews;
         private List<Event> _createdEvents;
@@ -80,7 +80,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _userOrganization;
             private set => _userOrganization = value;
         }
-        public Guid UserOrganizationId
+        public Guid? UserOrganizationId
         {
             get => _userOrganizationId;
             private set => _userOrganizationId = value;

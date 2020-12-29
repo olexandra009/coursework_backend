@@ -14,7 +14,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
        public PlatformDbContext(DbContextOptions<PlatformDbContext> options)
            : base(options)
        {
-       }
+           
+        }
        public virtual DbSet<User> Users { get; set; }
        public virtual DbSet<Rights> Rights { get; set; }
        public virtual DbSet<Petition> Petitions{ get; set; }
