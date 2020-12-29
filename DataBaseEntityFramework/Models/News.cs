@@ -8,13 +8,13 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     {
         #region Fields
 
-        private Guid _id;
+        private int _id;
         private string _header;
         private string _text;
         private DateTime _dateTimeCreation;
         private bool _edited;
         private User _author;
-        private Guid _authorId;
+        private int _authorId;
         private List<Multimedia> _multimedias;
 
         private bool _showAuthor;
@@ -23,7 +23,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Properties
 
-        public Guid Id
+        public int Id
         {
             get => _id;
             private set => _id = value;
@@ -62,7 +62,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get { return _author; }
             private set { _author = value; }
         }
-        public Guid AuthorId
+        public int AuthorId
         {
             get { return _authorId; }
             private set { _authorId = value; }
@@ -76,8 +76,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public News(Guid id, string header, string text, DateTime dateTimeCreation, bool showAuthor, 
-                    bool edited, User author, Guid authorId, List<Multimedia> multimedias) : this()
+        public News(int id, string header, string text, DateTime dateTimeCreation, bool showAuthor, 
+                    bool edited, User author, int authorId, List<Multimedia> multimedias) : this()
         {
             Id = id;
             Header = header;

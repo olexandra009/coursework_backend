@@ -6,7 +6,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     public class User : IDbModel
     {
         #region Fields
-        private Guid _guid;
+        private int _guid;
         private string _firstName;
         private string _secondName;
         private string _lastName;
@@ -15,7 +15,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _login;
         private string _password;
         private Organization _userOrganization;
-        private Guid? _userOrganizationId;
+        private int? _userOrganizationId;
         private Rights _userRights;
         private List<News> _createdNews;
         private List<Event> _createdEvents;
@@ -27,7 +27,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         #endregion
 
         #region Properties
-        public Guid Id
+        public int Id
         {
             get => _guid;
             private set => _guid = value;
@@ -80,7 +80,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _userOrganization;
             private set => _userOrganization = value;
         }
-        public Guid? UserOrganizationId
+        public int? UserOrganizationId
         {
             get => _userOrganizationId;
             private set => _userOrganizationId = value;
@@ -132,9 +132,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public User(Guid guid, string firstName, string secondName, string lastName, 
+        public User(int guid, string firstName, string secondName, string lastName, 
                     string phoneNumber, string email, string login, string password, 
-                    Organization userOrganization, Guid userOrganizationId, Rights userRights, 
+                    Organization userOrganization, int? userOrganizationId, Rights userRights, 
                     List<News> createdNews, List<Event> createdEvents, List<Application> createdApplications, 
                     List<Application> answerApplications, List<Petition> createdPetitions, List<Votes> votedPetitions) :this()
         {

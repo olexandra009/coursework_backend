@@ -7,7 +7,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     {
         #region Fields
 
-        private Guid _id;
+        private int _id;
         private string _subject;
         private string _text;
         private string _status; //TODO: change to enum
@@ -15,24 +15,24 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private DateTime _openDate;
         private DateTime? _closeDate;
         private User _author;
-        private Guid _authorId;
+        private int _authorId;
         private User _answerer;
-        private Guid _answerId;
+        private int _answerId;
         private List<Multimedia> _multimedias;
         #endregion
 
         #region Properties
-        public Guid Id
+        public int Id
         {
             get => _id;
             private set => _id = value;
         }
-        public Guid AuthorId
+        public int AuthorId
         {
             get => _authorId;
             private set => _authorId = value;
         }
-        public Guid AnswerId
+        public int AnswerId
         {
             get => _answerId;
             private set => _answerId = value;
@@ -93,10 +93,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public Application(Guid id, string subject, string text, string status, 
-                           DateTime openDate, User author, Guid authorId,
+        public Application(int id, string subject, string text, string status, 
+                           DateTime openDate, User author, int authorId,
                            List<Multimedia> multimedias,
-                           User answerer = null, Guid answerId = default, 
+                           User answerer = null, int answerId = default, 
                            DateTime? closeDate = null, string result = null) : this()
         {
             Id = id;

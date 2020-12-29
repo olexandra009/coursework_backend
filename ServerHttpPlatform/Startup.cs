@@ -21,7 +21,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<PlatformDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
                     new MySqlServerVersion(new Version(8, 0, 11))));

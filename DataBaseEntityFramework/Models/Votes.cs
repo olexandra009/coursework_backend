@@ -5,15 +5,15 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     public class Votes : IDbModel
     {
         #region Fields
-        private Guid _id;
+        private int _id;
         private User _user;
-        private Guid _userId;
+        private int _userId;
         private Petition _petition;
-        private Guid _petitionId;
+        private int _petitionId;
         #endregion
 
         #region Properties
-        public Guid Id
+        public int Id
         {
             get => _id;
             private set => _id = value;
@@ -25,7 +25,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _user = value;
         }
 
-        public Guid UserId
+        public int UserId
         {
             get => _userId;
             private set => _userId = value;
@@ -37,7 +37,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _petition = value;
         }
 
-        public Guid PetitionId
+        public int PetitionId
         {
             get => _petitionId;
             private set => _petitionId = value;
@@ -46,7 +46,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public Votes(Guid id, User user, Petition petition)
+        public Votes(int id, User user, Petition petition)
         {
             Id = id;
             User = user;

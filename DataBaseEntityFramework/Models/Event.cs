@@ -7,7 +7,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     {
 
         #region Fields
-        private Guid _id;
+        private int _id;
         private string _name;
         private string _description;
         private DateTime _startDate;
@@ -16,7 +16,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _showAuthor;
         private bool _emailNotification;
         private User _author;
-        private Guid _authorId;
+        private int _authorId;
         private List<Multimedia> _multimedias;
         #endregion
 
@@ -62,12 +62,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _author;
             private set => _author = value;
         }
-        public Guid AuthorId
+        public int AuthorId
         {
             get => _authorId;
             private set => _authorId = value;
         }
-        public Guid Id
+        public int Id
         {
             get =>  _id; 
             set => _id = value; 
@@ -82,9 +82,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public Event(Guid id, string name, string description, 
+        public Event(int id, string name, string description, 
                      DateTime startDate, DateTime endDate, bool edited, 
-                     bool emailNotification, User author, Guid authorId,
+                     bool emailNotification, User author, int authorId,
                      List<Multimedia> multimedias, bool showAuthor) : this() 
         {
             Id = id;

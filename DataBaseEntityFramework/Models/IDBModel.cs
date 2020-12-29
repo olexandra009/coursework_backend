@@ -4,6 +4,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     interface IDbModel
     {
-        Guid Id { get; }
+        int Id { get; }
     }
 }

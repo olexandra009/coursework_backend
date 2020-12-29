@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataBaseEntityFramework", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerHttpPlatform", "ServerHttpPlatform\ServerHttpPlatform.csproj", "{4C1101B8-19EC-403C-AE43-2DF3B4BD9094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OuterReadOnlyDatabase", "OuterReadOnlyDatabase\OuterReadOnlyDatabase.csproj", "{90A4CB5C-214A-49B2-9CA2-5F7A17805D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OuterReadOnlyDatabase", "OuterReadOnlyDatabase\OuterReadOnlyDatabase.csproj", "{90A4CB5C-214A-49B2-9CA2-5F7A17805D87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

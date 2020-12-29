@@ -6,7 +6,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     public class Organization:IDbModel
     {
         #region Fields
-        private Guid _id;
+        private int _id;
         private string _name;
         private string _address;
         private string _phoneNumber;
@@ -14,7 +14,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         #endregion
 
         #region Properties
-        public Guid Id
+        public int Id
         {
             get => _id;
             private set => _id = value;
@@ -48,7 +48,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public Organization(Guid id, string name,  List<User> users, 
+        public Organization(int id, string name,  List<User> users, 
                             string address=null, string phoneNumber=null) : this()
         {
             Id = id;

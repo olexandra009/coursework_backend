@@ -8,18 +8,18 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     {
         #region Fields
 
-        private Guid _id;
+        private int _id;
         private string _header;
         private string _text;
         private DateTime _starDate;
         private DateTime _finishDate;
         private User _author;
-        private Guid _authorId;
+        private int _authorId;
         private List<Votes> _votes;
         #endregion
 
         #region Properties
-        public Guid Id
+        public int Id
         {
             get => _id;
             private set => _id = value;
@@ -54,7 +54,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _author;
             private set => _author = value;
         }
-        public Guid AuthorId
+        public int AuthorId
         {
             get => _authorId;
             private set => _authorId = value;
@@ -69,9 +69,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public Petition(Guid id, string header, string text, 
+        public Petition(int id, string header, string text, 
                         DateTime starDate, DateTime finishDate, 
-                        User author, Guid authorId, List<Votes> votes) : this()
+                        User author, int authorId, List<Votes> votes) : this()
         {
             Id = id;
             Header = header;

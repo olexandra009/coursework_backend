@@ -5,7 +5,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     public class Rights:IDbModel
     {
         #region Fields
-        private Guid _id;
+        private int _id;
         private bool _addingUser;
         private bool _editRights;
         private bool _createPetitions;
@@ -15,12 +15,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _createApplication;
         private bool _handlingApplication;
         private User _user;
-        private Guid _userId;
+        private int _userId;
 
         #endregion
 
         #region Properties
-        public Guid Id
+        public int Id
         {
             get => _id;
             private set => _id = value;
@@ -79,7 +79,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _user;
             private set => _user = value;
         }
-        public Guid UserId
+        public int UserId
         {
             get => _userId;
             private set => _userId = value;
@@ -89,7 +89,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public Rights(Guid id, bool addingUser, bool editRights, bool createPetitions, 
+        public Rights(int id, bool addingUser, bool editRights, bool createPetitions, 
                         bool votePetitions, bool createNewsAndEvents, bool moderateNewsAndEvents, 
                         bool createApplication, bool handlingApplication, User user) :this()
         {
