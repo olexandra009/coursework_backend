@@ -9,6 +9,12 @@ ServerHttpPlatform/obj/*
 ServerHttpPlatform/bin/Debug/*
 ServerHttpPlatform/obj/Debug/*
 
+OuterReadOnlyDatabase/bin/*
+OuterReadOnlyDatabase/obj/*
+OuterReadOnlyDatabase/bin/Debug/*
+OuterReadOnlyDatabase/obj/Debug/*
+
+
 appsettings.Development.json
 
 CommunicationPlatform.sln.DotSettings.user
