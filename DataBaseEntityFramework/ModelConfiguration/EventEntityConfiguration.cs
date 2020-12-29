@@ -16,6 +16,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.Property(n => n.StartDate).HasColumnName("Start").IsRequired();
             builder.Property(n => n.EndDate).HasColumnName("End").IsRequired();
             builder.Property(n => n.EmailNotification).HasColumnName("EmailNotification").IsRequired();
+
+            //relationship many to one with Multimedia
+            builder.HasMany(e => e.Multimedias)
+                .WithOne(m => m.Event)
+                .HasForeignKey(m => m.EventId)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .IsRequired(false);
+
         }
     }
 }

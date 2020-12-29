@@ -14,6 +14,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.Property(n => n.Text).HasColumnName("Text").IsRequired();
             builder.Property(n => n.Edited).HasColumnName("Edited").IsRequired();
             builder.Property(n => n.DateTimeCreation).HasColumnName("Created").IsRequired();
+
+            //relationship many to one with Multimedia
+            builder.HasMany(e => e.Multimedias)
+                .WithOne(m => m.News)
+                .HasForeignKey(m => m.NewsId)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .IsRequired(false);
+
         }
     }
 }

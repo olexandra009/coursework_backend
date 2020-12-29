@@ -15,7 +15,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.Property(n => n.OpenDate).HasColumnName("Open").IsRequired();
             builder.Property(n => n.CloseDate).HasColumnName("Close").IsRequired(false);
             builder.Property(n => n.Status).HasColumnName("Status").IsRequired();
-            builder.Property(n => n.Result).HasColumnName("Result").IsRequired(false); 
+            builder.Property(n => n.Result).HasColumnName("Result").IsRequired(false);
+
+            //relationship many to one with Multimedia
+            builder.HasMany(e => e.Multimedias)
+                .WithOne(m => m.Application)
+                .HasForeignKey(m => m.ApplicationId);
         }
     }
 }
