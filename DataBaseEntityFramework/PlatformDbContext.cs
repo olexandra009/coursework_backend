@@ -24,10 +24,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
        public virtual DbSet<Event> Events { get; set; }
        public virtual DbSet<Application> Applications { get; set; }
        public virtual DbSet<Votes> Votes { get; set; }
+       public virtual DbSet<Multimedia> Multimedia { get; set; }
 
-      
 
-       protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
        {
            base.OnModelCreating(modelBuilder);
            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
@@ -38,7 +38,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
            modelBuilder.ApplyConfiguration(new EventEntityConfiguration());
            modelBuilder.ApplyConfiguration(new ApplicationEntityConfiguration());
            modelBuilder.ApplyConfiguration(new VotesEntityConfiguration());
-
+           modelBuilder.ApplyConfiguration(new MultimediaEntityConfiguration());
 
         }
     }

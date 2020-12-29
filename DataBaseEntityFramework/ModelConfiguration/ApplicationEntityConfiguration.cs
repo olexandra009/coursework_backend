@@ -20,7 +20,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             //relationship many to one with Multimedia
             builder.HasMany(e => e.Multimedias)
                 .WithOne(m => m.Application)
-                .HasForeignKey(m => m.ApplicationId);
-        }
+                .HasForeignKey(m => m.ApplicationId)
+                .OnDelete(DeleteBehavior.ClientCascade)
+                .IsRequired(false);
+       }
     }
 }

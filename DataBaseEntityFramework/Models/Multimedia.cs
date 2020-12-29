@@ -1,7 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-
+﻿using System;
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     public class Multimedia:IDbModel
@@ -13,9 +10,9 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private Event _event;
         private News _news;
         private Application _application;
-        private Guid _eventId;
-        private Guid _newsId;
-        private Guid _applicationId;
+        private Guid? _eventId;
+        private Guid? _newsId;
+        private Guid? _applicationId;
       
 
         #endregion
@@ -51,19 +48,19 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _application = value;
         }
 
-        public Guid EventId
+        public Guid? EventId
         {
             get => _eventId;
             private set => _eventId = value;
         }
 
-        public Guid NewsId
+        public Guid? NewsId
         {
             get => _newsId;
             private set => _newsId = value;
         }
 
-        public Guid ApplicationId
+        public Guid? ApplicationId
         {
             get => _applicationId;
             private set => _applicationId = value;

@@ -3,14 +3,16 @@ using System;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    partial class PlatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201229155435_AddMultimedia")]
+    partial class AddMultimedia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,9 +125,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4")
-                        .HasColumnName("Url");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 
