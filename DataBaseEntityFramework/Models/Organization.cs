@@ -10,7 +10,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _name;
         private string _address;
         private string _phoneNumber;
+
+        #region Dependent Entity
         private List<User> _users;
+        #endregion
+
         #endregion
 
         #region Properties
@@ -41,21 +45,19 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         public List<User> Users
         {
             get => _users;
-            private set => _users = value;
+            set => _users = value;
         }
 
         #endregion
 
         #region Constructors
 
-        public Organization(int id, string name,  List<User> users, 
-                            string address=null, string phoneNumber=null) : this()
+        public Organization(int id, string name, string address=null, string phoneNumber=null) : this()
         {
             Id = id;
             Name = name;
             Address = address;
             PhoneNumber = phoneNumber;
-            Users = users;
         }
 
         public Organization()

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     public class User : IDbModel
     {
         #region Fields
+
         private int _guid;
         private string _firstName;
         private string _secondName;
@@ -14,14 +14,24 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _email;
         private string _login;
         private string _password;
+
+        #region Foriegn key and principal entity 
         private Organization _userOrganization;
         private int? _userOrganizationId;
-        private List<News> _createdNews;
+        #endregion
+
+        #region Dependent entities
+        //one to one
+        private Rights _userRights; 
+        //one to many
+        private List<News> _createdNews; 
         private List<Event> _createdEvents;
         private List<Application> _createdApplications;
         private List<Application> _answerApplications;
         private List<Petition> _createdPetitions;
-        private List<Votes> _votedPetitions; //many to many
+        //many to many
+        private List<Votes> _votedPetitions;
+        #endregion
 
         #endregion
 
@@ -85,46 +95,46 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _userOrganizationId = value;
         }
 
-        //public Rights UserRights
-        //{
-        //    get => _userRights;
-        //    private set => _userRights = value;
-        //}
+        public Rights UserRights
+        {
+            get => _userRights;
+            set => _userRights = value;
+        }
 
         public List<News> CreatedNews
         {
             get => _createdNews;
-            private set => _createdNews = value;
+            set => _createdNews = value;
         }
 
         public List<Event> CreatedEvents
         {
             get => _createdEvents;
-            private set => _createdEvents = value;
+            set => _createdEvents = value;
         }
 
         public List<Application> CreatedApplications
         {
             get => _createdApplications;
-            private set => _createdApplications = value;
+            set => _createdApplications = value;
         }
 
         public List<Application> AnswerApplications
         {
             get => _answerApplications;
-            private set => _answerApplications = value;
+            set => _answerApplications = value;
         }
 
         public List<Petition> CreatedPetitions
         {
             get => _createdPetitions;
-            private set => _createdPetitions = value;
+            set => _createdPetitions = value;
         }
 
         public List<Votes> VotedPetitions
         {
             get => _votedPetitions;
-            private set => _votedPetitions = value;
+            set => _votedPetitions = value;
         }
 
         #endregion
@@ -133,9 +143,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         public User(int guid, string firstName, string secondName, string lastName, 
                     string phoneNumber, string email, string login, string password, 
-                    Organization userOrganization, int? userOrganizationId,// Rights userRights, 
-                    List<News> createdNews, List<Event> createdEvents, List<Application> createdApplications, 
-                    List<Application> answerApplications, List<Petition> createdPetitions, List<Votes> votedPetitions) :this()
+                    Organization userOrganization, int? userOrganizationId) :this()
         {
             Id = guid;
             FirstName = firstName;
@@ -148,12 +156,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             UserOrganization = userOrganization;
             UserOrganizationId = userOrganizationId;
            // UserRights = userRights;
-            CreatedNews = createdNews;
-            CreatedEvents = createdEvents;
-            CreatedApplications = createdApplications;
-            AnswerApplications = answerApplications;
-            CreatedPetitions = createdPetitions;
-            VotedPetitions = votedPetitions;
+            //CreatedNews = createdNews;
+            //CreatedEvents = createdEvents;
+            //CreatedApplications = createdApplications;
+            //AnswerApplications = answerApplications;
+            //CreatedPetitions = createdPetitions;
+            //VotedPetitions = votedPetitions;
         }
 
         public User()

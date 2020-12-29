@@ -15,9 +15,17 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _edited;
         private bool _showAuthor;
         private bool _emailNotification;
+
+        #region Foriegn key and principal entity
         private User _author;
         private int _authorId;
+        #endregion
+
+        #region Dependent entity
         private List<Multimedia> _multimedias;
+        #endregion
+
+
         #endregion
 
         #region Properties
@@ -84,8 +92,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         public Event(int id, string name, string description, 
                      DateTime startDate, DateTime endDate, bool edited, 
-                     bool emailNotification, User author, int authorId,
-                     List<Multimedia> multimedias, bool showAuthor) : this() 
+                     bool emailNotification, User author, int authorId, bool showAuthor) : this() 
         {
             Id = id;
             Name = name;
@@ -97,7 +104,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             EmailNotification = emailNotification;
             Author = author;
             AuthorId = authorId;
-            Multimedias = multimedias;
         }
         public Event() { }
         #endregion

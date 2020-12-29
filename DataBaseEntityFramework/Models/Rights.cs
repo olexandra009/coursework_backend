@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
+﻿namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     public class Rights:IDbModel
     {
@@ -14,8 +12,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _moderateNewsAndEvents;
         private bool _createApplication;
         private bool _handlingApplication;
+
+        #region Foriegn keys and principal entities 
         private User _user;
         private int _userId;
+        #endregion
 
         #endregion
 

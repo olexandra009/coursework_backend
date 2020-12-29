@@ -1,15 +1,17 @@
-﻿using System;
-
-namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
+﻿namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     public class Votes : IDbModel
     {
         #region Fields
         private int _id;
+
+        #region Foriegn keys and principal entities 
         private User _user;
         private int _userId;
         private Petition _petition;
         private int _petitionId;
+        #endregion
+
         #endregion
 
         #region Properties

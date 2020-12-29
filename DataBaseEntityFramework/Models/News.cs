@@ -13,11 +13,17 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _text;
         private DateTime _dateTimeCreation;
         private bool _edited;
+        private bool _showAuthor;
+
+        #region Foriegn key and principal entity
         private User _author;
         private int _authorId;
-        private List<Multimedia> _multimedias;
+        #endregion
 
-        private bool _showAuthor;
+        #region Dependent entity
+        //one to many
+        private List<Multimedia> _multimedias;
+        #endregion
 
         #endregion
 
@@ -77,7 +83,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         #region Constructors
 
         public News(int id, string header, string text, DateTime dateTimeCreation, bool showAuthor, 
-                    bool edited, User author, int authorId, List<Multimedia> multimedias) : this()
+                    bool edited, User author, int authorId) : this()
         {
             Id = id;
             Header = header;
@@ -87,7 +93,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             Author = author;
             AuthorId = authorId;
             ShowAuthor = showAuthor;
-            Multimedias = multimedias;
         }
 
         public News() { }

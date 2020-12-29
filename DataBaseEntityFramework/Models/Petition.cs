@@ -13,9 +13,16 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _text;
         private DateTime _starDate;
         private DateTime _finishDate;
+
+        #region Foriegn key and principal entity 
         private User _author;
         private int _authorId;
+        #endregion
+
+        #region Dependent entities
         private List<Votes> _votes;
+        #endregion
+
         #endregion
 
         #region Properties
@@ -63,7 +70,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         public List<Votes> UserVotes
         {
             get => _votes;
-            private set => _votes = value;
+            set => _votes = value;
         }
         #endregion
 
@@ -71,7 +78,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         public Petition(int id, string header, string text, 
                         DateTime starDate, DateTime finishDate, 
-                        User author, int authorId, List<Votes> votes) : this()
+                        User author, int authorId) : this()
         {
             Id = id;
             Header = header;
@@ -80,7 +87,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             FinishDate = finishDate;
             Author = author;
             AuthorId = authorId;
-            UserVotes = votes;
+            
         }
 
         public Petition()

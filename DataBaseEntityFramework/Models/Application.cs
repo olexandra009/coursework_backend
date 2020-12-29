@@ -14,11 +14,19 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _result;
         private DateTime _openDate;
         private DateTime? _closeDate;
+
+
+        #region Foriegn keys and principal entities 
         private User _author;
         private int _authorId;
         private User _answerer;
-        private int _answerId;
+        private int? _answerId;
+        #endregion
+
+        #region Dependent entity
         private List<Multimedia> _multimedias;
+        #endregion
+
         #endregion
 
         #region Properties
@@ -32,7 +40,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _authorId;
             private set => _authorId = value;
         }
-        public int AnswerId
+        public int? AnswerId
         {
             get => _answerId;
             private set => _answerId = value;
@@ -95,8 +103,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         public Application(int id, string subject, string text, string status, 
                            DateTime openDate, User author, int authorId,
-                           List<Multimedia> multimedias,
-                           User answerer = null, int answerId = default, 
+                           User answerer = null, int? answerId = null, 
                            DateTime? closeDate = null, string result = null) : this()
         {
             Id = id;
@@ -110,7 +117,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             AuthorId = authorId;
             Answerer = answerer;
             AnswerId = answerId;
-            Multimedias = multimedias;
         }
 
         public Application()
