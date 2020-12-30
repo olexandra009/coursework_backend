@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
+    public enum Status
+    {
+        Waiting,   //application has been not read 
+        InProcess, //application was read by answered
+        Close      //answered close application and author can read result
+
+    }
     public class Application :IDbModel
     {
         #region Fields
@@ -10,7 +17,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private int _id;
         private string _subject;
         private string _text;
-        private string _status; //TODO: change to enum
+        private Status _status; //TODO: change to enum
         private string _result;
         private DateTime _openDate;
         private DateTime? _closeDate;
@@ -57,7 +64,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             set => _text = value;
         }
 
-        public string Status
+        public Status Status
         {
             get => _status;
             private set => _status = value;
@@ -101,7 +108,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Constructors
 
-        public Application(int id, string subject, string text, string status, 
+        public Application(int id, string subject, string text, Status status, 
                            DateTime openDate, User author, int authorId,
                            User answerer = null, int? answerId = null, 
                            DateTime? closeDate = null, string result = null) : this()
