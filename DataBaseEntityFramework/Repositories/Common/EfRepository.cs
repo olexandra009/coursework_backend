@@ -5,7 +5,7 @@ using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
+namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common
 {
     public class EfRepository<TEntity> : IRepository<TEntity>
     where TEntity: class

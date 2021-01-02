@@ -2,9 +2,7 @@
 using System.Threading.Tasks;
 using Ardalis.Specification;
 
-using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
-
-namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
+namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common
 {
     public interface IRepository<TEntity> where TEntity: class
     {
