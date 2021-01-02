@@ -5,17 +5,9 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
-    public interface IRepository<T, in TKey> where T: DbModel<TKey>
+    public interface IRepository<TEntity> : IRepositoryBase<TEntity>
+        where TEntity: class 
     {
-        Task<T> GetById(TKey id);
-        Task<IReadOnlyList<T>> ListAll();
-        Task<IReadOnlyList<T>> List(ISpecification<T> spec);
-        Task<T> Add(T entity);
-        Task Update(T entity);
-        Task Delete(T entity);
-        Task<int> Count(ISpecification<T> spec);
-        Task<T> First(ISpecification<T> spec);
-        Task<T> FirstOrDefault(ISpecification<T> spec);
-
+       
     }
 }
