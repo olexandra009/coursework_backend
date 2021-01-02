@@ -1,9 +1,8 @@
 ﻿namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Votes : IDbModel
+    public class Votes : DbModel<int>
     {
         #region Fields
-        private int _id;
 
         #region Foriegn keys and principal entities 
         private User _user;
@@ -15,12 +14,6 @@
         #endregion
 
         #region Properties
-        public int Id
-        {
-            get => _id;
-            private set => _id = value;
-        }
-
         public User User
         {
             get => _user;
@@ -45,7 +38,7 @@
             private set => _petitionId = value;
         }
         #endregion
-
+/*
         #region Constructors
 
         public Votes(int id, User user, Petition petition)
@@ -64,5 +57,6 @@
         
 
         #endregion
+*/
     }
 }

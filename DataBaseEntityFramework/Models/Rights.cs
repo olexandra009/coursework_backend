@@ -1,9 +1,8 @@
 ﻿namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Rights:IDbModel
+    public class Rights:DbModel<int>
     {
         #region Fields
-        private int _id;
         private bool _addingUser;
         private bool _editRights;
         private bool _createPetitions;
@@ -21,12 +20,6 @@
         #endregion
 
         #region Properties
-        public int Id
-        {
-            get => _id;
-            private set => _id = value;
-        }
-
         public bool AddingUser
         {
             get => _addingUser;
@@ -87,7 +80,7 @@
         }
 
         #endregion
-
+/*
         #region Constructors
 
         public Rights(int id, bool addingUser, bool editRights, bool createPetitions, 
@@ -113,5 +106,6 @@
         }
 
         #endregion
+*/
     }
 }

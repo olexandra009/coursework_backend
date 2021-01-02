@@ -2,11 +2,10 @@
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class User : IDbModel
+    public class User : DbModel<int>
     {
         #region Fields
 
-        private int _guid;
         private string _firstName;
         private string _secondName;
         private string _lastName;
@@ -36,12 +35,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         #endregion
 
         #region Properties
-        public int Id
-        {
-            get => _guid;
-            private set => _guid = value;
-        }
-
         public string FirstName
         {
             get => _firstName;
@@ -138,7 +131,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
 
         #endregion
-
+/*
         #region Constructors
 
         public User(int guid, string firstName, string secondName, string lastName, 
@@ -170,7 +163,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
 
         #endregion
-
+*/
 
     }
 }

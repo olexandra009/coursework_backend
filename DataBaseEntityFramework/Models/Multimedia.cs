@@ -1,10 +1,10 @@
 ﻿namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Multimedia:IDbModel
+    public class Multimedia:DbModel<int>
     {
         #region Fields
 
-        private int _id;
+       
         private string _url;
 
         #region Foriegn keys and principal entities 
@@ -19,12 +19,6 @@
         #endregion
 
         #region Properties
-
-        public int Id
-        {
-            get => _id;
-            set => _id = value;
-        }
         public string Url
         {
             get => _url;
@@ -68,21 +62,22 @@
         }
 
         #endregion
+        /*
+                #region Constructors
 
-        #region Constructors
+                public Multimedia(int id, string url) : this()
+                {
+                    Id = id;
+                    Url = url;
+                }
 
-        public Multimedia(int id, string url) : this()
-        {
-            Id = id;
-            Url = url;
-        }
+                public Multimedia()
+                {
 
-        public Multimedia()
-        {
-            
-        }
+                }
 
-        #endregion
-
+                #endregion
+        */
     }
+
 }

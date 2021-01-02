@@ -2,20 +2,14 @@
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
-
-    public interface INewsRepository
+    public interface IEventRepository
     {
-
     }
-
-    public class NewsRepository : EfRepository<News>, INewsRepository
+    public class EventRepository : EfRepository<Event>, IEventRepository
     {
-       
-        public NewsRepository(PlatformDbContext context) : base(context)
+        public EventRepository(PlatformDbContext context):base(context)
         {
-
+            
         }
-
-       
     }
 }
