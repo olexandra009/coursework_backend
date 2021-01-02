@@ -22,7 +22,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<PlatformDbContext>();
                 NewsRepository news = new NewsRepository(context);
+                //User b = context.Users.Find(1);
+                //News a = new News(1, "b.Header", "ho-ho-ho", DateTime.Now, true, true, b,
+                //    b.Id);
                 
+                //news.EditItem(a);
+
             }
             host.Run();
         }
