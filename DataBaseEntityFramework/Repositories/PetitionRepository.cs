@@ -2,20 +2,16 @@
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
-
-    public interface INewsRepository
+    public interface IPetitionRepository
     {
 
     }
-
-    public class NewsRepository : EfRepository<News>, INewsRepository
+    public class PetitionRepository: EfRepository<Petition>, IPetitionRepository
     {
-       
-        public NewsRepository(PlatformDbContext context) : base(context)
+        public PetitionRepository(PlatformDbContext context) : base(context)
         {
-
+            
         }
 
-       
     }
 }
