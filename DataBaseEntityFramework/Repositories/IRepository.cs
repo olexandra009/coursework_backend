@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Ardalis.Specification;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
-    interface IRepository<T>
+    public interface IRepository<T, in TKey> where T: DbModel<TKey>
     {
-        //get all item
-        List<T> GetAllItem(int take = 0, int skip = 0);
-        //get item by id
-        T GetItemById(int id);
-        //get filtered item
-        //create item
-        void CreateItem(T item);
-        //edit item
-        void EditItem(T item);
-        //delete item
-        void DeleteItem(T item);
+        Task<T> GetById(TKey id);
+        Task<IReadOnlyList<T>> ListAll();
+        Task<IReadOnlyList<T>> List(ISpecification<T> spec);
+        Task<T> Add(T entity);
+        Task Update(T entity);
+        Task Delete(T entity);
+        Task<int> Count(ISpecification<T> spec);
+        Task<T> First(ISpecification<T> spec);
+        Task<T> FirstOrDefault(ISpecification<T> spec);
+
     }
 }
