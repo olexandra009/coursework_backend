@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Organization:IDbModel
+    public class Organization:DbModel<int>
     {
         #region Fields
-        private int _id;
+       
         private string _name;
         private string _address;
         private string _phoneNumber;
@@ -18,12 +18,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         #endregion
 
         #region Properties
-        public int Id
-        {
-            get => _id;
-            private set => _id = value;
-        }
-
+       
         public string Name
         {
             get => _name;
@@ -49,7 +44,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
 
         #endregion
-
+/*
         #region Constructors
 
         public Organization(int id, string name, string address=null, string phoneNumber=null) : this()
@@ -65,5 +60,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             
         }
         #endregion
+*/
     }
 }

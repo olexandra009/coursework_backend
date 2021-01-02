@@ -10,11 +10,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         Close      //answered close application and author can read result
 
     }
-    public class Application :IDbModel
+    public class Application : DbModel<int>
     {
         #region Fields
 
-        private int _id;
         private string _subject;
         private string _text;
         private Status _status; //TODO: change to enum
@@ -37,11 +36,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         #endregion
 
         #region Properties
-        public int Id
-        {
-            get => _id;
-            private set => _id = value;
-        }
         public int AuthorId
         {
             get => _authorId;
@@ -106,14 +100,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
         #endregion
 
+        /*
         #region Constructors
 
         public Application(int id, string subject, string text, Status status, 
                            DateTime openDate, User author, int authorId,
                            User answerer = null, int? answerId = null, 
-                           DateTime? closeDate = null, string result = null) : this()
+                           DateTime? closeDate = null, string result = null) :this()
         {
-            Id = id;
             Subject = subject;
             Text = text;
             Status = status;
@@ -132,5 +126,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
 
         #endregion
+   */
     }
+
 }

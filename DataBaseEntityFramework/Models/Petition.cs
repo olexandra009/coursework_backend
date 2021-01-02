@@ -4,11 +4,10 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Petition :IDbModel
+    public class Petition :DbModel<int>
     {
         #region Fields
 
-        private int _id;
         private string _header;
         private string _text;
         private DateTime _starDate;
@@ -26,11 +25,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         #endregion
 
         #region Properties
-        public int Id
-        {
-            get => _id;
-            private set => _id = value;
-        }
 
         public string Header
         {
@@ -73,7 +67,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             set => _votes = value;
         }
         #endregion
-
+/*
         #region Constructors
 
         public Petition(int id, string header, string text, 
@@ -96,5 +90,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
 
         #endregion
+        */
     }
 }

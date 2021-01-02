@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Event :IDbModel
+    public class Event :DbModel<int>
     {
 
         #region Fields
-        private int _id;
+      
         private string _name;
         private string _description;
         private DateTime _startDate;
@@ -75,19 +75,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _authorId;
             private set => _authorId = value;
         }
-        public int Id
-        {
-            get =>  _id; 
-            set => _id = value; 
-        }
-        public List<Multimedia> Multimedias
+         public List<Multimedia> Multimedias
         {
             get => _multimedias;
             set => _multimedias = value;
         }
 
         #endregion
-
+/*
         #region Constructors
 
         public Event(int id, string name, string description, 
@@ -107,5 +102,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
         public Event() { }
         #endregion
+*/
     }
 }

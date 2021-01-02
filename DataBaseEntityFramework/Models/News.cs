@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class News : IDbModel
+    public class News : DbModel<int>
     {
         #region Fields
 
-        private int _id;
+       
         private string _header;
         private string _text;
         private DateTime _dateTimeCreation;
@@ -29,11 +29,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         #region Properties
 
-        public int Id
-        {
-            get => _id;
-            private set => _id = value;
-        }
+       
         public string Header
         {
             get => _header;
@@ -65,12 +61,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         public User Author
         {
-            get { return _author; }
+            get => _author;
             private set { _author = value; }
         }
         public int AuthorId
         {
-            get { return _authorId; }
+            get => _authorId;
             private set { _authorId = value; }
         }
         public List<Multimedia> Multimedias
@@ -79,7 +75,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             set => _multimedias = value;
         }
         #endregion
-
+        /*
         #region Constructors
 
         public News(int id, string header, string text, DateTime dateTimeCreation, bool showAuthor, 
@@ -98,5 +94,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         public News() { }
 
         #endregion
+        */
     }
 }
