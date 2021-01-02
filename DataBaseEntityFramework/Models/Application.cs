@@ -16,7 +16,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         private string _subject;
         private string _text;
-        private Status _status; //TODO: change to enum
+        private Status _status; 
         private string _result;
         private DateTime _openDate;
         private DateTime? _closeDate;
