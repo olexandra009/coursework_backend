@@ -1,4 +1,5 @@
 using System;
+using Autofac;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,20 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                     new MySqlServerVersion(new Version(8, 0, 11))));
             
             services.AddControllers();
+        }
+
+        // ConfigureContainer is where you can register things directly
+        // with Autofac. This runs after ConfigureServices so the things
+        // here will override registrations made in ConfigureServices.
+        // Don't build the container; that gets done for you by the factory.
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            // Register your own things directly with Autofac here. Don't
+            // call builder.Populate(), that happens in AutofacServiceProviderFactory
+            // for you.
+            builder.RegisterModule(new RepositoryUtcAutofacModule());
+            builder.RegisterModule(new RepositoryReadOnlyAutofacModule());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
