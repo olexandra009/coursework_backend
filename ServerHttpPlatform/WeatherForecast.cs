@@ -1,6 +1,6 @@
 using System;
 
-namespace ServerHtttpPlatform
+namespace ServerHttpPlatform
 {
     public class WeatherForecast
     {

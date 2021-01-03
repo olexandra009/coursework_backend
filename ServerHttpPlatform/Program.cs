@@ -1,17 +1,18 @@
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
+using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
+namespace ServerHttpPlatform
 {
     public class Program
     {
@@ -23,12 +24,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<PlatformDbContext>();
                 NewsRepository news = new NewsRepository(context);
-                //User b = context.Users.Find(1);
-                //News a = new News(1, "b.Header", "ho-ho-ho", DateTime.Now, true, true, b,
-                //    b.Id);
-                
-                //news.EditItem(a);
-
+                List<News> a =  news.ListAsync().Result;
+               
             }
             host.Run();
         }
