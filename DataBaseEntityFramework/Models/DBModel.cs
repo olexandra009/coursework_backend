@@ -9,6 +9,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
     public abstract class DbModel<TKey>
     {
-        TKey Id { get;  }
+        public TKey Id { get;  }
     }
 }

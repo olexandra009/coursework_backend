@@ -1,4 +1,5 @@
 ﻿using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
