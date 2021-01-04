@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 
-namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
+namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules
 {
     public class RepositoryUtcAutofacModule:Module
     {
@@ -19,8 +19,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 .As<IOrganizationRepository>().InstancePerLifetimeScope();
             builder.RegisterType<PetitionRepository>()
                 .As<IPetitionRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<RightsRepository>()
-                .As<IRightsRepository>().InstancePerLifetimeScope();
             builder.RegisterType<UserRepository>()
                 .As<IUserRepository>().InstancePerLifetimeScope();
             builder.RegisterType<VotesRepository>()

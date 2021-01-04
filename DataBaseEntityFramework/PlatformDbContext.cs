@@ -18,7 +18,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
            
         }
        public virtual DbSet<User> Users { get; set; }
-       public virtual DbSet<Rights> Rights { get; set; }
        public virtual DbSet<Petition> Petitions{ get; set; }
        public virtual DbSet<Organization> Organizations { get; set; }
        public virtual DbSet<News> Newses { get; set; }
@@ -32,7 +31,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
        {
            base.OnModelCreating(modelBuilder);
            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-           modelBuilder.ApplyConfiguration(new RightsEntityConfiguration());
            modelBuilder.ApplyConfiguration(new PetitionEntityConfiguration());
            modelBuilder.ApplyConfiguration(new OrganizationEntityConfiguration());
            modelBuilder.ApplyConfiguration(new NewsEntityConfiguration());

@@ -26,8 +26,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         #endregion
 
         #region Dependent entities
-        //one to one
-        private Rights _userRights; 
         //one to many
         private List<News> _createdNews; 
         private List<Event> _createdEvents;
@@ -94,11 +92,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _userOrganizationId = value;
         }
 
-        public Rights UserRights
-        {
-            get => _userRights;
-            set => _userRights = value;
-        }
         public string Role
         {
             get => _role;

@@ -2,6 +2,7 @@ using System;
 using Autofac;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
