@@ -7,7 +7,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
     {
 
     }
-    public class PetitionRepository: EfRepository<Petition>, IPetitionRepository
+    public class PetitionRepository: EfRepository<PetitionEntity>, IPetitionRepository
     {
         public PetitionRepository(PlatformDbContext context) : base(context)
         {

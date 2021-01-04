@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class News : DbModel<int>
+    public class NewsEntity : DbModel<int>
     {
         #region Fields
 
@@ -16,13 +16,13 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _showAuthor;
 
         #region Foriegn key and principal entity
-        private User _author;
+        private UserEntity _author;
         private int _authorId;
         #endregion
 
         #region Dependent entity
         //one to many
-        private List<Multimedia> _multimedias;
+        private List<MultimediaEntity> _multimedias;
         #endregion
 
         #endregion
@@ -59,7 +59,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _showAuthor = value;
         }
 
-        public User Author
+        public UserEntity Author
         {
             get => _author;
             private set { _author = value; }
@@ -69,7 +69,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _authorId;
             private set { _authorId = value; }
         }
-        public List<Multimedia> Multimedias
+        public List<MultimediaEntity> Multimedias
         {
             get => _multimedias;
             set => _multimedias = value;

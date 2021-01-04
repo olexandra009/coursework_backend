@@ -2,7 +2,7 @@
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class User : DbModel<int>
+    public class UserEntity : DbModel<int>
     {
         #region Fields
 
@@ -21,19 +21,19 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
 
         #region Foriegn key and principal entity 
-        private Organization _userOrganization;
+        private OrganizationEntity _userOrganization;
         private int? _userOrganizationId;
         #endregion
 
         #region Dependent entities
         //one to many
-        private List<News> _createdNews; 
-        private List<Event> _createdEvents;
-        private List<Application> _createdApplications;
-        private List<Application> _answerApplications;
-        private List<Petition> _createdPetitions;
+        private List<NewsEntity> _createdNews; 
+        private List<EventEntity> _createdEvents;
+        private List<ApplicationEntity> _createdApplications;
+        private List<ApplicationEntity> _answerApplications;
+        private List<PetitionEntity> _createdPetitions;
         //many to many
-        private List<Votes> _votedPetitions;
+        private List<VotesEntity> _votedPetitions;
         #endregion
 
         #endregion
@@ -81,7 +81,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _password = value;
         }
 
-        public Organization UserOrganization
+        public OrganizationEntity UserOrganization
         {
             get => _userOrganization;
             private set => _userOrganization = value;
@@ -98,7 +98,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             set => _role = value;
         }
 
-        public List<News> CreatedNews
+        public List<NewsEntity> CreatedNews
         {
             get => _createdNews;
             set => _createdNews = value;
@@ -110,31 +110,31 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         }
 
 
-        public List<Event> CreatedEvents
+        public List<EventEntity> CreatedEvents
         {
             get => _createdEvents;
             set => _createdEvents = value;
         }
 
-        public List<Application> CreatedApplications
+        public List<ApplicationEntity> CreatedApplications
         {
             get => _createdApplications;
             set => _createdApplications = value;
         }
 
-        public List<Application> AnswerApplications
+        public List<ApplicationEntity> AnswerApplications
         {
             get => _answerApplications;
             set => _answerApplications = value;
         }
 
-        public List<Petition> CreatedPetitions
+        public List<PetitionEntity> CreatedPetitions
         {
             get => _createdPetitions;
             set => _createdPetitions = value;
         }
 
-        public List<Votes> VotedPetitions
+        public List<VotesEntity> VotedPetitions
         {
             get => _votedPetitions;
             set => _votedPetitions = value;

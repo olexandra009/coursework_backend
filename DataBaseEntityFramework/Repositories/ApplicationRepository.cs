@@ -6,7 +6,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
     public interface IApplicationRepository
     {
     }
-    public class ApplicationRepository: EfRepository<Application>, IApplicationRepository
+    public class ApplicationRepository: EfRepository<ApplicationEntity>, IApplicationRepository
     {
         public ApplicationRepository(PlatformDbContext context):base(context)
         {

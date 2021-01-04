@@ -45,7 +45,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         private ClaimsIdentity GetIdentity(string username, string password)
         {
             //TODO ask to db
-            User person = null; //.FirstOrDefault(x => x.Login == username && x.Password == password);
+            UserEntity person = null; //.FirstOrDefault(x => x.Login == username && x.Password == password);
             if (person != null)
             {
                 var claims = new List<Claim>

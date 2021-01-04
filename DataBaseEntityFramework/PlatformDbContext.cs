@@ -17,14 +17,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
        {
            
         }
-       public virtual DbSet<User> Users { get; set; }
-       public virtual DbSet<Petition> Petitions{ get; set; }
-       public virtual DbSet<Organization> Organizations { get; set; }
-       public virtual DbSet<News> Newses { get; set; }
-       public virtual DbSet<Event> Events { get; set; }
-       public virtual DbSet<Application> Applications { get; set; }
-       public virtual DbSet<Votes> Votes { get; set; }
-       public virtual DbSet<Multimedia> Multimedia { get; set; }
+       public virtual DbSet<UserEntity> Users { get; set; }
+       public virtual DbSet<PetitionEntity> Petitions{ get; set; }
+       public virtual DbSet<OrganizationEntity> Organizations { get; set; }
+       public virtual DbSet<NewsEntity> Newses { get; set; }
+       public virtual DbSet<EventEntity> Events { get; set; }
+       public virtual DbSet<ApplicationEntity> Applications { get; set; }
+       public virtual DbSet<VotesEntity> Votes { get; set; }
+       public virtual DbSet<MultimediaEntity> Multimedia { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

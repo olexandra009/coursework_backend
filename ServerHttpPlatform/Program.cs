@@ -20,7 +20,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<PlatformDbContext>();
                 NewsRepository news = new NewsRepository(context);
-                List<News> a =  news.ListAsync().Result;
+                List<NewsEntity> a =  news.ListAsync().Result;
                 
 
             }

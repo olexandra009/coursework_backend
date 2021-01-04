@@ -9,7 +9,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
 
     }
 
-    public class NewsRepository : EfRepository<News>, INewsRepository
+    public class NewsRepository : EfRepository<NewsEntity>, INewsRepository
     {
        
         public NewsRepository(PlatformDbContext context) : base(context)

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration
 {
-    class VotesEntityConfiguration : IEntityTypeConfiguration<Votes>
+    class VotesEntityConfiguration : IEntityTypeConfiguration<VotesEntity>
     {
-        public void Configure(EntityTypeBuilder<Votes> builder)
+        public void Configure(EntityTypeBuilder<VotesEntity> builder)
         {
             builder.ToTable("Votes");
             builder.HasKey(cs => cs.Id);

@@ -10,7 +10,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         Close      //answered close application and author can read result
 
     }
-    public class Application : DbModel<int>
+    public class ApplicationEntity : DbModel<int>
     {
         #region Fields
 
@@ -23,14 +23,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
 
         #region Foriegn keys and principal entities 
-        private User _author;
+        private UserEntity _author;
         private int _authorId;
-        private User _answerer;
+        private UserEntity _answerer;
         private int? _answerId;
         #endregion
 
         #region Dependent entity
-        private List<Multimedia> _multimedias;
+        private List<MultimediaEntity> _multimedias;
         #endregion
 
         #endregion
@@ -82,18 +82,18 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _closeDate = value;
         }
 
-        public User Author
+        public UserEntity Author
         {
             get => _author;
             private set => _author = value;
         }
 
-        public User Answerer
+        public UserEntity Answerer
         {
             get => _answerer;
             private set => _answerer = value;
         }
-        public List<Multimedia> Multimedias
+        public List<MultimediaEntity> Multimedias
         {
             get => _multimedias;
             set => _multimedias = value;

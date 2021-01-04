@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration
 {
-    class EventEntityConfiguration : IEntityTypeConfiguration<Event>
+    class EventEntityConfiguration : IEntityTypeConfiguration<EventEntity>
     {
-        public void Configure(EntityTypeBuilder<Event> builder)
+        public void Configure(EntityTypeBuilder<EventEntity> builder)
         {
             builder.ToTable("Event");
             builder.HasKey(n => n.Id);

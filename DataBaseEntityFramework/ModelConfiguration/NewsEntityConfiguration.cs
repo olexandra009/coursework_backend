@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration
 {
-    class NewsEntityConfiguration : IEntityTypeConfiguration<News>
+    class NewsEntityConfiguration : IEntityTypeConfiguration<NewsEntity>
     {
-       public void Configure(EntityTypeBuilder<News> builder)
+       public void Configure(EntityTypeBuilder<NewsEntity> builder)
         {
             builder.ToTable("News");
             builder.HasKey(n => n.Id);

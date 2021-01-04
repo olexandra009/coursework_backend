@@ -6,7 +6,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
     public interface IEventRepository
     {
     }
-    public class EventRepository : EfRepository<Event>, IEventRepository
+    public class EventRepository : EfRepository<EventEntity>, IEventRepository
     {
         public EventRepository(PlatformDbContext context):base(context)
         {

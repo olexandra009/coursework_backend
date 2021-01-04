@@ -6,7 +6,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
     public interface IVotesRepository
     {
     }
-    public class VotesRepository:EfRepository<Votes>, IVotesRepository
+    public class VotesRepository:EfRepository<VotesEntity>, IVotesRepository
     {
         public VotesRepository(PlatformDbContext context):base(context)
         {

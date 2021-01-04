@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Event :DbModel<int>
+    public class EventEntity :DbModel<int>
     {
 
         #region Fields
@@ -17,12 +17,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private bool _emailNotification;
 
         #region Foriegn key and principal entity
-        private User _author;
+        private UserEntity _author;
         private int _authorId;
         #endregion
 
         #region Dependent entity
-        private List<Multimedia> _multimedias;
+        private List<MultimediaEntity> _multimedias;
         #endregion
 
 
@@ -65,7 +65,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _emailNotification = value;
         }
 
-        public User Author
+        public UserEntity Author
         {
             get => _author;
             private set => _author = value;
@@ -75,7 +75,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _authorId;
             private set => _authorId = value;
         }
-         public List<Multimedia> Multimedias
+         public List<MultimediaEntity> Multimedias
         {
             get => _multimedias;
             set => _multimedias = value;

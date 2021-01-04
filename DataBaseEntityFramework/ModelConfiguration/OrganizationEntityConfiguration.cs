@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration
 {
-    class OrganizationEntityConfiguration : IEntityTypeConfiguration<Organization>
+    class OrganizationEntityConfiguration : IEntityTypeConfiguration<OrganizationEntity>
     {
-        public void Configure(EntityTypeBuilder<Organization> builder)
+        public void Configure(EntityTypeBuilder<OrganizationEntity> builder)
         {
             builder.ToTable("Organization");
             builder.HasKey(u => u.Id);

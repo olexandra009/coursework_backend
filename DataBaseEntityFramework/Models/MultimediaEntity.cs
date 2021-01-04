@@ -1,6 +1,6 @@
 ﻿namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Multimedia:DbModel<int>
+    public class MultimediaEntity:DbModel<int>
     {
         #region Fields
 
@@ -8,9 +8,9 @@
         private string _url;
 
         #region Foriegn keys and principal entities 
-        private Event _event;
-        private News _news;
-        private Application _application;
+        private EventEntity _event;
+        private NewsEntity _news;
+        private ApplicationEntity _application;
         private int? _eventId;
         private int? _newsId;
         private int? _applicationId;
@@ -25,19 +25,19 @@
             set => _url = value;
         }
 
-        public Event Event
+        public EventEntity Event
         {
             get => _event;
             set => _event = value;
         }
 
-        public News News
+        public NewsEntity News
         {
             get => _news;
             set => _news = value;
         }
 
-        public Application Application
+        public ApplicationEntity Application
         {
             get => _application;
             set => _application = value;

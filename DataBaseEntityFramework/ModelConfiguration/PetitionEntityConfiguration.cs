@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration
 {
-    class PetitionEntityConfiguration : IEntityTypeConfiguration<Petition>
+    class PetitionEntityConfiguration : IEntityTypeConfiguration<PetitionEntity>
     {
-       public void Configure(EntityTypeBuilder<Petition> builder)
+       public void Configure(EntityTypeBuilder<PetitionEntity> builder)
         {
             builder.ToTable("Petition");
             builder.HasKey(n => n.Id);

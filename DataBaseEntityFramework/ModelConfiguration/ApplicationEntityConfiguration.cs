@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration
 {
-    class ApplicationEntityConfiguration : IEntityTypeConfiguration<Application>
+    class ApplicationEntityConfiguration : IEntityTypeConfiguration<ApplicationEntity>
     {
-       public void Configure(EntityTypeBuilder<Application> builder)
+       public void Configure(EntityTypeBuilder<ApplicationEntity> builder)
        {
             builder.ToTable("Application");
             builder.HasKey(a => a.Id);

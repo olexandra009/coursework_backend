@@ -7,7 +7,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
     {
 
     }
-    public class OrganizationRepository:EfRepository<Organization>, IOrganizationRepository
+    public class OrganizationRepository:EfRepository<OrganizationEntity>, IOrganizationRepository
     {
         public OrganizationRepository(PlatformDbContext context):base(context)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Organization:DbModel<int>
+    public class OrganizationEntity:DbModel<int>
     {
         #region Fields
        
@@ -12,7 +12,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _phoneNumber;
 
         #region Dependent Entity
-        private List<User> _users;
+        private List<UserEntity> _users;
         #endregion
 
         #endregion
@@ -37,7 +37,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _phoneNumber = value;
         }
 
-        public List<User> Users
+        public List<UserEntity> Users
         {
             get => _users;
             set => _users = value;

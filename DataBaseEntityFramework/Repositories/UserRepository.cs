@@ -7,7 +7,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
     {
 
     }
-    public class UserRepository :EfRepository<User>, IUserRepository
+    public class UserRepository :EfRepository<UserEntity>, IUserRepository
     {
         public UserRepository(PlatformDbContext context) : base(context)
         {

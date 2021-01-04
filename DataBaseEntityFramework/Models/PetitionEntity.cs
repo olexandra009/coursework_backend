@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-    public class Petition :DbModel<int>
+    public class PetitionEntity :DbModel<int>
     {
         #region Fields
 
@@ -14,12 +14,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private DateTime _finishDate;
 
         #region Foriegn key and principal entity 
-        private User _author;
+        private UserEntity _author;
         private int _authorId;
         #endregion
 
         #region Dependent entities
-        private List<Votes> _votes;
+        private List<VotesEntity> _votes;
         #endregion
 
         #endregion
@@ -50,7 +50,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _finishDate = value;
         }
 
-        public User Author
+        public UserEntity Author
         {
             get => _author;
             private set => _author = value;
@@ -61,7 +61,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             private set => _authorId = value;
         }
 
-        public List<Votes> UserVotes
+        public List<VotesEntity> UserVotes
         {
             get => _votes;
             set => _votes = value;
