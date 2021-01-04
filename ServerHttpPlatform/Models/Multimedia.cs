@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models
 {
-    public class Multimedia
+    public class Multimedia : IModel<int>
     {
-        public string Url;
-        public Event Event;
-        public News News;
-        public Application Application;
-        public int? EventId;
-        public int? NewsId;
-        public int? ApplicationId;
+        public int Id { get; set; }
+        public string Url { get; set; }
+        public Event Event { get; set; }
+        public News News { get; set; }
+        public Application Application { get; set; }
+        public int? EventId { get; set; }
+        public int? NewsId { get; set; }
+        public int? ApplicationId { get; set; }
     }
 }

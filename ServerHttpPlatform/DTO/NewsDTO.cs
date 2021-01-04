@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 
 
-namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models
+namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO
 {
-    public class News: IModel<int>
+    public class NewsDTO
     {
         public int Id { get; set; }
         public string Header { get; set; }
@@ -12,8 +12,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models
         public DateTime DateTimeCreation { get; set; }
         public bool Edited { get; set; }
         public bool ShowAuthor { get; set; }
-        public User Author { get; set; }
+        public UserDTO Author { get; set; }
         public int AuthorId { get; set; }
-        public List<Multimedia> Multimedias { get; set; }
+        public List<MultimediaDTO> Multimedias { get; set; }
     }
 }
