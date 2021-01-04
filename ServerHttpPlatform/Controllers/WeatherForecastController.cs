@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
     [ApiController]
+    [Authorize(Roles = "Admin")]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
