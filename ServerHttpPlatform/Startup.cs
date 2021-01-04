@@ -30,7 +30,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.RequireHttpsMetadata = false;
+                    options.RequireHttpsMetadata = false; //SSL no need 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                        ValidateIssuer = true,                                       // укзывает, будет ли валидироваться издатель при валидации токена
@@ -87,6 +87,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
