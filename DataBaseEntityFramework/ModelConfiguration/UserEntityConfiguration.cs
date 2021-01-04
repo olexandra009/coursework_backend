@@ -20,12 +20,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.Property(u => u.Password).IsRequired();
             builder.Property(u => u.UserOrganizationId).IsRequired(false); 
 
-            //one to one
-            builder.HasOne<Rights>()
-                .WithOne(r => r.User)
-                .HasForeignKey<Rights>(r => r.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
+           
             //one to many
             builder.HasMany(u => u.AnswerApplications)
                 .WithOne(an => an.Answerer)
