@@ -1,6 +1,7 @@
 using System;
 using Autofac;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
+using KMA.Coursework.CommunicationPlatform.OuterReadOnlyDatabase.PersonalInfoDataBase;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -48,7 +49,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             services.AddDbContext<PlatformDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
                     new MySqlServerVersion(new Version(8, 0, 11))));
-           
+
+            services.AddDbContext<PersonalUsersInfoContext>(options =>
+                options.UseMySql(Configuration.GetConnectionString("ReadOnlyConnection"),
+                    new MySqlServerVersion(new Version(8, 0, 11))));
+
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

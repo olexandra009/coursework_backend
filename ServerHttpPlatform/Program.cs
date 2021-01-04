@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using Autofac.Extensions.DependencyInjection;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
+using KMA.Coursework.CommunicationPlatform.OuterReadOnlyDatabase.PersonalInfoDataBase;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,7 +23,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 var context = services.GetRequiredService<PlatformDbContext>();
                 NewsRepository news = new NewsRepository(context);
                 List<NewsEntity> a =  news.ListAsync().Result;
-                
+             //   var pc = services.GetRequiredService<PersonalUsersInfoContext>();
+               // pc.Users.Count();
 
             }
             host.Run();
