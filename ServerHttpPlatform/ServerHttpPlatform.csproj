@@ -23,4 +23,8 @@
     <ProjectReference Include="..\OuterReadOnlyDatabase\OuterReadOnlyDatabase.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

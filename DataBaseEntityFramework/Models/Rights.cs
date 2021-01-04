@@ -2,15 +2,16 @@
 {
     public class Rights:DbModel<int>
     {
+        //Roles we will have :  UserManagerAdmin, Admin, Moderator, HandlingApplicationAdmin, User, SuperUser
         #region Fields
-        private bool _addingUser;
-        private bool _editRights;
-        private bool _createPetitions;
-        private bool _votePetitions;
-        private bool _createNewsAndEvents;
-        private bool _moderateNewsAndEvents;
-        private bool _createApplication;
-        private bool _handlingApplication;
+        private bool _addingUser; //UserManagerAdmin
+        private bool _editRights; //UserManagerAdmin
+        private bool _createPetitions;//SuperUser
+        private bool _votePetitions;//SuperUser
+        private bool _createNewsAndEvents; //Admin
+        private bool _moderateNewsAndEvents;//Moderator
+        private bool _createApplication;//User
+        private bool _handlingApplication;//HandlingApplicationAdmin
 
         #region Foriegn keys and principal entities 
         private User _user;
