@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>KMA.Coursework.CommunicationPlatform.ServerHttpPlatform</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

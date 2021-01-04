@@ -1,6 +1,7 @@
 ﻿
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework

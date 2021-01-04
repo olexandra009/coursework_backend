@@ -11,8 +11,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         private string _lastName;
         private string _phoneNumber;
         private string _email;
+
+        #region Authentification and authorization information
         private string _login;
         private string _password;
+        private string _role;
+        private bool _emailConfirm;
+        #endregion
+
 
         #region Foriegn key and principal entity 
         private Organization _userOrganization;
@@ -93,12 +99,23 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             get => _userRights;
             set => _userRights = value;
         }
+        public string Role
+        {
+            get => _role;
+            set => _role = value;
+        }
 
         public List<News> CreatedNews
         {
             get => _createdNews;
             set => _createdNews = value;
         }
+        public bool EmailConfirm
+        {
+            get => _emailConfirm;
+            private set => _emailConfirm = value;
+        }
+
 
         public List<Event> CreatedEvents
         {

@@ -1,6 +1,6 @@
 using System;
 
-namespace ServerHttpPlatform
+namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
 {
     public class WeatherForecast
     {

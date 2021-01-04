@@ -1,19 +1,15 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-namespace ServerHttpPlatform
-{
+
+namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
+{ 
     public class Program
     {
         public static void Main(string[] args)
@@ -25,7 +21,8 @@ namespace ServerHttpPlatform
                 var context = services.GetRequiredService<PlatformDbContext>();
                 NewsRepository news = new NewsRepository(context);
                 List<News> a =  news.ListAsync().Result;
-               
+                
+
             }
             host.Run();
         }
