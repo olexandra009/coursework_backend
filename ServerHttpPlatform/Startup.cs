@@ -1,12 +1,15 @@
 using System;
 using Autofac;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
@@ -23,15 +26,37 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region Authentification
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                       ValidateIssuer = true,                                       // укзывает, будет ли валидироваться издатель при валидации токена
+                       ValidIssuer = AuthOptions.ISSUER,                            // строка, представляющая издателя
+                       ValidateAudience = true,                                     // будет ли валидироваться потребитель токена
+                       ValidAudience = AuthOptions.AUDIENCE,                        // установка потребителя токена
+                       ValidateLifetime = true,                                     // будет ли валидироваться время существования
+                       IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),    // установка ключа безопасности
+                       ValidateIssuerSigningKey = true                              // валидация ключа безопасности
+                    };
+                });
+            #endregion
+
             services.AddDbContext<PlatformDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
                     new MySqlServerVersion(new Version(8, 0, 11))));
+           
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ServerHttpPlatform", Version = "v1" });
             });
         }
+
+
+        
 
         // ConfigureContainer is where you can register things directly
         // with Autofac. This runs after ConfigureServices so the things
