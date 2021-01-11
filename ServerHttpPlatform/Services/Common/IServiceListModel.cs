@@ -7,7 +7,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Commo
     public interface IServiceListModel<TModel, TEntity>
     {
         Task<List<TModel>> List();
-        //todo: maybe methods with listQuery should be added 
+        //todo: maybe methods with listQuery should be changed 
+        Task<List<TModel>> List(int take, int skip = 0, string sortProp = null, string sortOder = null);
+        Task<int> Count(int take, int skip = 0, string sortProp = null, string sortOder = null);
         Task<List<TModel>> List(ISpecification<TEntity> specification);
         Task<int> Count(ISpecification<TEntity> specification);
     }
