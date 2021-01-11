@@ -1,5 +1,4 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common;
