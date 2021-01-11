@@ -1,0 +1,61 @@
+15:25 - 15:40       
+16:52 - 17:10
+                                                                       |
+----------------------------------------------------------------------------------------------|
+Petition
+- create
+- vote 
+- get list (all | active | close | successful (active and close) | not enough votes (active and close)) 
+- get by id
+- edit (only if user author) 
+|delete 
+
+Votes
+- Count (petiton id)
+---> list of petition voted by user with Id
+
+Event 
+- create
+- edit (moderator and if user author)
+- delete (moderator)
+- get list 
+- get by id
+
+News
+- create
+- edit (moderator and if user author)
+- delete (moderator)
+- get list 
+- get by id
+
+Application 
+- create
+- edit (if status waiting for author)
+| delete
+- get list (all, by user id, status = waiting, status = inprogress, status = close)
+- get by id
+- createResult 
+- changeStatus
+
+Organization 
+- create
+- edit 
+- delete
+- get list
+- get by id
+
+Multimedia
+- get by id
+- edit
+- create
+- get list 
+
+User 
+- create
+- edit 
+- delete (for user itself)
+- updateRole
+- login
+- singup
+- get list
+- get by id 

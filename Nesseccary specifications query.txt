@@ -1,0 +1,65 @@
+17:11 - 17:32
+
+--------------------------------------------------------------
+GENERAL 
+-> ListOfEntitiesbyIds (return object by key)
+-> ListOfIdsByEntityId (return key of objects that reffer to object with id)
+
+Petition
+-> ActivePetiton (petition that not close)
+-> ClosePetiton (petition that close)
+-> SuccessfulPetition (petition voted more than X time)
+-> NotEnoghPetiton (petition voted less than X time)
+-> UnsuccessfulPetition (closed petition voted less then X time)
+-> GetCreatedByUserId (petiton that was created by user with Id)
+
+Votes 
+-> CountByPetitionId 
+-> GetListOfPersonIdVoteThePetition
+-> GetListOfPetitionIdVotedByTheUser
+
+Event
+-> FilterActiveEvent
+-> FilterPastEvent
+-> GetListOfEventCreatedByTheUser
+-> GetListOfEventEditedByTheModeratorUser ??
+
+News 
+-> GetListOfNewsCreatedByTheUser
+-> GetListOfNewsCreatedByTheUser
+-> GetListOfNewsEditedByTheModeratorUser ??
+
+Application 
+-> FilterByStatusActive
+-> FilterByStatusInProgress
+-> FilterByStatusClose
+-> GetApplicationByAuthor
+-> GetApplicationByAnswerer
+
+Organization
+-> GetUsersInOrganization
+
+Multimedia
+-> GetListByApplicationId
+-> GetListByEventId
+-> GetListByNewsId
+
+User
+-> GetUserByRole
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   

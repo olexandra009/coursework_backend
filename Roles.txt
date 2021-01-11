@@ -1,0 +1,26 @@
+Rights => Roles
+
+--- User MangerAdmin ----
+AddingUser
+EditRights
+
+----- Admin ------
+CreateNewsAndEvents
+
+---- Moderator ----
+ModerateNewsAndEvents
+
+---- Handling Application Admin ---
+HandlingApplication
+
+---SUPER USER--
+CreatePetition
+VotePetition
+
+
+------USER ----
+
+CreateApplication
+
+
+
