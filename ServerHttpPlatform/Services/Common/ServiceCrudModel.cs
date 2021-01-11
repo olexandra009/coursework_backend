@@ -6,7 +6,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common
 {
-    public class ServiceCrudModel<TModel, TKey, TEntity> : ServiceListModel<TModel, TEntity>, IServiceCrudModel<TModel, TKey>
+    public class ServiceCrudModel<TModel, TKey, TEntity> : ServiceListModel<TModel, TEntity>, IServiceCrudModel<TModel, TKey, TEntity>
     where TEntity: class
     where TModel : IModel<TKey>
     {
