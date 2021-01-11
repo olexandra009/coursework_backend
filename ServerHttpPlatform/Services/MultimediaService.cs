@@ -10,7 +10,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
     }
     //todo create specification to get by event/application/news id 
-    public class MultimediaService : ServiceCrudModel<Multimedia, int, MultimediaEntity>
+    public class MultimediaService : ServiceCrudModel<Multimedia, int, MultimediaEntity>, IMultimediaService
     {
         public MultimediaService(IMapper mapper, IRepository<MultimediaEntity> repository) : base(mapper, repository)
         {
