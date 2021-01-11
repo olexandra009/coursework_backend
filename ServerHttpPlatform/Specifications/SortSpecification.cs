@@ -4,7 +4,7 @@ using Ardalis.Specification;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
 {
-    public sealed class SortSpecification<T> : Specification<T>
+    public class SortSpecification<T> : Specification<T>
     {
         ///<param name="sortProp">name of property to sort</param>
         /// <param name="sortOrder">order of sorting allow values: asc, desc</param>
