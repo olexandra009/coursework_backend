@@ -11,7 +11,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
 
     }
-    public class NewsService : ServiceCrudModel<News, int, NewsEntity>
+    public class NewsService : ServiceCrudModel<News, int, NewsEntity>, INewsService
     {
         public NewsService(IMapper mapper, IRepository<NewsEntity> repository) : base(mapper, repository)
         {
