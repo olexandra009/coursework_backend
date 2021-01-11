@@ -76,6 +76,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             // for you.
             builder.RegisterModule(new RepositoryUtcAutofacModule());
             builder.RegisterModule(new RepositoryReadOnlyAutofacModule());
+            builder.RegisterModule(new ServicesAutofacModule());
 
         }
 
