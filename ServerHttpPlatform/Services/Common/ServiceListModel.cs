@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ardalis.Specification;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common
 {
@@ -27,14 +27,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Commo
             return models;
         }
 
-        public Task<List<TModel>> List(int take, int skip = 0, string sortProp = null, string sortOder = null)
+        public Task<List<TModel>> List(int take, int skip = 0, string sortProp = null, string sortOrder = null)
         {
-            return List(CreateSpecification(take, skip, sortProp, sortOder));
+            return List(CreateSpecification(take, skip, sortProp, sortOrder));
         }
 
-        public Task<int> Count(int take, int skip = 0, string sortProp = null, string sortOder = null)
+        public Task<int> Count(int take, int skip = 0, string sortProp = null, string sortOrder = null)
         {
-            return Count(CreateSpecification(take, skip, sortProp, sortOder));
+            return Count(CreateSpecification(take, skip, sortProp, sortOrder));
         }
 
         public virtual async Task<List<TModel>> List(ISpecification<TEntity> specification)
@@ -49,10 +49,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Commo
             return Repository.CountAsync(specification);
         }
 
-        //todo implement sorted specification and page sorted and CreateSpecification method
-        protected virtual ISpecification<TEntity> CreateSpecification(int take, int skip = 0, string sortProp = null, string sortOder = null)
+        protected virtual ISpecification<TEntity> CreateSpecification(int take, int skip = 0, string sortProp = null, string sortOrder = null)
         {
-            throw new NotImplementedException();
+            return new PagedSpecification<TEntity>(take, skip, sortProp, sortOrder);
         }
     }
 }
