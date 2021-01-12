@@ -9,14 +9,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="query"></param>
         /// <param name="timeStatus">allow values active, act, close, cls</param>
         /// <param name="votesStatus">allow values succ, successful, unsucc, unsuccessful</param>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
-        ///<param name="sortProp">name of property to sort</param>
-        /// <param name="sortOrder">order of sorting allow values: asc, desc</param>
-        public FilterStatusPetitionSpecification(string timeStatus = null, string votesStatus = null, 
-                                                int take = 10, int skip = 0, string sortProp = null, string sortOrder = null) : base(take, skip, sortProp, sortOrder)
+        public FilterStatusPetitionSpecification(PagedSortListQuery query, string timeStatus = null, string votesStatus = null) 
+                                                : base(query.Take, query.Skip, query.SortProp, query.SortOrder)
         {
             if (timeStatus != null)
             {

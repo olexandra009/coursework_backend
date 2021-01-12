@@ -27,14 +27,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Commo
             return models;
         }
 
-        public Task<List<TModel>> List(int take, int skip = 0, string sortProp = null, string sortOrder = null)
+        public Task<List<TModel>> List(PagedSortListQuery query)
         {
-            return List(CreateSpecification(take, skip, sortProp, sortOrder));
+            return List(CreateSpecification(query));
         }
 
-        public Task<int> Count(int take, int skip = 0, string sortProp = null, string sortOrder = null)
+        public Task<int> Count(PagedSortListQuery query)
         {
-            return Count(CreateSpecification(take, skip, sortProp, sortOrder));
+            return Count(CreateSpecification(query));
         }
 
         public virtual async Task<List<TModel>> List(ISpecification<TEntity> specification)
@@ -49,9 +49,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Commo
             return Repository.CountAsync(specification);
         }
 
-        protected virtual ISpecification<TEntity> CreateSpecification(int take, int skip = 0, string sortProp = null, string sortOrder = null)
+        protected virtual ISpecification<TEntity> CreateSpecification(PagedSortListQuery query)
         {
-            return new PagedSpecification<TEntity>(take, skip, sortProp, sortOrder);
+            return new PagedSpecification<TEntity>(query.Take, query.Skip, query.SortProp, query.SortOrder);
         }
     }
 }
