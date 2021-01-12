@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
+namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common
 {
     public class PagedSpecification<T> : SortSpecification<T>
     {

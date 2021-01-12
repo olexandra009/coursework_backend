@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using Ardalis.Specification;
 
-namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
+namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common
 {
     public class SortSpecification<T> : Specification<T>
     {

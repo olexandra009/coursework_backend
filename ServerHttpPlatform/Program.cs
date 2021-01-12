@@ -1,11 +1,13 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Autofac.Extensions.DependencyInjection;
+using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
-using KMA.Coursework.CommunicationPlatform.OuterReadOnlyDatabase.PersonalInfoDataBase;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -21,10 +23,48 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<PlatformDbContext>();
-                NewsRepository news = new NewsRepository(context);
-                List<NewsEntity> a =  news.ListAsync().Result;
-             //   var pc = services.GetRequiredService<PersonalUsersInfoContext>();
-               // pc.Users.Count();
+                //NewsRepository news = new NewsRepository(context);
+               // UserRepository use = new UserRepository(context);
+               // UserEntity user = use.GetByIdAsync(1).Result;
+               
+                PetitionRepository pet = new PetitionRepository(context);
+                //PetitionEntity p = new PetitionEntity();
+                //p.Text = "New test close successful petition";
+                //p.StarDate = new DateTime(2000, 12, 1);
+                //p.FinishDate = new DateTime(2021, 1, 10);
+                //p.Header = "Header";
+                //p.Author = user;
+                //p.AuthorId = user.Id;
+              
+                //var pp = pet.AddAsync(p).Result;
+
+                //List<PetitionEntity> pett = pet.ListAsync(new FilterStatusPetitionSpecification("close", "unsucc")).Result;
+                //Console.WriteLine("----------------------------------------");
+                //Console.WriteLine(pett.Count);
+                //Console.WriteLine("----------------------------------------");
+
+                //pett = pet.ListAsync(new FilterStatusPetitionSpecification("active", "unsucc")).Result;
+                //Console.WriteLine("----------------------------------------");
+                //Console.WriteLine(pett.Count);
+                //Console.WriteLine("----------------------------------------");
+
+                //pett = pet.ListAsync(new FilterStatusPetitionSpecification(null,"unsucc")).Result;
+                //Console.WriteLine("----------------------------------------");
+                //Console.WriteLine(pett.Count);
+                //Console.WriteLine("----------------------------------------");
+
+                //pett = pet.ListAsync(new FilterStatusPetitionSpecification(null, "succ")).Result;
+                //Console.WriteLine("----------------------------------------");
+                //Console.WriteLine(pett.Count);
+                //Console.WriteLine("----------------------------------------");
+
+                //pett = pet.ListAsync(new FilterStatusPetitionSpecification("active")).Result;
+                //Console.WriteLine("----------------------------------------");
+                //Console.WriteLine(pett.Count);
+                //Console.WriteLine("----------------------------------------");
+                //List<NewsEntity> a =  news.ListAsync().Result;
+                //   var pc = services.GetRequiredService<PersonalUsersInfoContext>();
+                // pc.Users.Count();
 
             }
             host.Run();

@@ -29,36 +29,36 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         public string Header
         {
             get => _header;
-            private set => _header = value;
+            set => _header = value;
         }
 
         public string Text
         {
             get => _text;
-            private set => _text = value;
+            set => _text = value;
         }
 
         public DateTime StarDate
         {
             get => _starDate;
-            private set => _starDate = value;
+            set => _starDate = value;
         }
 
         public DateTime FinishDate
         {
             get => _finishDate;
-            private set => _finishDate = value;
+            set => _finishDate = value;
         }
 
         public UserEntity Author
         {
             get => _author;
-            private set => _author = value;
+            set => _author = value;
         }
         public int AuthorId
         {
             get => _authorId;
-            private set => _authorId = value;
+            set => _authorId = value;
         }
 
         public List<VotesEntity> UserVotes

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Ardalis.Specification;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common;
-using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common
 {

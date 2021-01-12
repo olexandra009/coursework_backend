@@ -1,9 +1,11 @@
 using System;
 using Autofac;
+using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using KMA.Coursework.CommunicationPlatform.OuterReadOnlyDatabase.PersonalInfoDataBase;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -54,6 +56,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 options.UseMySql(Configuration.GetConnectionString("ReadOnlyConnection"),
                     new MySqlServerVersion(new Version(8, 0, 11))));
 
+            services.AddAutoMapper((configuration) => configuration.AddProfile<MappingProfile>(),
+                typeof(Startup)); // scan and register automapper profiles in this assembly
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
