@@ -2,7 +2,7 @@
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 
-namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
+namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.PetitionSpecification
 {
     public class FilterStatusPetitionSpecification : PagedSpecification<PetitionEntity>
     {
