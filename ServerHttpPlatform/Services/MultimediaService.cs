@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.IO;
+using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
@@ -8,12 +9,20 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
     public interface IMultimediaService : IServiceCrudModel<Multimedia, int, MultimediaEntity>
     {
+
     }
-    //todo create specification to get by event/application/news id 
+     
     public class MultimediaService : ServiceCrudModel<Multimedia, int, MultimediaEntity>, IMultimediaService
     {
         public MultimediaService(IMapper mapper, IRepository<MultimediaEntity> repository) : base(mapper, repository)
         {
+        }
+
+
+        protected string UploadMultimedia(string file)
+        {
+            //todo write method that will be upload file and return url
+            return "url of object";
         }
     }
 }

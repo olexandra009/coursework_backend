@@ -9,7 +9,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     public interface IVoteService : IServiceCrudModel<Votes, int, VotesEntity>
     {
     }
-    //todo specification for votes count
     public class VoteService : ServiceCrudModel<Votes, int, VotesEntity>, IVoteService
     {
         public VoteService(IMapper mapper, IRepository<VotesEntity> repository) : base(mapper, repository)
