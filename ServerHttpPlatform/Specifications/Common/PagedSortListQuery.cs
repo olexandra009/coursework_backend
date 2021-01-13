@@ -49,9 +49,5 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
             SortOrder = sortOrder;
         }
 
-        public void GetAllEntities()
-        {
-            Take = Int32.MaxValue;
-        }
     }
 }

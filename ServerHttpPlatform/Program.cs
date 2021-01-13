@@ -26,23 +26,46 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<PlatformDbContext>();
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine("----------------------------------------");
+                string crole = "Admin, SuperUser";
+                var s = crole.Split(", ");
+                Console.WriteLine(s.Length);
+                Console.WriteLine(s[0]);
+                Console.WriteLine(s[1]);
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine("----------------------------------------");
+                string roles = "Admin, SuperUser, User";
+                var ss = roles.Split(", ");
+                bool i = roles.Contains(crole);
+                Console.WriteLine(i);
+                var a = ss.Length;
+                var b = s.Length;
+                var c = ss.Except(s).Count();
+                var g = ss.Intersect(s).Count();
+                Console.WriteLine("ss count " + a);
+                Console.WriteLine("s count " + b);
+                Console.WriteLine("Except count "+c);
+                Console.WriteLine("Intersect count " + g);
+                Console.WriteLine("----------------------------------------");
+                Console.WriteLine("----------------------------------------");
                 //NewsRepository news = new NewsRepository(context);
-               // UserRepository use = new UserRepository(context);
-               // UserEntity user = use.GetByIdAsync(1).Result;
-               
-                PetitionRepository pet = new PetitionRepository(context);
-                VotesRepository uss = new VotesRepository(context);
-                var usl = uss.ListAsync(new VotesForPetitionWithIdSpecification(1)).Result;
-                Console.WriteLine("----------------------------------------");
-                Console.WriteLine(usl.Count);
-                Console.WriteLine(usl[0].UserId);
-                Console.WriteLine("----------------------------------------");
-               
-                usl = uss.ListAsync(new VotesForPetitionWithIdSpecification(100)).Result;
-                Console.WriteLine("----------------------------------------");
-                Console.WriteLine(usl.Count);
-                // Console.WriteLine(usl[0].Login);
-                Console.WriteLine("----------------------------------------");
+                // UserRepository use = new UserRepository(context);
+                // UserEntity user = use.GetByIdAsync(1).Result;
+
+                //PetitionRepository pet = new PetitionRepository(context);
+                //VotesRepository uss = new VotesRepository(context);
+                //var usl = uss.ListAsync(new VotesForPetitionWithIdSpecification(1)).Result;
+                //Console.WriteLine("----------------------------------------");
+                //Console.WriteLine(usl.Count);
+                //Console.WriteLine(usl[0].UserId);
+                //Console.WriteLine("----------------------------------------");
+
+                //usl = uss.ListAsync(new VotesForPetitionWithIdSpecification(100)).Result;
+                //Console.WriteLine("----------------------------------------");
+                //Console.WriteLine(usl.Count);
+                //// Console.WriteLine(usl[0].Login);
+                //Console.WriteLine("----------------------------------------");
 
                 //PetitionEntity p = new PetitionEntity();
                 //p.Text = "New test close successful petition";
