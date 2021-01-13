@@ -7,14 +7,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
     /// <summary>
     ///  Specification query for get list of events filter by end date
     /// </summary>
-    public class FilterPagedEvent:PagedSpecification<EventEntity>
+    public class FilterPagedEventSpecification:PagedSpecification<EventEntity>
     {
         /// <summary>
         /// Creates specification query for get list of events filter by end date
         /// </summary>
         /// <param name="filter">allow values active, pass </param>
         /// <param name="query"></param>
-        public FilterPagedEvent(string filter, PagedSortListQuery query) 
+        public FilterPagedEventSpecification(string filter, PagedSortListQuery query) 
                                                           : base(query.Take, 
                                                                  query.Skip, 
                                                                  query.SortProp,

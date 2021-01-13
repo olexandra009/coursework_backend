@@ -9,7 +9,6 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.OuterReadOnlyDatabase.PersonalInfoDataBase;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
-using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.VotesSpecification;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

@@ -22,8 +22,8 @@ Event
 -> FilterActiveEvent +
 -> FilterPastEvent   +
 
--> GetListOfEventCreatedByTheUser              ->> User
--> GetListOfEventEditedByTheModeratorUser ??   ->> User
+-> GetListOfEventCreatedByTheUser             >> User
+-> GetListOfEventEditedByTheModeratorUser ??  >> User
 
 News 
 -> GetListOfNewsCreatedByTheUser               ->> User
@@ -31,11 +31,11 @@ News
 -> GetListOfNewsEditedByTheModeratorUser ??
 
 Application 
--> FilterByStatusActive
--> FilterByStatusInProgress
--> FilterByStatusClose
--> GetApplicationByAuthor
--> GetApplicationByAnswerer
+-> FilterByStatusActive  + 
+-> FilterByStatusInProgress +
+-> FilterByStatusClose +
+-> GetApplicationByAuthor +
+-> GetApplicationByAnswerer +
 
 Organization
 -> GetUsersInOrganization
