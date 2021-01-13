@@ -1,46 +1,69 @@
-17:11 - 17:32
-
 --------------------------------------------------------------
+Application 
+class FilterByStatusApplicationSpecification
+	-> FilterByStatusActive  
+	-> FilterByStatusInProgress 
+	-> FilterByStatusClose 
+
+class ApplicationByAnswererIdSpecification
+	-> GetApplicationByAnswerer
+
+class ApplicationsByAuthorIdSpecification
+	-> GetApplicationByAuthor
+
 Petition
--> ActivePetiton (petition that not close)  +
--> ClosePetiton (petition that close)       +
--> SuccessfulPetition (petition voted more than X time) +
--> NotEnoghPetiton (petition voted less than X time)    + 
--> UnsuccessfulPetition (closed petition voted less then X time) +
--> GetCreatedByUserId (petiton that was created by user with Id)  +
+class FilterByStatusApplicationSpecification
+	-> ActivePetiton (petition that not close) 
+	-> ClosePetiton (petition that close)      
+	-> SuccessfulPetition (petition voted more than X time)
+	-> NotEnoghPetiton (petition voted less than X time)
+	-> UnsuccessfulPetition (closed petition voted less then X time) 
 
-Votes 
--> CountByPetitionId                      +
--> GetListOfPersonIdVoteThePetition        +
--> GetListOfPetitionIdVotedByTheUser       +
-
-Event
--> FilterActiveEvent +
--> FilterPastEvent   +
-
--> GetListOfEventCreatedByTheUser       +     
-
+class CreatedPetitionByUserIdSpecification
+	-> GetCreatedByUserId (petiton that was created by user with Id) 
 
 News 
--> GetListOfNewsCreatedByTheUser  +              
+class CreatedNewsByUserIdSpecification
+	-> GetListOfNewsCreatedByTheUser (not paging/sorting) 
 
-Application 
--> FilterByStatusActive  + 
--> FilterByStatusInProgress +
--> FilterByStatusClose +
--> GetApplicationByAuthor +
--> GetApplicationByAnswerer +
+class CreatedNewsByOrganizationIdSpecification
+	-> GetListOfNewsCreatedByTheOrganization
 
-Organization
--> GetUsersInOrganization +
+
+Event
+class FilterPagedEventSpecification
+	-> FilterActiveEvent 
+	-> FilterPastEvent   
+
+class CreatedEventByUserIdSpecification
+	-> GetListOfEventCreatedByTheUser     
+
+class CreatedEventsOrganizationIdSpecification
+	-> GetListOfEventCreatedByTheOrganization    
+
+
+Votes                      
+class VotesByUserWithIdSpecification
+	-> GetListOfVotesPersonIdVoteThePetition  
+
+class VotesForPetitionWithIdSpecification
+	-> CountByPetitionId 
+	-> GetListOfPetitionIdVotedByTheUser       
 
 Multimedia
--> GetListByApplicationId+
--> GetListByEventId+
--> GetListByNewsId+
+class MultimediaByApplicationIdSpecification
+	-> GetListByApplicationId
+class MultimediaByEventIdSpecification
+	-> GetListByEventId
+
+class MultimediaByNewsIdSpecification
+	-> GetListByNewsId
 
 User
--> GetUserByRole +
+class UsersByOrganizationIdSpecification
+	-> GetUsersInOrganization
+class UserByRoleSpecification
+	-> GetUserByRole 
 
 
 
