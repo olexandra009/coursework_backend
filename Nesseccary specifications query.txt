@@ -1,10 +1,6 @@
 17:11 - 17:32
 
 --------------------------------------------------------------
-GENERAL 
--> ListOfEntitiesbyIds (return object by key)
--> ListOfIdsByEntityId (return key of objects that reffer to object with id)
-
 Petition
 -> ActivePetiton (petition that not close)  +
 -> ClosePetiton (petition that close)       +
@@ -22,13 +18,11 @@ Event
 -> FilterActiveEvent +
 -> FilterPastEvent   +
 
--> GetListOfEventCreatedByTheUser             >> User
--> GetListOfEventEditedByTheModeratorUser ??  >> User
+-> GetListOfEventCreatedByTheUser       +     
+
 
 News 
--> GetListOfNewsCreatedByTheUser               ->> User
--> GetListOfNewsCreatedByTheUser               ->> User
--> GetListOfNewsEditedByTheModeratorUser ??
+-> GetListOfNewsCreatedByTheUser  +              
 
 Application 
 -> FilterByStatusActive  + 
@@ -38,15 +32,15 @@ Application
 -> GetApplicationByAnswerer +
 
 Organization
--> GetUsersInOrganization
+-> GetUsersInOrganization +
 
 Multimedia
--> GetListByApplicationId
--> GetListByEventId
--> GetListByNewsId
+-> GetListByApplicationId+
+-> GetListByEventId+
+-> GetListByNewsId+
 
 User
--> GetUserByRole
+-> GetUserByRole +
 
 
 
