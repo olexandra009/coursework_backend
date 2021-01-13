@@ -44,17 +44,17 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         public int AuthorId
         {
             get => _authorId;
-            private set => _authorId = value;
+            set => _authorId = value;
         }
         public int? AnswerId
         {
             get => _answerId;
-            private set => _answerId = value;
+            set => _answerId = value;
         }
         public string Subject
         {
             get => _subject;
-            private set => _subject = value;
+            set => _subject = value;
         }
 
         public string Text
@@ -66,13 +66,13 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         public Status Status
         {
             get => _status;
-            private set => _status = value;
+            set => _status = value;
         }
 
         public string Result
         {
             get => _result;
-            private set => _result = value;
+            set => _result = value;
         }
 
         public DateTime OpenDate
@@ -84,19 +84,19 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         public DateTime? CloseDate
         {
             get => _closeDate;
-            private set => _closeDate = value;
+            set => _closeDate = value;
         }
 
         public UserEntity Author
         {
             get => _author;
-            private set => _author = value;
+            set => _author = value;
         }
 
         public UserEntity Answerer
         {
             get => _answerer;
-            private set => _answerer = value;
+            set => _answerer = value;
         }
         public List<MultimediaEntity> Multimedias
         {

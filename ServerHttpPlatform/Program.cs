@@ -26,84 +26,18 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetRequiredService<PlatformDbContext>();
-                Console.WriteLine("----------------------------------------");
-                Console.WriteLine("----------------------------------------");
-                string crole = "Admin, SuperUser";
-                var s = crole.Split(", ");
-                Console.WriteLine(s.Length);
-                Console.WriteLine(s[0]);
-                Console.WriteLine(s[1]);
-                Console.WriteLine("----------------------------------------");
-                Console.WriteLine("----------------------------------------");
-                string roles = "Admin, SuperUser, User";
-                var ss = roles.Split(", ");
-                bool i = roles.Contains(crole);
-                Console.WriteLine(i);
-                var a = ss.Length;
-                var b = s.Length;
-                var c = ss.Except(s).Count();
-                var g = ss.Intersect(s).Count();
-                Console.WriteLine("ss count " + a);
-                Console.WriteLine("s count " + b);
-                Console.WriteLine("Except count "+c);
-                Console.WriteLine("Intersect count " + g);
-                Console.WriteLine("----------------------------------------");
-                Console.WriteLine("----------------------------------------");
-                //NewsRepository news = new NewsRepository(context);
-                // UserRepository use = new UserRepository(context);
-                // UserEntity user = use.GetByIdAsync(1).Result;
-
-                //PetitionRepository pet = new PetitionRepository(context);
-                //VotesRepository uss = new VotesRepository(context);
-                //var usl = uss.ListAsync(new VotesForPetitionWithIdSpecification(1)).Result;
-                //Console.WriteLine("----------------------------------------");
-                //Console.WriteLine(usl.Count);
-                //Console.WriteLine(usl[0].UserId);
-                //Console.WriteLine("----------------------------------------");
-
-                //usl = uss.ListAsync(new VotesForPetitionWithIdSpecification(100)).Result;
-                //Console.WriteLine("----------------------------------------");
-                //Console.WriteLine(usl.Count);
-                //// Console.WriteLine(usl[0].Login);
-                //Console.WriteLine("----------------------------------------");
-
-                //PetitionEntity p = new PetitionEntity();
-                //p.Text = "New test close successful petition";
-                //p.StarDate = new DateTime(2000, 12, 1);
-                //p.FinishDate = new DateTime(2021, 1, 10);
-                //p.Header = "Header";
-                //p.Author = user;
-                //p.AuthorId = user.Id;
-
-                //var pp = pet.AddAsync(p).Result;
-
-                //List<PetitionEntity> pett = pet.ListAsync(new FilterStatusPetitionSpecification("close", "unsucc")).Result;
-                //Console.WriteLine("----------------------------------------");
-                //Console.WriteLine(pett.Count);
-                //Console.WriteLine("----------------------------------------");
-
-                //pett = pet.ListAsync(new FilterStatusPetitionSpecification("active", "unsucc")).Result;
-                //Console.WriteLine("----------------------------------------");
-                //Console.WriteLine(pett.Count);
-                //Console.WriteLine("----------------------------------------");
-
-                //pett = pet.ListAsync(new FilterStatusPetitionSpecification(null,"unsucc")).Result;
-                //Console.WriteLine("----------------------------------------");
-                //Console.WriteLine(pett.Count);
-                //Console.WriteLine("----------------------------------------");
-
-                //pett = pet.ListAsync(new FilterStatusPetitionSpecification(null, "succ")).Result;
-                //Console.WriteLine("----------------------------------------");
-                //Console.WriteLine(pett.Count);
-                //Console.WriteLine("----------------------------------------");
-
-                //pett = pet.ListAsync(new FilterStatusPetitionSpecification("active")).Result;
-                //Console.WriteLine("----------------------------------------");
-                //Console.WriteLine(pett.Count);
-                //Console.WriteLine("----------------------------------------");
-                //List<NewsEntity> a =  news.ListAsync().Result;
-                //   var pc = services.GetRequiredService<PersonalUsersInfoContext>();
-                // pc.Users.Count();
+                MultimediaEntity me = new MultimediaEntity {Url = "kfkfkf", ApplicationId = 1};
+                UserRepository us = new UserRepository(context);
+                UserEntity user = us.GetByIdAsync(1).Result;
+                List<MultimediaEntity> ml = new List<MultimediaEntity>();
+                ml.Add(me);
+                ApplicationEntity ap = new ApplicationEntity()
+                {
+                    Author = user, Text = "hiii", Multimedias = ml, AuthorId = 1, Status = Status.Waiting,
+                    Subject = "kfkf", Result = ""
+                };
+                ApplicationRepository r = new ApplicationRepository(context);
+                var a = r.AddAsync(ap).Result;
 
             }
             host.Run();
