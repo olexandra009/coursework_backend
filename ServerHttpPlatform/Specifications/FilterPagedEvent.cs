@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
-using Microsoft.EntityFrameworkCore.Query;
 
-namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.EventSpecification
+namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
 {
+    /// <summary>
+    ///  Specification query for get list of events filter by end date
+    /// </summary>
     public class FilterPagedEvent:PagedSpecification<EventEntity>
     {
         /// <summary>
-        /// 
+        /// Creates specification query for get list of events filter by end date
         /// </summary>
         /// <param name="filter">allow values active, pass </param>
         /// <param name="query"></param>

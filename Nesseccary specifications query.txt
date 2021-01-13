@@ -11,22 +11,23 @@ Petition
 -> SuccessfulPetition (petition voted more than X time) +
 -> NotEnoghPetiton (petition voted less than X time)    + 
 -> UnsuccessfulPetition (closed petition voted less then X time) +
--> GetCreatedByUserId (petiton that was created by user with Id) 
+-> GetCreatedByUserId (petiton that was created by user with Id)  +
 
 Votes 
--> CountByPetitionId -----> can be done in Pettion (maybe we do not need such service) 
--> GetListOfPersonIdVoteThePetition 
--> GetListOfPetitionIdVotedByTheUser
+-> CountByPetitionId                      +
+-> GetListOfPersonIdVoteThePetition        +
+-> GetListOfPetitionIdVotedByTheUser       +
 
 Event
--> FilterActiveEvent
--> FilterPastEvent
--> GetListOfEventCreatedByTheUser
--> GetListOfEventEditedByTheModeratorUser ??
+-> FilterActiveEvent +
+-> FilterPastEvent   +
+
+-> GetListOfEventCreatedByTheUser              ->> User
+-> GetListOfEventEditedByTheModeratorUser ??   ->> User
 
 News 
--> GetListOfNewsCreatedByTheUser
--> GetListOfNewsCreatedByTheUser
+-> GetListOfNewsCreatedByTheUser               ->> User
+-> GetListOfNewsCreatedByTheUser               ->> User
 -> GetListOfNewsEditedByTheModeratorUser ??
 
 Application 

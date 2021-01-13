@@ -7,7 +7,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
     public class SortSpecification<T> : Specification<T>
     {
         ///<param name="sortProp">name of property to sort</param>
-        /// <param name="sortOrder">order of sorting allow values: asc, desc</param>
+        ///<param name="sortOrder">order of sorting allow values: asc, desc </param>
         public SortSpecification(string sortProp, string sortOrder)
         {
             if (string.IsNullOrEmpty(sortOrder) || string.IsNullOrEmpty(sortProp)) return;

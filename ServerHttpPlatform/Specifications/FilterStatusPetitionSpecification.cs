@@ -2,12 +2,15 @@
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 
-namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.PetitionSpecification
+namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
 {
+    /// <summary>
+    /// Specification for getting list of petition filtered by finish date and votes count
+    /// </summary>
     public class FilterStatusPetitionSpecification : PagedSpecification<PetitionEntity>
     {
         /// <summary>
-        /// 
+        /// Create specification for getting list of petition filtered by finish date and votes count
         /// </summary>
         /// <param name="query"></param>
         /// <param name="timeStatus">allow values active, act, close, cls</param>

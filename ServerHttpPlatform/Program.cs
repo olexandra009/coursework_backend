@@ -38,8 +38,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 Console.WriteLine(usl.Count);
                 Console.WriteLine(usl[0].UserId);
                 Console.WriteLine("----------------------------------------");
-
-
+               
                 usl = uss.ListAsync(new VotesForPetitionWithIdSpecification(100)).Result;
                 Console.WriteLine("----------------------------------------");
                 Console.WriteLine(usl.Count);
