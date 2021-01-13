@@ -5,9 +5,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     public enum Status
     {
-        Waiting,   //application has been not read 
-        InProcess, //application was read by answered
-        Close      //answered close application and author can read result
+        /// <summary> status value for usage as a null, should not be added to entity in db </summary>
+        NullStatus,
+        /// <summary> application has been not read </summary>
+        Waiting,
+        /// <summary> application was read by answerer </summary>
+        InProcess,
+        /// <summary>answered close application and author can read result</summary>
+        Close    
 
     }
     public class ApplicationEntity : DbModel<int>
