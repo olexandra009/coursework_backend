@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
-using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
@@ -11,12 +13,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     public interface IUserService : IServiceCrudModel<User,int,UserEntity>
     {
         Task Registration();
-        Task Login();
+        Task<User> Login(string login, string password);
         Task<User> UpdateRole();
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
-        public UserService(IMapper mapper, IRepository<UserEntity> repository) : base(mapper, repository)
+        public UserService(IMapper mapper, IUserRepository repository) : base(mapper, repository)
         {
         }
 
@@ -25,9 +27,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             throw new System.NotImplementedException();
         }
 
-        public async Task Login()
+
+        public async Task<User> Login(string login, string password)
         {
-            throw new System.NotImplementedException();
+            var user = Repository.ListAsync(new UserByLoginSpecification(login, password)).Result.FirstOrDefault();
+            var result = Mapper.Map<User>(user);
+            return result;
+
         }
 
         public async Task<User> UpdateRole()

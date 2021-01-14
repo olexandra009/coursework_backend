@@ -4,7 +4,7 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
 
-    public interface INewsRepository
+    public interface INewsRepository : IRepository<NewsEntity>
     {
 
     }

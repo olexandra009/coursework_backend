@@ -5,7 +5,7 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
-    public interface IMultimediaRepository
+    public interface IMultimediaRepository:IRepository<MultimediaEntity>
     {
     }
     public class MultimediaRepository: EfRepository<MultimediaEntity>, IMultimediaRepository

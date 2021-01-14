@@ -3,7 +3,7 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
-    public interface IVotesRepository
+    public interface IVotesRepository : IRepository<VotesEntity>
     {
     }
     public class VotesRepository:EfRepository<VotesEntity>, IVotesRepository

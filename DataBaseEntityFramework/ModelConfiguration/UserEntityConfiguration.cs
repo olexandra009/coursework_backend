@@ -10,6 +10,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
         {
             builder.ToTable("Users");
             builder.HasKey(u => u.Id);
+            builder.HasAlternateKey(u => u.Login);
             builder.Property(u => u.Id).IsRequired();
             builder.Property(u => u.FirstName).IsRequired();
             builder.Property(u => u.SecondName).IsRequired(false);

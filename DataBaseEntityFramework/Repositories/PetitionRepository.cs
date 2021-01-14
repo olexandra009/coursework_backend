@@ -3,7 +3,7 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
-    public interface IPetitionRepository
+    public interface IPetitionRepository : IRepository<PetitionEntity>
     {
 
     }

@@ -21,9 +21,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             Mapper = mapper;
         }
 
-       
+
         //todo write and implement GetList
-        
+
         // todo write notFound
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

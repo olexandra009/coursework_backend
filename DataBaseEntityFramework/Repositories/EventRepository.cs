@@ -3,7 +3,7 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
-    public interface IEventRepository
+    public interface IEventRepository:IRepository<EventEntity>
     {
     }
     public class EventRepository : EfRepository<EventEntity>, IEventRepository
