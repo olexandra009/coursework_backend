@@ -3,7 +3,7 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
 {
-    public interface IApplicationRepository
+    public interface IApplicationRepository : IRepository<ApplicationEntity>
     {
     }
     public class ApplicationRepository: EfRepository<ApplicationEntity>, IApplicationRepository

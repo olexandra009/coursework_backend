@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
-using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using Status = KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.Status;
@@ -17,7 +17,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     //TODO Create application specification for get list : (by userId, status)
     public class ApplicationService : ServiceCrudModel<Application, int, ApplicationEntity>, IApplicationService
     {
-        public ApplicationService(IMapper mapper, IRepository<ApplicationEntity> repository) : base(mapper, repository)
+        public ApplicationService(IMapper mapper, IApplicationRepository repository) : base(mapper, repository)
         {
         }
         

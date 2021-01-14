@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
-using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 
@@ -13,7 +13,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     }
     public class EventService: ServiceCrudModel<Event, int, EventEntity>, IEventService
     {
-        public EventService(IMapper mapper, IRepository<EventEntity> repository) : base(mapper, repository)
+        public EventService(IMapper mapper, IEventRepository repository) : base(mapper, repository)
         {
         }
 
