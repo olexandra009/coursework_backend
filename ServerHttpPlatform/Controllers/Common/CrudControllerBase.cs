@@ -21,8 +21,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             Mapper = mapper;
         }
 
-        #region Get
+       
         //todo write and implement GetList
+        
         // todo write notFound
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -63,13 +64,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             return result;
         }
 
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public virtual async Task Delete(TKey id)
         {
             if (await Service.Exist(id))
                 await Service.Delete(id);
         }
 
-
-        #endregion
     }
 }
