@@ -7,13 +7,17 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class UserController : CrudControllerBase<UserDTO, User, UserEntity, int>
     {
         protected IUserService UserService => (IUserService) Service;
@@ -21,8 +25,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
         }
 
-        [HttpPost("/token")]
-        public IActionResult Token(string username, string password)
+        #region Get token (login)
+        [HttpPost("/api/admin/login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public IActionResult Token(string username, [FromBody] string password)
         {
             var identity = GetIdentity(username, password);
             if (identity == null)
@@ -69,5 +76,27 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             
             return null;
         }
+        #endregion
+
+        #region Registration
+
+        //todo create endpoint for registration
+
+        #endregion
+
+        #region Update
+
+        public async Task<ActionResult<UserDTO>> ChangeRole(int userId, string role)
+        {
+            User user = await UserService.UpdateRole(userId, role);
+            var result = Mapper.Map<UserDTO>(user);
+            return result;
+        }
+
+        //todo create update methods 
+
+        #endregion
+
+
     }
 }

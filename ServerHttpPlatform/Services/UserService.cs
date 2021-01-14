@@ -14,7 +14,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
         Task Registration();
         Task<User> Login(string login, string password);
-        Task<User> UpdateRole();
+        Task<User> UpdateRole(int id, string role);
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
@@ -36,9 +36,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         }
 
-        public async Task<User> UpdateRole()
+        public async Task<User> UpdateRole(int id, string role)
         {
-            throw new System.NotImplementedException();
+            var user = await Repository.GetByIdAsync(id);
+            var userModel = Mapper.Map<User>(user);
+            userModel.Role = role;
+            var userEntity = Mapper.Map<UserEntity>(userModel);
+            await Repository.UpdateAsync(userEntity);
+            User result = Mapper.Map<User>(userEntity);
+            result = await Task.FromResult(result).ConfigureAwait(false);
+            return result;
         }
     }
 }
