@@ -79,13 +79,22 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Registration
-
+        [HttpPost("/api/admin/registration")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
         //todo create endpoint for registration
-
+        public Task<ActionResult<UserDTO>> Registration(UserDTO dto)
+        {
+            //todo create method for registration (or override create) 
+            //todo maybe should be add try catch and async
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Update
-
+        [HttpPut("/api/admin/change_role")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserDTO>> ChangeRole(int userId, string role)
         {
             User user = await UserService.UpdateRole(userId, role);
