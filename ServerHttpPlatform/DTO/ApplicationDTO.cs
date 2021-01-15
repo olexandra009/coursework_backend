@@ -5,7 +5,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO
 {
     public enum StatusDTO
     {
-        /// <summary> status value for usage as a null, should not be added to entity in db </summary>
+        /// <summary> statusModel value for usage as a null, should not be added to entity in db </summary>
         NullStatus,
         /// <summary> application has been not read </summary>
         Waiting,

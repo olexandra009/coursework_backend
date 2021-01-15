@@ -4,12 +4,12 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Com
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
 {
     /// <summary>
-    /// Specification query for get list of application filtered by status
+    /// Specification query for get list of application filtered by statusModel
     /// </summary>
     public class FilterByStatusApplicationSpecification : PagedSpecification<ApplicationEntity>
     {
         /// <summary>
-        /// Creates specification query for get list of application filtered by status
+        /// Creates specification query for get list of application filtered by statusModel
         /// </summary>
         /// <param name="status"></param>
         /// <param name="query"></param>

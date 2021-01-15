@@ -16,7 +16,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
         /// <param name="query">object that include take, skip and sort parameters</param>
         /// <param name="status"></param>
         //todo test this specification and ApplicationByAuthorId Specification
-        public ApplicationByAnswererIdSpecification(int userId, PagedSortListQuery query, Status status = Status.NullStatus) : base(query.Take, query.Skip, query.SortProp, query.SortOrder)
+        public ApplicationByAnswererIdSpecification(int? userId, PagedSortListQuery query, Status status = Status.NullStatus) : base(query.Take, query.Skip, query.SortProp, query.SortOrder)
         {
             Query.Where(a => a.AnswerId == userId);
             if (status == Status.NullStatus) return;

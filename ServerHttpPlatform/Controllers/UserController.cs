@@ -26,7 +26,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         }
 
         #region Get token (login)
-        [HttpPost("/api/admin/login")]
+        [HttpPost("/login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public IActionResult Token(string username, [FromBody] string password)
@@ -79,7 +79,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Registration
-        [HttpPost("/api/admin/registration")]
+        [HttpPost("/registration")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
         //todo create endpoint for registration
@@ -92,7 +92,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Update
-        [HttpPut("/api/admin/change_role")]
+        [HttpPut("/change_role")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserDTO>> ChangeRole(int userId, string role)

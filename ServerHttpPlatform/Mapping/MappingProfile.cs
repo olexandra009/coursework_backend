@@ -15,6 +15,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping
             CreateMap<Application, ApplicationEntity>();
             CreateMap<ApplicationEntity, Application>();
 
+            CreateMap<StatusModel, StatusDTO>();
+            CreateMap<Status, StatusModel>();
+            CreateMap<StatusModel, Status > ();
+            CreateMap<StatusDTO, StatusModel>();
+
+
             CreateMap<Event, EventDTO>();
             CreateMap<EventDTO, Event>();
             CreateMap<Event, EventEntity>();

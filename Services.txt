@@ -34,15 +34,15 @@ News
 -> create event (only admin that can do it)
 
 Application
--> get list of all aplication (sorted by date creation by default)
--> get list of application created by the user with Id (user cabinet)
--> get list of application answered by the user with Id (or null)
--> get list of application filtered by status
--> get application by id
+-> get list of all aplication (sorted by date creation by default) 
+-> get list of application created by the user with Id (user cabinet) +
+-> get list of application answered by the user with Id (or null) +
+-> get list of application filtered by status + 
+-> get application by id + 
 
--> edit header, text
--> edit status
--> add result
+-> edit header, text +
+-> edit status +
+-> add result +
 
 -> delete multimedia
 -> download multimedia
