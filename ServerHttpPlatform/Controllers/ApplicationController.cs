@@ -30,27 +30,43 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         //todo do we need page result?
         #region Get List
 
+        public override Task<ListResult<ApplicationDTO>> GetList(PagedSortListQuery query)
+        {
+            if (string.IsNullOrEmpty(query.SortProp))
+                query.SortProp = "OpenDate";
+            return base.GetList(query);
+        }
+
         [HttpGet("/getListFilteredByStatus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<ApplicationDTO>>> GetFilteredByStatusList(StatusDTO status, [FromQuery] PagedSortListQuery query)
+        public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByStatusList(StatusDTO status, [FromQuery] PagedSortListQuery query)
         {
+           
             var statusModel = Mapper.Map<StatusModel>(status);
             var statusEntity = Mapper.Map<Status>(statusModel);
             var modelList = await ApplicationService.List(new FilterByStatusApplicationSpecification(statusEntity, query));
-            var result = Mapper.Map<List<ApplicationDTO>>(modelList);
+            ListResult<ApplicationDTO> result = new ListResult<ApplicationDTO>
+            {
+                Result = Mapper.Map<List<ApplicationDTO>>(modelList),
+                Total = await Service.Count(new FilterByStatusApplicationSpecification(statusEntity, query.TakeAll()))
+            };
             return result;
         }
 
         [HttpGet("/getListFilteredByAuthor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<ApplicationDTO>>> GetFilteredByAuthorAndStatus(int authorId, [FromQuery] PagedSortListQuery query, [FromQuery] StatusDTO status = StatusDTO.NullStatus)
+        public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByAuthorAndStatus(int authorId, [FromQuery] PagedSortListQuery query, [FromQuery] StatusDTO status = StatusDTO.NullStatus)
         {
             var statusModel = Mapper.Map<StatusModel>(status);
             var statusEntity = Mapper.Map<Status>(statusModel);
             var modelList = await ApplicationService.List(new ApplicationsByAuthorIdSpecification(authorId, query, statusEntity));
-            var result = Mapper.Map<List<ApplicationDTO>>(modelList);
+            ListResult<ApplicationDTO> result = new ListResult<ApplicationDTO>
+            {
+                Result = Mapper.Map<List<ApplicationDTO>>(modelList),
+                Total = await Service.Count(new ApplicationsByAuthorIdSpecification(authorId, query.TakeAll(), statusEntity))
+            };
             return result;
         }
 
@@ -58,12 +74,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpGet("/getListFilteredByAnswerer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<List<ApplicationDTO>>> GetFilteredByAnswerer([FromQuery] PagedSortListQuery query, Status status, int? authorId = null)
+        public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByAnswerer([FromQuery] PagedSortListQuery query, Status status, int? answererId = null)
         {
             var statusModel = Mapper.Map<StatusModel>(status);
             var statusEntity = Mapper.Map<Status>(statusModel);
-            var modelList = await ApplicationService.List(new ApplicationByAnswererIdSpecification(authorId, query, statusEntity));
-            var result = Mapper.Map<List<ApplicationDTO>>(modelList);
+            var modelList = await ApplicationService.List(new ApplicationByAnswererIdSpecification(answererId, query, statusEntity));
+            ListResult<ApplicationDTO> result = new ListResult<ApplicationDTO>
+            {
+                Result = Mapper.Map<List<ApplicationDTO>>(modelList),
+                Total = await Service.Count(new ApplicationByAnswererIdSpecification(answererId, query.TakeAll(), statusEntity))
+            };
             return result;
         }
         #endregion

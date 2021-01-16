@@ -14,10 +14,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<Application> AddResult(int applicationId, string result);
         Task<Application> ChangeStatus(int applicationId, StatusModel statusModel);
         Task<Application> ChangeTextOrSubject(int applicationId, Application applicationModel);
-
-
     }
-    //TODO Create application specification for get list : (by userId, statusModel)
+   
     public class ApplicationService : ServiceCrudModel<Application, int, ApplicationEntity>, IApplicationService
     {
         //todo change to use variable in settings 
@@ -26,6 +24,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
         }
 
+        #region Delete
         public override Task Delete(int id)
         {
             var application = Repository.GetByIdAsync(id).Result;
@@ -35,8 +34,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             //todo change exception message
             throw new NotSupportedException("Try to delete not close application or application with ");
         }
-
-        
+        #endregion
+        #region Edit
         public Task<Application> AddResult(int applicationId, string result)
         {
             var applic = Repository.GetByIdAsync(applicationId).Result;
@@ -61,8 +60,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             application.Text = applicationModel.Text;
             return base.Update(application);
         }
-        
+
         //TODO Change multimedia 
+
+
+        #endregion
+
 
     }
 }
