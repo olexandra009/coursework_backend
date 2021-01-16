@@ -10,6 +10,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -90,6 +92,24 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             throw new NotImplementedException();
         }
         #endregion
+
+        #region Get List
+
+        [HttpGet("/filtered_by_role")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ListResult<UserDTO>>> GetByRole(string role, PagedSortListQuery query)
+        {
+            var modelList = await UserService.List(new UserByRoleSpecification(role, query));
+            var result = new ListResult<UserDTO>()
+            {
+                Result = Mapper.Map<List<UserDTO>>(modelList),
+                Total = await UserService.Count(new UserByRoleSpecification(role, query.TakeAll()))
+            };
+            return result;
+        }
+
+        #endregion
+
 
         #region Update
         [HttpPut("/change_role")]
