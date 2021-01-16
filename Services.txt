@@ -1,14 +1,17 @@
 Petition
--> get list of petition sorted by date (first newer) by default
--> get list of petition sorted by ....
--> filter list of petition (closed, active, success, unsuccess)
--> get petion by id
--> get list of petion that was created by user with id
--> get list of petiton that was voted by user with id
+-> get list of petition sorted by date (first newer) by default +
+-> get list of petition sorted by ....                          +
+-> filter list of petition (closed, active, success, unsuccess) +
+-> get petion by id                                             +
+-> get list of petion that was created by user with id          +
+-> get list of petiton that was voted by user with id           --
+
 -> get list of users that voted petion with id (LIST OF USERS)
+
 -> vote petition (create vote with petition id and user id) (CREATE VOTE)  
--> create petiton
-|delete and edit petition are not allowed|
+
+-> create petiton      +
+|delete and edit petition are not allowed| + 
 
 Events
 -> get list of all events sorted by id by default 
@@ -34,7 +37,7 @@ News
 -> create event (only admin that can do it)
 
 Application
--> get list of all aplication (sorted by date creation by default) 
+-> get list of all aplication (sorted by date creation by default) +
 -> get list of application created by the user with Id (user cabinet) +
 -> get list of application answered by the user with Id (or null) +
 -> get list of application filtered by status + 
@@ -47,14 +50,14 @@ Application
 -> delete multimedia
 -> download multimedia
 
--> delete application it if close and left setted day
+-> delete application it if close and left setted day +
 
 Organization 
 -> get list of all
--> get by id
--> create
--> delete
--> edit
+-> get by id +
+-> create    +
+-> delete    +
+-> edit      +
 
 User 
 -> registration
