@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +24,18 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
         }
 
 
-        //todo write and implement GetList
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public virtual async Task<ListResult<TDto>> GetList([FromQuery]PagedSortListQuery query)
+        {
+            var model = await Service.List(query);
+            ListResult<TDto> result = new ListResult<TDto>
+            {
+                Result = Mapper.Map<List<TDto>>(model), 
+                Total =  await Service.Count(query.TakeAll())
+            };
+            return result;
+        }
 
         // todo write notFound
         [HttpGet("{id}")]

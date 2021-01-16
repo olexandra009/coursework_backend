@@ -16,38 +16,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
         public string SortProp { get; set;}
         public string SortOrder { get; set;} = DefaultOrder;
 
-        /// <summary>
-        /// Query for getting entities without sorting using default skip and take 
-        /// </summary>
-        PagedSortListQuery()
-        {
-            
-        }
-       
-        /// <summary>
-        /// Query for getting entities by default skip and take with sort 
-        /// </summary>
-        /// <param name="sortProp">property to sort</param>
-        /// <param name="sortOrder">allows values asc, desc</param>
-        PagedSortListQuery(string sortProp, string sortOrder = DefaultOrder)
-        {
-            SortOrder = sortProp;
-            SortOrder = sortOrder;
-        }
-        /// <summary>
-        /// Query for getting entities
-        /// </summary>
-        /// <param name="take"></param>
-        /// <param name="skip"></param>
-        /// <param name="sortProp">property to sort</param>
-        /// <param name="sortOrder">allows values asc, desc</param>
-        PagedSortListQuery(int take, int skip, string sortProp, string sortOrder)
-        {
-            Take = take;
-            Skip = skip;
-            SortProp = sortProp;
-            SortOrder = sortOrder;
-        }
 
+        public PagedSortListQuery TakeAll()
+        {
+            Skip = 0;
+            Take = Int32.MaxValue;
+            return this;
+        }
     }
 }
