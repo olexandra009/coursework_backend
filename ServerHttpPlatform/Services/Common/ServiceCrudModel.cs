@@ -55,7 +55,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Commo
         //todo implement using specification 
         public virtual async Task<bool> Exist(TKey id)
         {
-            throw new NotImplementedException();
+            TEntity entity = await Repository.GetByIdAsync(id);
+            return (entity!=null);
         }
     }
 }

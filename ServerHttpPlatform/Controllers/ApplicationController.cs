@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
@@ -68,6 +69,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Update
+        //TODO Change multimedia 
+
         [ApiExplorerSettings(IgnoreApi = true)]
         public override Task<ActionResult<ApplicationDTO>> Update(int id, ApplicationDTO dto) 
         {
@@ -115,9 +118,26 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             var appDto = Mapper.Map<ApplicationDTO>(app);
             return appDto;
         }
+        #endregion
 
-
-
+        #region Delete
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public override async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                if (await ApplicationService.Exist(id))
+                    await ApplicationService.Delete(id);
+                return NoContent();
+            }
+            catch (NotSupportedException exception)
+            {
+                return Forbid(exception.Message);
+            }
+          
+        }
 
         #endregion
     }
