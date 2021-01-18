@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common
 {
-    public abstract class CrudControllerBase<TDto, TModel, TEntity, TKey>:ControllerBase 
+    public class CrudControllerBase<TDto, TModel, TEntity, TKey>:ControllerBase 
         where TModel: IModel<TKey>
         where TEntity : class
     {

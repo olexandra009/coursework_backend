@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
-using JetBrains.Annotations;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO;
@@ -28,8 +26,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 
         }
 
-        //todo override edit
-        //todo do we need page result?
+       
         #region Get List
         [ProducesResponseType(StatusCodes.Status200OK)]
         public override Task<ListResult<ApplicationDTO>> GetList(PagedSortListQuery query)
