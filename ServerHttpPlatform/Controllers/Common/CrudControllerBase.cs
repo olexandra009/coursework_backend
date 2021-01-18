@@ -94,7 +94,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             if (!(model.Id.Equals(default(TKey)))) throw new ArgumentException();
             var createdModel = await Service.Create(model);
             var result = Mapper.Map<TDto>(createdModel);
-            return result;
+            return Created("", result);
         }
         /// <summary>
         /// Delete item by id
