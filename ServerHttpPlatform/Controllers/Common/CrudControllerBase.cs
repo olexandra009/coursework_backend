@@ -7,7 +7,10 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
- 
+
+//summary should be done:
+//  write text to notFound
+
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common
 {
     public class CrudControllerBase<TDto, TModel, TEntity, TKey>:ControllerBase 
@@ -22,7 +25,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             Service = service;
             Mapper = mapper;
         }
-
+        /// <summary>
+        /// Get list of items
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public virtual async Task<ListResult<TDto>> GetList([FromQuery]PagedSortListQuery query)
@@ -37,6 +44,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
         }
 
         // todo write notFound
+        /// <summary>
+        /// Get item by id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -49,7 +61,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             return result;
 
         }
-
+        /// <summary>
+        /// Update item by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -64,7 +81,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             var result = Mapper.Map<TDto>(update);
             return result;
         }
-
+        /// <summary>
+        /// Create item
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public virtual async Task<ActionResult<TDto>>Create([FromBody] TDto dto)
@@ -75,7 +96,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             var result = Mapper.Map<TDto>(createdModel);
             return result;
         }
-
+        /// <summary>
+        /// Delete item by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public virtual async Task<ActionResult> Delete(TKey id)
