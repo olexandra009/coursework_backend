@@ -14,7 +14,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO
         public UserDTO Author { get; set; }
         public int AuthorId { get; set;  }
 
-        public List<VotesDTO> UserVotes;
+       // public List<VotesDTO> UserVotes;
 
     }
 }

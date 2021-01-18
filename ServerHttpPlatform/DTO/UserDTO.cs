@@ -17,9 +17,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO
 
         public OrganizationDTO UserOrganization { get; set; }
         public int? UserOrganizationId { get; set; }
-        public List<PetitionDTO> CreatedPetitions { get; set; }
-
-        public List<VotesDTO> VotedPetitions { get; set;}
+     //   public List<PetitionDTO> CreatedPetitions { get; set; }
+ 
+      //  public List<VotesDTO> VotedPetitions { get; set;}
 
     }
 }

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
+
 // summary should be done
 //  create registration methods with email confirmation 
 //  create updates methods: all user information, password, email(with new confirmation)

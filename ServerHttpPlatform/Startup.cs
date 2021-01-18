@@ -17,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
 {
@@ -61,7 +62,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             services.AddAutoMapper((configuration) => configuration.AddProfile<MappingProfile>(),
                 typeof(Startup)); // scan and register automapper profiles in this assembly
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ServerHttpPlatform", Version = "v1" });
@@ -69,6 +70,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            
         }
 
 

@@ -71,6 +71,10 @@ User
 -> get by role          +
 
 
+WORKS:
+GET /api/Application
+
+DOESN`T WORK:
 
 
 
