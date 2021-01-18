@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using AutoMapper;
+using JetBrains.Annotations;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO;
@@ -29,7 +31,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         //todo override edit
         //todo do we need page result?
         #region Get List
-
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public override Task<ListResult<ApplicationDTO>> GetList(PagedSortListQuery query)
         {
             if (string.IsNullOrEmpty(query.SortProp))
@@ -141,20 +143,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Delete
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public override async Task<ActionResult> Delete(int id)
         {
             try
             {
-                if (await ApplicationService.Exist(id))
-                    await ApplicationService.Delete(id);
-                return NoContent();
+                return await base.Delete(id);
             }
             catch (NotSupportedException exception)
             {
-                return Forbid(exception.Message);
+                return NotFound(exception.Message);
             }
           
         }

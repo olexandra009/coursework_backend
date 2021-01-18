@@ -4,7 +4,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
 {
     public class ListResult<T>
     {
-        public List<T> Result;
-        public int Total; 
+        public List<T> Result { get; set; }
+        public int Total { get; set; }
     }
 }

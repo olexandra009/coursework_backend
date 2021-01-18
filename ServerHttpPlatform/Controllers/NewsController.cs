@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class NewsController : CrudControllerBase<NewsDTO,News,NewsEntity, int>
     {
         protected INewsService NewsService => (NewsService) Service;

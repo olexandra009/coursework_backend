@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common
 {
-    public class CrudControllerBase<TDto, TModel, TEntity, TKey>:ControllerBase 
+    public abstract class CrudControllerBase<TDto, TModel, TEntity, TKey>:ControllerBase 
         where TModel: IModel<TKey>
         where TEntity : class
     {
@@ -79,10 +79,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public virtual async Task Delete(TKey id)
+        public virtual async Task<ActionResult> Delete(TKey id)
         {
             if (await Service.Exist(id))
                 await Service.Delete(id);
+            return NoContent();
         }
 
     }

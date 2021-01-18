@@ -30,7 +30,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public override Task Delete(int id)
+        public override Task<ActionResult> Delete(int id)
         {
             return base.Delete(id);
         }

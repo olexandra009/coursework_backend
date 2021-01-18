@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class EventController : CrudControllerBase<EventDTO, Event,EventEntity,int>
     {
         protected IEventService EventService => (EventService) Service;

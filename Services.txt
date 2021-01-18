@@ -14,27 +14,27 @@ Petition
 |delete and edit petition are not allowed| + 
 
 Events
--> get list of all events sorted by id by default 
--> get list of all events sorted by
--> get list of all events of the period   
--> get list of events created by organization by Id
--> get event by id
+-> get list of all events sorted by id by default +
+-> get list of all events sorted by               +
+-> get list of all events of the period           +
+-> get list of events created by organization by Id +
+-> get event by id +
 
 -> edit event (only moderator and author)
 -> delete event (only moderator and author)
 -> create event (only admin that can do it)
 
--> send notification on creating
+-> send notification on creating     +
 -> ? send notification by date
 
 News
--> get list of all news (default sorted by date creation)
--> get list of all news by organization with id
--> get news by id
+-> get list of all news (default sorted by date creation) + 
+-> get list of all news by organization with id    +
+-> get news by id   +
 
--> edit event (only moderator and author)
--> delete event (only moderator and author)
--> create event (only admin that can do it)
+-> edit event (only moderator and author) +
+-> delete event (only moderator and author) +
+-> create event (only admin that can do it) +
 
 Application
 -> get list of all aplication (sorted by date creation by default) +
@@ -63,10 +63,12 @@ User
 -> registration
 -> registration with docs
 -> login
+
 -> changeRole
 -> edit user (exepted the role)
--> get list of users
--> get by role
+
+-> get list of users    + 
+-> get by role          +
 
 
 
