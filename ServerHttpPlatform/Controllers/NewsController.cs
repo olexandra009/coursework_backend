@@ -11,6 +11,10 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Com
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+//summary should be done
+//  add authorization to endpoints
+//  overload edit to allow changing multimedia (delete old and upload new)  
+
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
     [Route("api/[controller]")]
@@ -22,18 +26,31 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
         }
 
+        #region GetList
+        /// <summary>
+        /// Get list of news sorted by date of creation by default
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public override Task<ListResult<NewsDTO>> GetList(PagedSortListQuery query)
         {
             if (string.IsNullOrEmpty(query.SortProp))
                 query.SortProp = "DateTimeCreation";
             return base.GetList(query);
         }
-
+        /// <summary>
+        /// Get list of news created by organization sorted by date of creation by default
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet("/news_by_organization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ListResult<NewsDTO>>> FilteredByOrganization(int organizationId,
             PagedSortListQuery query)
         {
+            if (string.IsNullOrEmpty(query.SortProp))
+                query.SortProp = "DateTimeCreation";
             var modelList = await NewsService.List(new CreatedNewsByOrganizationIdSpecification(organizationId, query));
             var result = new ListResult<NewsDTO>()
             {
@@ -43,5 +60,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             };
             return result;
         }
+        #endregion
     }
 }

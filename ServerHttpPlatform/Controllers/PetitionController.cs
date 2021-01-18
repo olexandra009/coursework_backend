@@ -12,6 +12,8 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Com
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
+//summary should be done:
+//  do we need methods that return petition voted by person?
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
     [Route("api/[controller]")]
@@ -34,7 +36,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
             return base.Delete(id);
         }
-
+        /// <summary>
+        /// Get list of petition sorted by start date by default
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public override Task<ListResult<PetitionDTO>> GetList(PagedSortListQuery query)
         {
             if (string.IsNullOrEmpty(query.SortProp))
@@ -42,7 +48,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return base.GetList(query);
         }
         /// <summary>
-        /// 
+        /// Get filtered by status petition
         /// </summary>
         /// <param name="timeStatus">allow values active, act, close, cls</param>
         /// <param name="votesStatus">allow values succ, successful, unsucc, unsuccessful</param>
@@ -62,7 +68,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             };
             return result;
         }
-
+        /// <summary>
+        /// Get list of petition created by user with id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet("/filter_by_author")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ListResult<PetitionDTO>> FilteredByAuthor(int userId, PagedSortListQuery query)
@@ -76,7 +87,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             };
             return result;
         }
-
+        /// <summary>
+        /// Get list of petition by user vote id
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet("/filter_by_voted_author")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public Task<ListResult<PetitionDTO>> FilteredByVotes(int userId, PagedSortListQuery query)

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
@@ -8,11 +7,15 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
-using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
+//summary should be done:
+//  create notificationEmail sender
+//  add authorization for endpoints 
+//  overload edit to allow changing multimedia (delete old and upload new)  
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
@@ -25,6 +28,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
         }
 
+        #region Get List 
+
+        /// <summary>
+        /// Get list of events sorted by id by default
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public override Task<ListResult<EventDTO>> GetList(PagedSortListQuery query)
         {
             if (string.IsNullOrEmpty(query.SortProp))
@@ -33,7 +43,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Get list of events filtered by status: active, or passed 
         /// </summary>
         /// <param name="filter">allows values active, pass</param>
         /// <param name="query"></param>
@@ -59,7 +69,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Get list of events created by organization
+        /// </summary>
+        /// <param name="organizationId"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet("/filter_by_organization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ListResult<EventDTO>>> FilteredByOrganization(int organizationId, PagedSortListQuery query)
@@ -73,7 +88,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return result;
   
         }
+        #endregion
 
+        #region Create
+       
+        /// <summary>
+        /// Create event 
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         public override Task<ActionResult<EventDTO>> Create(EventDTO dto)
         {
             
@@ -85,7 +108,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         }
 
 
-
+        #endregion
 
     }
 }

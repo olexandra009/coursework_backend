@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO
 {
+    /// <summary>
+    /// <value>Waiting = 1</value>
+    /// <value>In progress = 2</value>
+    /// <value>Close = 3</value>
+    /// </summary>
     public enum StatusDTO
     {
         /// <summary> statusModel value for usage as a null, should not be added to entity in db </summary>

@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using Autofac;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
@@ -63,6 +65,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ServerHttpPlatform", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 

@@ -7,7 +7,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+ 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common
 {
     public class CrudControllerBase<TDto, TModel, TEntity, TKey>:ControllerBase 
@@ -22,7 +22,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             Service = service;
             Mapper = mapper;
         }
-
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]

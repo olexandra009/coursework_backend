@@ -14,6 +14,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
         public int Skip { get; set; } = DefaultSkip;
         public int Take { get; set; } = DefaultTake;
         public string SortProp { get; set;}
+        
         public string SortOrder { get; set;} = DefaultOrder;
 
 

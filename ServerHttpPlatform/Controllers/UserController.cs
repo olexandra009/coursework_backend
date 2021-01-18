@@ -16,6 +16,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
+// summary should be done
+//  create registration methods with email confirmation 
+//  create updates methods: all user information, password, email(with new confirmation)
+//  list of users that voted petition 
+//  authorization for each endpoint 
+
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
     [Route("api/[controller]")]
@@ -28,6 +34,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         }
 
         #region Get token (login)
+        /// <summary>
+        /// Get authentication token
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         [HttpPost("/login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -81,6 +93,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Registration
+        /// <summary>
+        /// New user registration (create new user)
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost("/registration")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
@@ -94,7 +111,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Get List
-
+        /// <summary>
+        /// Get list of users by their roles
+        /// </summary>
+        /// <param name="role"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet("/filtered_by_role")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ListResult<UserDTO>>> GetByRole(string role, PagedSortListQuery query)
@@ -112,6 +134,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 
 
         #region Update
+        /// <summary>
+        /// Change users role
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="role">allows values: user, superuser, handAppAdmin, moderator, admin, userManagerAdmin</param>
+        /// <returns></returns>
         [HttpPut("/change_role")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]

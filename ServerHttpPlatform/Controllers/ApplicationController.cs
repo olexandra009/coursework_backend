@@ -12,7 +12,10 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Com
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-
+//summary should be done:
+// methods for change and upload multimedia (maybe client should ask server in request to multimedia)
+// methods and endpoint for changing answerer
+// add authorization to endpoints 
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
@@ -25,9 +28,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
 
         }
-
-       
+ 
         #region Get List
+        /// <summary>
+        /// Get a list of items 
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         public override Task<ListResult<ApplicationDTO>> GetList(PagedSortListQuery query)
         {
@@ -36,6 +43,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return base.GetList(query);
         }
 
+        /// <summary>
+        /// Get list of application filtered by status
+        /// </summary>
+        /// <param name="status">
+        /// <value>0 - used as null, </value>
+        /// <value>1 - Waiting, </value>
+        /// <value>2 - In progress, </value>
+        /// <value>3 - Close</value>
+        /// </param>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet("/getListFilteredByStatus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -53,6 +71,18 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return result;
         }
 
+        /// <summary>
+        /// Get list of application created by user with authorId and filtered by status (optional)
+        /// </summary>
+        /// <param name="authorId"></param>
+        /// <param name="query"></param>
+        /// <param name="status">
+        /// <value>0 - used as null, </value>
+        /// <value>1 - Waiting, </value>
+        /// <value>2 - In progress, </value>
+        /// <value>3 - Close</value>
+        /// </param>
+        /// <returns></returns>
         [HttpGet("/getListFilteredByAuthor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -69,11 +99,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return result;
         }
 
-
+        /// <summary>
+        /// Get list of application created by user with answererId and filtered by status (optional)
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="status">In process by default</param>
+        /// <param name="answererId"></param>
+        /// <returns></returns>
         [HttpGet("/getListFilteredByAnswerer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByAnswerer([FromQuery] PagedSortListQuery query, Status status, int? answererId = null)
+        public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByAnswerer([FromQuery] PagedSortListQuery query, Status status = Status.InProcess, int? answererId = null)
         {
             var statusModel = Mapper.Map<StatusModel>(status);
             var statusEntity = Mapper.Map<Status>(statusModel);
@@ -88,14 +124,20 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Update
-        //TODO Change multimedia 
+        //TODO Change and upload multimedia 
+        //TODO Change answerer
 
         [ApiExplorerSettings(IgnoreApi = true)]
         public override Task<ActionResult<ApplicationDTO>> Update(int id, ApplicationDTO dto) 
         {
             return base.Update(id, dto);
         }
-
+        /// <summary>
+        /// Add result to application
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
         [HttpPut("/addResult/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -108,12 +150,23 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             var appDto = Mapper.Map<ApplicationDTO>(app);
             return appDto;
         }
-
+        /// <summary>
+        /// Change application status 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="statusDto">
+        /// <value>0 - not allowed in this context, </value>
+        /// <value>1 - Waiting, </value>
+        /// <value>2 - In progress, </value>
+        /// <value>3 - Close</value>
+        /// </param>
+        /// <returns></returns>
         [HttpPut("/changeStatus/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ApplicationDTO>> ChangeStatus(int id, StatusDTO statusDto)
         {
+            if (statusDto == StatusDTO.NullStatus) return NotFound("Not allowed such status");
             var exist = await ApplicationService.Get(id);
             if (exist == null)
                 return NotFound();
@@ -123,7 +176,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return appDto;
         }
 
-
+        /// <summary>
+        /// To change text or subject 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="application"></param>
+        /// <returns></returns>
         [HttpPut("/changeTextOrSubject/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -140,7 +198,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Delete
-
+        /// <summary>
+        /// Delete application 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public override async Task<ActionResult> Delete(int id)
         {
@@ -154,7 +216,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             }
           
         }
-
         #endregion
     }
 }
