@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading.Tasks;
+using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
@@ -18,10 +20,20 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         }
 
 
-        protected string UploadMultimedia(string file)
+        public async Task<Multimedia> UploadMultimedia(Multimedia multimedia, bool image=true)
         {
+            var file = multimedia.Url;
+            multimedia.Url = String.Empty;
+
+            var multimediaCreated = await base.Create(multimedia);
+            
+            var fileName = $"image-{multimedia.Id}.png";
+            if (!image)
+                fileName = $"video-{multimedia.Id}.mp4";
+            var bytes = Convert.FromBase64String(file);
             //todo write method that will be upload file and return url
-            return "url of object";
+            multimediaCreated.Url = fileName;
+            return await base.Update(multimediaCreated);
         }
     }
 }
