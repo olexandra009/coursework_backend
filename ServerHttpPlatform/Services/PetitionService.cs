@@ -16,9 +16,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     }
     public class PetitionService : ServiceCrudModel<Petition, int, PetitionEntity>, IPetitionService
     {
-        public PetitionService(IMapper mapper, IPetitionRepository repository) : base(mapper, repository)
+        protected IUserService UserService;
+        public PetitionService(IMapper mapper, IUserService userService, IPetitionRepository repository) : base(mapper, repository)
         {
+            UserService = userService;
         }
 
+        public override async Task<Petition> Get(int id)
+        {
+            var petition = await base.Get(id);
+            petition.Author = await UserService.Get(petition.AuthorId);
+            return petition;
+        }
     }
 }

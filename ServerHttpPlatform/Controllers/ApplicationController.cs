@@ -109,7 +109,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpGet("/getListFilteredByAnswerer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByAnswerer([FromQuery] PagedSortListQuery query, Status status = Status.InProcess, int? answererId = null)
+        public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByAnswerer([FromQuery] PagedSortListQuery query, StatusDTO status = StatusDTO.InProcess, int? answererId = null)
         {
             var statusModel = Mapper.Map<StatusModel>(status);
             var statusEntity = Mapper.Map<Status>(statusModel);

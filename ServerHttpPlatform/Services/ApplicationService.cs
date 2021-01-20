@@ -5,6 +5,7 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
@@ -16,14 +17,34 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<Application> ChangeTextOrSubject(int applicationId, Application applicationModel);
     }
    
+    //TODO : upload multimedia
+
     public class ApplicationService : ServiceCrudModel<Application, int, ApplicationEntity>, IApplicationService
     {
+        protected IUserService UserService;
+        protected IMultimediaService MultimediaService;
         //todo change to use variable in settings 
         private static readonly TimeSpan DateToDelete = new TimeSpan(365,1, 0, 0);
-        public ApplicationService(IMapper mapper, IApplicationRepository repository) : base(mapper, repository)
+        public ApplicationService(IMapper mapper, IUserService userService,
+                                  IApplicationRepository repository, IMultimediaService multimedia) : base(mapper, repository)
         {
+            UserService = userService;
+            MultimediaService = multimedia;
         }
 
+        #region Get
+
+        public override async Task<Application> Get(int id)
+        {
+            var model =  await base.Get(id);
+            model.Author = await UserService.Get(model.AuthorId);
+            if (model.AnswerId != null)
+                model.Answerer = await UserService.Get((int)model.AnswerId);
+            model.Multimedias = await MultimediaService.List(new MultimediaByApplicationIdSpecification(model.Id));
+            return model;
+        }
+
+        #endregion
         #region Delete
         public override Task Delete(int id)
         {

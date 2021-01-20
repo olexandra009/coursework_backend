@@ -1,9 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Ardalis.Specification;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
+
+//todo upload and change multimedia
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
@@ -11,11 +16,36 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
 
     }
+
     public class NewsService : ServiceCrudModel<News, int, NewsEntity>, INewsService
     {
-        public NewsService(IMapper mapper, INewsRepository repository) : base(mapper, repository)
+        protected IMultimediaService MultimediaService;
+        protected IUserService UserService;
+        public NewsService(IMapper mapper, IUserService userService, IMultimediaService multimediaService, INewsRepository repository) : base(mapper, repository)
         {
-            
+            UserService = userService;
+            MultimediaService = multimediaService;
+        }
+
+        public override async Task<News> Get(int id)
+        {
+            var news = await base.Get(id);
+            news.Multimedias = await MultimediaService.List(new MultimediaByNewsIdSpecification(news.Id));
+            news.Author = await UserService.Get(news.AuthorId);
+            return news;
+
+        }
+
+        public override async Task<List<News>> List(ISpecification<NewsEntity> specification)
+        {
+            var models = await  base.List(specification);
+            foreach (var newsModel in models)
+            {
+                newsModel.Multimedias = await MultimediaService.List(new MultimediaByNewsIdSpecification(newsModel.Id));
+                newsModel.Author = await UserService.Get(newsModel.AuthorId);
+            }
+
+            return models;
         }
 
         public override Task<News> Update(News model)

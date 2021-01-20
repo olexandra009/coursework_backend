@@ -18,7 +18,5 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models
         public User Author { get; set; }
         public int AuthorId { get; set; }
         public List<Multimedia> Multimedias { get; set; }
-
-
     }
 }
