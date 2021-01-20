@@ -15,18 +15,21 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     //todo implement methods 
     public interface IUserService : IServiceCrudModel<User,int,UserEntity>
     {
-        Task Registration();
+        Task<User> Registration(User user);
         Task<User> Login(string login, string password);
         Task<User> UpdateRole(int id, string role);
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
 
+        protected ISendEmailService SendEmailService;
         protected IOrganizationService OrganizationService;
     
-        public UserService(IMapper mapper, IOrganizationService organizationService, IUserRepository repository) : base(mapper, repository)
+        public UserService(IMapper mapper, IOrganizationService organizationService, 
+                           ISendEmailService emailService, IUserRepository repository) : base(mapper, repository)
         {
             OrganizationService = organizationService;
+            SendEmailService = emailService;
         }
 
         ////override to add organization
@@ -45,9 +48,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
        
 
-        public async Task Registration()
+        public async Task<User> Registration(User user)
         {
-            throw new System.NotImplementedException();
+            user.EmailConfirm = false;
+            user.Role = "User";
+            await SendEmailService.SendConfirmLetter(user.Email);
+            var created = await Create(user);
+            return created;
         }
 
 

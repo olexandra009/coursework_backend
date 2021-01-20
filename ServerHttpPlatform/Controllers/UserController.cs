@@ -38,18 +38,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <summary>
         /// Get authentication token
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
+        /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost("/login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public IActionResult Token(string username, [FromBody] string password)
+        public IActionResult Token([FromBody]LoginUserDtO user)
         {
-            var identity = GetIdentity(username, password);
+            var identity = GetIdentity(user.Login, user.Password);
             if (identity == null)
             {
-                return BadRequest(new {errorText = "Invalid username or password."});
+                return NotFound(new {errorText = "Invalid username or password."});
             }
 
             var now = DateTime.UtcNow;
@@ -102,14 +101,22 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPost("/registration")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
-        //todo create endpoint for registration
-        public Task<ActionResult<UserDTO>> Registration(UserDTO dto)
+        public async Task<ActionResult<UserDTO>> Registration(UserDTO dto)
         {
-            //todo create method for registration (or override create) 
-            //todo maybe should be add try catch and async
-            throw new NotImplementedException();
+            var model = Mapper.Map<User>(dto);
+            try
+            {
+                model = await UserService.Registration(model);
+            }
+            catch (ArgumentException e)
+            {
+                return Conflict(e);
+            }
+            return Mapper.Map<UserDTO>(model);
         }
         #endregion
+
+
 
         #region Get List
         /// <summary>

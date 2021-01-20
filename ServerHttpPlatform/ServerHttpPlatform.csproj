@@ -28,8 +28,4 @@
     <ProjectReference Include="..\OuterReadOnlyDatabase\OuterReadOnlyDatabase.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTO\" />
-  </ItemGroup>
-
 </Project>
