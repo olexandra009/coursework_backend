@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Ardalis.Specification;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
-using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
@@ -58,15 +52,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             user.EmailConfirm = false;
             user.Role = "User";
-            //await SendEmailService.SendConfirmLetter(user.Email);
             var created = await Create(user);
-            var code = GetCodeForEmailConfirmation(created.Login, created.Id);
-            var current = await EmailService.Create(new EmailConfirmation()
-            {
-                Code = code, Id = created.Id
-
-            });
-
+            var emailConfirm = await EmailService.CreateNewInstance(created.Id, created.Login);
+            //todo send email
             return created;
         }
 
@@ -90,24 +78,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return result;
         }
 
-        private string GetCodeForEmailConfirmation(string login, int id)
-        {
-            var dateString = DateTime.Now.ToString(CultureInfo.InvariantCulture);
-            var guid = new Guid();
-            var stringToCode = $"{id}-{login}-{dateString}-{guid}";
-            byte[] salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-            }
-            var code = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: stringToCode, 
-                salt: salt, 
-                prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8));
-            
-            return code;
-        }
+      
     }
 }

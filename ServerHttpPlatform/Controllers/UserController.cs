@@ -45,12 +45,21 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public IActionResult Token([FromBody]LoginUserDtO user)
         {
-            var identity = GetIdentity(user.Login, user.Password);
+            ClaimsIdentity identity;
+            try
+            {
+                identity = GetIdentity(user.Login, user.Password);
+            }
+            catch(AccessViolationException e)
+            {
+                return NotFound(new { errorText = e.Message });
+            }
+
             if (identity == null)
             {
                 return NotFound(new {errorText = "Invalid username or password."});
             }
-
+          
             var now = DateTime.UtcNow;
 
             var jwt = new JwtSecurityToken(
@@ -75,6 +84,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
 
             var person = UserService.Login(login, password).Result;
+            if (!person.EmailConfirm) throw new AccessViolationException("Email is not confirm!");
             if (person != null)
             {
                 var claims = new List<Claim>
