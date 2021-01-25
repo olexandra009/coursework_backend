@@ -4,6 +4,7 @@ using System.Reflection;
 using Autofac;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.OuterReadOnlyDatabase.PersonalInfoDataBase;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules;
@@ -11,6 +12,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,6 +56,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             services.AddDbContext<PlatformDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
                     new MySqlServerVersion(new Version(8, 0, 11))));
+
+            //services.AddIdentity<UserEntity, IdentityRole>().AddEntityFrameworkStores<PlatformDbContext>().AddDefaultTokenProviders();
+
+            //services.Configure<IdentityOptions>(opts =>
+            //{
+            //    opts.User.RequireUniqueEmail = true;
+            //    opts.Password.RequiredLength = 8;
+
+            //    opts.SignIn.RequireConfirmedEmail = true;
+            //});
+
 
             services.AddDbContext<PersonalUsersInfoContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("ReadOnlyConnection"),

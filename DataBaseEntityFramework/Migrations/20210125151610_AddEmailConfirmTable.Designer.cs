@@ -3,14 +3,16 @@ using System;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    partial class PlatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210125151610_AddEmailConfirmTable")]
+    partial class AddEmailConfirmTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,28 +64,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Application");
-                });
-
-            modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EmailConfirmEntity", b =>
-                {
-                    b.Property<int>("UserKey")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("UserId");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4")
-                        .HasColumnName("Code");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserId1");
-
-                    b.HasKey("UserKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("EmailConfirm");
                 });
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EventEntity", b =>
@@ -344,15 +324,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.Navigation("Answerer");
 
                     b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EmailConfirmEntity", b =>
-                {
-                    b.HasOne("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EventEntity", b =>
