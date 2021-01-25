@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Ardalis.Specification;
 using AutoMapper;
@@ -9,6 +12,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
@@ -22,14 +26,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
 
-        protected ISendEmailService SendEmailService;
+       // protected ISendEmailService SendEmailService;
         protected IOrganizationService OrganizationService;
+        protected IEmailConfirmationService EmailService;
     
         public UserService(IMapper mapper, IOrganizationService organizationService, 
-                           ISendEmailService emailService, IUserRepository repository) : base(mapper, repository)
+                         /*  ISendEmailService emailService,*/ IUserRepository repository, IEmailConfirmationService emailDbService) : base(mapper, repository)
         {
             OrganizationService = organizationService;
-            SendEmailService = emailService;
+           // SendEmailService = emailService;
+            EmailService = emailDbService;
         }
 
         ////override to add organization
@@ -52,11 +58,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             user.EmailConfirm = false;
             user.Role = "User";
-            await SendEmailService.SendConfirmLetter(user.Email);
+            //await SendEmailService.SendConfirmLetter(user.Email);
             var created = await Create(user);
+            var code = GetCodeForEmailConfirmation(created.Login, created.Id);
+            var current = await EmailService.Create(new EmailConfirmation()
+            {
+                Code = code, Id = created.Id
+
+            });
+
             return created;
         }
-
 
         public async Task<User> Login(string login, string password)
         {
@@ -76,6 +88,26 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             User result = Mapper.Map<User>(userEntity);
             result = await Task.FromResult(result).ConfigureAwait(false);
             return result;
+        }
+
+        private string GetCodeForEmailConfirmation(string login, int id)
+        {
+            var dateString = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+            var guid = new Guid();
+            var stringToCode = $"{id}-{login}-{dateString}-{guid}";
+            byte[] salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+            var code = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: stringToCode, 
+                salt: salt, 
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+            
+            return code;
         }
     }
 }

@@ -23,6 +23,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules
                 .As<IUserService>().InstancePerLifetimeScope();
             builder.RegisterType<VoteService>()
                 .As<IVoteService>().InstancePerLifetimeScope();
+            builder.RegisterType<EmailConfirmationService>()
+                .As<IEmailConfirmationService>().InstancePerLifetimeScope();
         }
     }
 }

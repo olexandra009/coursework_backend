@@ -30,6 +30,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules
 
             builder.RegisterType<VotesRepository>()
                 .As<IVotesRepository>().InstancePerLifetimeScope();
+        
+            builder.RegisterType<EmailConfirmationRepository>()
+                .As<IEmailConfirmationRepository>().InstancePerLifetimeScope();
 
         }
     }

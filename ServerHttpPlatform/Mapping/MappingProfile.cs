@@ -56,6 +56,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping
             CreateMap<Votes, VotesEntity>();
             CreateMap<VotesEntity, Votes>();
 
+            CreateMap<EmailConfirmEntity, EmailConfirmation>();
+            CreateMap<EmailConfirmation, EmailConfirmEntity>();
+
         }
     }
 }
