@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Drawing;
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.IdentityModel.Tokens;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
@@ -60,13 +64,22 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             {
                 rng.GetBytes(salt);
             }
+
+            var jwt = new JwtSecurityToken(
+                issuer: AuthOptions.ISSUER,
+                audience: AuthOptions.AUDIENCE,
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
+                    SecurityAlgorithms.HmacSha256));
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
             var code = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: stringToCode,
                 salt: salt,
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
-
+            Console.WriteLine(code);
+            code = HttpUtility.UrlEncode(code);
+            Console.WriteLine(code);
             return code;
         }
     }

@@ -38,7 +38,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             string text = $"<p>Hi, {name}</p> <p>You have received this email because your email " +
                            "address was used for registration in Platform Utc.</p>" +
                            "</p> Please follow this link to confirm your decision: " +
-                          $"</p> <p> <a href=\"{url}\"> Confirm email </a></p>" +
+                          $"</p> <a href={url}>Confirm email</a>" +
                            "<p> Yours truly,<br/>Platform Utc Administration";
            return SendLetters(new[] {email}, subject, text);
 

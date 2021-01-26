@@ -57,8 +57,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             var created = await Create(user);
             Console.BackgroundColor = System.ConsoleColor.DarkRed;
             Console.WriteLine($"Here we are: {created.Id}, {created.Login}");
-            var emailConfirm = await EmailService.CreateNewInstance(created.Login, created.Id);
-            var url = "localhost/" + emailConfirm.Code;
+            int userId = created.Id;
+            string login = created.Login;
+            var emailConfirm = await EmailService.CreateNewInstance(login, userId);
+            var url = "https://"+ $"localhost:44336/confirm_email/{emailConfirm.Code}";
             await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
             return created;
         }

@@ -23,10 +23,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
 
             //one to one 
 
-            //builder.HasOne(e => e.EmailConfirmEntity)
-            //    .WithOne(u => u.User)
-            //    .HasForeignKey<EmailConfirmEntity>(e => e.UserKey)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(e => e.EmailConfirmEntity)
+                .WithOne(u => u.User)
+                .HasForeignKey<EmailConfirmEntity>(e => e.UserKey)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
             //one to many

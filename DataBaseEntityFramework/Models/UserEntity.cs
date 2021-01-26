@@ -140,41 +140,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             set => _votedPetitions = value;
         }
 
-        //  public EmailConfirmEntity EmailConfirmEntity { get; set;}
+         public EmailConfirmEntity EmailConfirmEntity { get; set;}
         #endregion
-/*
-        #region Constructors
-
-        public User(int guid, string firstName, string secondName, string lastName, 
-                    string phoneNumber, string email, string login, string password, 
-                    Organization userOrganization, int? userOrganizationId) :this()
-        {
-            Id = guid;
-            FirstName = firstName;
-            SecondName = secondName;
-            LastName = lastName;
-            PhoneNumber = phoneNumber;
-            Email = email;
-            Login = login;
-            Password = password;
-            UserOrganization = userOrganization;
-            UserOrganizationId = userOrganizationId;
-           // UserRights = userRights;
-            //CreatedNews = createdNews;
-            //CreatedEvents = createdEvents;
-            //CreatedApplications = createdApplications;
-            //AnswerApplications = answerApplications;
-            //CreatedPetitions = createdPetitions;
-            //VotedPetitions = votedPetitions;
-        }
-
-        public User()
-        {
-            
-        }
-
-        #endregion
-*/
 
     }
 }
