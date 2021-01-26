@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Drawing;
 using System.Globalization;
-using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
-using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.IdentityModel.Tokens;
+
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
@@ -31,16 +30,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         public Task<EmailConfirmation> CreateNewInstance(string login, int id)
         {
             var code = GetCodeForEmailConfirmation(login, id);
-            var ec = new EmailConfirmation()
-            {
-                Code = code,
-                UserId = id
-            };
-            Console.BackgroundColor = System.ConsoleColor.DarkCyan;
-            Console.WriteLine($"Here we are: {id}, {code}");
-            Console.WriteLine($"Here we are: {ec.Id}, {ec.UserId}");
-            var entity = Mapper.Map<EmailConfirmEntity>(ec);
-            Console.WriteLine($"Here we are: {entity.Id}, {entity.UserKey}");
             return base.Create(new EmailConfirmation()
             {
                 Code = code, UserId = id
@@ -48,10 +37,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         }
 
-        public async Task<bool> CheckCode(int id, string code)
+        public async Task<bool> CheckCode(int userId, string code)
         {
-            var emailModel = await Get(id);
+            Console.WriteLine("Check code: "+code);
+            var emailModel = (await List(new CodeUserConfirmEmailSpecification(userId))).FirstOrDefault();
+            if (emailModel != null)
+            {
+                Console.WriteLine("With: " + emailModel.Code);
+            }
             return emailModel != null && emailModel.Code.ToLower().Equals(code.ToLower());
+        
         }
 
         private string GetCodeForEmailConfirmation(string login, int id)
@@ -65,21 +60,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
                 rng.GetBytes(salt);
             }
 
-            var jwt = new JwtSecurityToken(
-                issuer: AuthOptions.ISSUER,
-                audience: AuthOptions.AUDIENCE,
-                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
-                    SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
             var code = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: stringToCode,
                 salt: salt,
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
-            Console.WriteLine(code);
-            code = HttpUtility.UrlEncode(code);
-            Console.WriteLine(code);
+           
             return code;
         }
     }

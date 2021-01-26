@@ -124,6 +124,19 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             }
             return Mapper.Map<UserDTO>(model);
         }
+
+        //todo should we send page here?
+        [HttpGet("/confirm_email")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Confirmation([FromQuery]int id, [FromQuery]string code)
+        {
+            var user = await UserService.ConfirmEmail(id, code);
+            if (user == null) return NotFound(); 
+            return Ok();
+        }
+
+
         #endregion
 
 

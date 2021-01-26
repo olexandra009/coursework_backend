@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Security.Policy;
 using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
@@ -18,6 +19,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<User> Registration(User user);
         Task<User> Login(string login, string password);
         Task<User> UpdateRole(int id, string role);
+        Task<User> ConfirmEmail(int userId, string code);
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
@@ -55,12 +57,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             user.EmailConfirm = false;
             user.Role = "User";
             var created = await Create(user);
-            Console.BackgroundColor = System.ConsoleColor.DarkRed;
-            Console.WriteLine($"Here we are: {created.Id}, {created.Login}");
             int userId = created.Id;
             string login = created.Login;
             var emailConfirm = await EmailService.CreateNewInstance(login, userId);
-            var url = "https://"+ $"localhost:44336/confirm_email/{emailConfirm.Code}";
+            var code = HttpUtility.UrlEncode(emailConfirm.Code);
+            var url = "https://"+ $"localhost:44336/confirm_email?id={userId}&code={code}";
             await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
             return created;
         }
@@ -71,6 +72,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             var result = Mapper.Map<User>(user);
             return result;
 
+        }
+
+        public async Task<User> ConfirmEmail(int userId, string code)
+        {
+            bool confirm = await EmailService.CheckCode(userId, code);
+            if (!confirm) return null;
+            var user = await Get(userId);
+            user.EmailConfirm = true;
+            var updated = await Update(user);
+            return updated;
         }
 
         public async Task<User> UpdateRole(int id, string role)
