@@ -8,7 +8,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
    public class EmailConfirmEntity
     {
-        public UserEntity User { get; set; }
+        public int Id { get; set; }
+      //  public UserEntity User { get; set; }
         public int UserKey { get; set; }
         public string Code { get; set; }
     }

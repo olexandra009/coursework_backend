@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
     public interface IEmailConfirmationService : IServiceCrudModel<EmailConfirmation, int, EmailConfirmEntity >
     {
-        public Task<EmailConfirmation> CreateNewInstance(int id, string login);
+        public Task<EmailConfirmation> CreateNewInstance(string login, int id);
         public Task<bool> CheckCode(int id, string code);
     }
     public class EmailConfirmationService : ServiceCrudModel<EmailConfirmation, int, EmailConfirmEntity>, IEmailConfirmationService
@@ -23,10 +24,24 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
         }
 
-        public Task<EmailConfirmation> CreateNewInstance(int id, string login)
+        public Task<EmailConfirmation> CreateNewInstance(string login, int id)
         {
             var code = GetCodeForEmailConfirmation(login, id);
-            return base.Create(new EmailConfirmation() {Code = code, Id = id});
+            var ec = new EmailConfirmation()
+            {
+                Code = code,
+                UserId = id
+            };
+            Console.BackgroundColor = System.ConsoleColor.DarkCyan;
+            Console.WriteLine($"Here we are: {id}, {code}");
+            Console.WriteLine($"Here we are: {ec.Id}, {ec.UserId}");
+            var entity = Mapper.Map<EmailConfirmEntity>(ec);
+            Console.WriteLine($"Here we are: {entity.Id}, {entity.UserKey}");
+            return base.Create(new EmailConfirmation()
+            {
+                Code = code, UserId = id
+            });
+
         }
 
         public async Task<bool> CheckCode(int id, string code)

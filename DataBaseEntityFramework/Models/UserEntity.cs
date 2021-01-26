@@ -140,6 +140,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             set => _votedPetitions = value;
         }
 
+        //  public EmailConfirmEntity EmailConfirmEntity { get; set;}
         #endregion
 /*
         #region Constructors

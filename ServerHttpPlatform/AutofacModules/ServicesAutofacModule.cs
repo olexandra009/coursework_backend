@@ -25,6 +25,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules
                 .As<IVoteService>().InstancePerLifetimeScope();
             builder.RegisterType<EmailConfirmationService>()
                 .As<IEmailConfirmationService>().InstancePerLifetimeScope();
+            builder.RegisterType<SendEmailService>()
+                .As<ISendEmailService>().InstancePerLifetimeScope();
         }
     }
 }

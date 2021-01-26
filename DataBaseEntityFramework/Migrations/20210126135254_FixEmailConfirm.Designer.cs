@@ -3,14 +3,16 @@ using System;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    partial class PlatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210126135254_FixEmailConfirm")]
+    partial class FixEmailConfirm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,29 +64,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Application");
-                });
-
-            modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EmailConfirmEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4")
-                        .HasColumnName("Code");
-
-                    b.Property<int>("UserKey")
-                        .HasColumnType("int")
-                        .HasColumnName("UserId");
-
-                    b.HasKey("Id")
-                        .HasName("Id");
-
-                    b.HasAlternateKey("UserKey");
-
-                    b.ToTable("EmailConfirm");
                 });
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EventEntity", b =>

@@ -14,10 +14,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
         public void Configure(EntityTypeBuilder<EmailConfirmEntity> builder)
         {
             builder.ToTable("EmailConfirm");
-            builder.HasKey(e => e.UserKey);
-            builder.HasOne(e => e.User);
-            builder.Property(e => e.UserKey).HasColumnName("UserId");
-            builder.Property(e => e.Code).HasColumnName("Code");
+            builder.HasKey(e => e.Id).HasName("Id");
+            builder.Property(e => e.UserKey).HasColumnName("UserId").IsRequired();
+            builder.HasAlternateKey(e => e.UserKey);
+            builder.Property(e => e.Code).HasColumnName("Code").IsRequired();
 
         }
     }

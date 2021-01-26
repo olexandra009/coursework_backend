@@ -3,14 +3,16 @@ using System;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    partial class PlatformDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210126135405_FixEmailConfirm1")]
+    partial class FixEmailConfirm1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -347,6 +349,17 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EmailConfirmEntity", b =>
+                {
+                    b.HasOne("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.UserEntity", "User")
+                        .WithOne("EmailConfirmEntity")
+                        .HasForeignKey("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EmailConfirmEntity", "UserKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EventEntity", b =>
                 {
                     b.HasOne("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.UserEntity", "Author")
@@ -469,6 +482,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.Navigation("CreatedNews");
 
                     b.Navigation("CreatedPetitions");
+
+                    b.Navigation("EmailConfirmEntity");
 
                     b.Navigation("VotedPetitions");
                 });

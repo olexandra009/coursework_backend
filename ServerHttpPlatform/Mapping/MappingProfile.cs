@@ -56,8 +56,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping
             CreateMap<Votes, VotesEntity>();
             CreateMap<VotesEntity, Votes>();
 
-            CreateMap<EmailConfirmEntity, EmailConfirmation>();
-            CreateMap<EmailConfirmation, EmailConfirmEntity>();
+            CreateMap<EmailConfirmEntity, EmailConfirmation>().ForMember(model=>model.UserId, configExpression=>configExpression.MapFrom(entity=>entity.UserKey));
+            CreateMap<EmailConfirmation, EmailConfirmEntity>().ForMember(entity=>entity.UserKey, confExp=>confExp.MapFrom(model=>model.UserId));
 
         }
     }

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
@@ -20,15 +22,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
 
-       // protected ISendEmailService SendEmailService;
+        protected ISendEmailService SendEmailService;
         protected IOrganizationService OrganizationService;
         protected IEmailConfirmationService EmailService;
     
         public UserService(IMapper mapper, IOrganizationService organizationService, 
-                         /*  ISendEmailService emailService,*/ IUserRepository repository, IEmailConfirmationService emailDbService) : base(mapper, repository)
+                          ISendEmailService emailService, IUserRepository repository, IEmailConfirmationService emailDbService) : base(mapper, repository)
         {
             OrganizationService = organizationService;
-           // SendEmailService = emailService;
+            SendEmailService = emailService;
             EmailService = emailDbService;
         }
 
@@ -53,8 +55,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             user.EmailConfirm = false;
             user.Role = "User";
             var created = await Create(user);
-            var emailConfirm = await EmailService.CreateNewInstance(created.Id, created.Login);
-            //todo send email
+            Console.BackgroundColor = System.ConsoleColor.DarkRed;
+            Console.WriteLine($"Here we are: {created.Id}, {created.Login}");
+            var emailConfirm = await EmailService.CreateNewInstance(created.Login, created.Id);
+            var url = "localhost/" + emailConfirm.Code;
+            await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
             return created;
         }
 

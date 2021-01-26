@@ -25,7 +25,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework
        public virtual DbSet<ApplicationEntity> Applications { get; set; }
        public virtual DbSet<VotesEntity> Votes { get; set; }
        public virtual DbSet<MultimediaEntity> Multimedia { get; set; }
-       public virtual DbSet<EmailConfirmEntity> EmailConfirm { get; set; }
+      public virtual DbSet<EmailConfirmEntity> EmailConfirm { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
        {

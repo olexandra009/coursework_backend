@@ -19,9 +19,16 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.Property(u => u.Email).IsRequired(false);
             builder.Property(u => u.Login).IsRequired();
             builder.Property(u => u.Password).IsRequired();
-            builder.Property(u => u.UserOrganizationId).IsRequired(false); 
+            builder.Property(u => u.UserOrganizationId).IsRequired(false);
 
-           
+            //one to one 
+
+            //builder.HasOne(e => e.EmailConfirmEntity)
+            //    .WithOne(u => u.User)
+            //    .HasForeignKey<EmailConfirmEntity>(e => e.UserKey)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+
             //one to many
             builder.HasMany(u => u.AnswerApplications)
                 .WithOne(an => an.Answerer)
