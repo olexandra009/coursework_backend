@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Security;
 using System.Threading.Tasks;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using Microsoft.Extensions.Configuration;
-using MimeKit;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
     public interface ISendEmailService
     {
+
+        Task SendEventNotificationLetter(string[] email, Event @event, string fromName);
+
         /// <summary>
         /// 
         /// </summary>
@@ -41,6 +41,19 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
                           $"</p> <a href={url}>Confirm email</a>" +
                            "<p> Yours truly,<br/>Platform Utc Administration";
            return SendLetters(new[] {email}, subject, text);
+
+        }
+
+        public Task SendEventNotificationLetter(string[] email, Event @event, string fromName = "")
+        {
+            string subject = $"Notification about {@event.Name}";
+            string text = $"<p>Hi, </p> <p>We invite you to attend {@event.Name}.</p>" +
+                          $"<p><b>When: {@event.StartDate.ToLocalTime()} - {@event.EndDate.ToLocalTime()}</b></p>" +
+                          $"<p>{@event.Description}</p>" +
+                          "<p>Yours truly, <br/>";
+            if (!string.IsNullOrEmpty(fromName))
+                text += fromName + "</p>";
+            return SendLetters(email, subject, text, fromName);
 
         }
 

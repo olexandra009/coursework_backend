@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Ardalis.Specification;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
@@ -25,6 +27,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         protected IOrganizationService OrganizationService;
         protected IEmailConfirmationService EmailService;
     
+
         public UserService(IMapper mapper, IOrganizationService organizationService, 
                           ISendEmailService emailService, IUserRepository repository, IEmailConfirmationService emailDbService) : base(mapper, repository)
         {
@@ -32,7 +35,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             SendEmailService = emailService;
             EmailService = emailDbService;
         }
-        
+
+
         public async Task<User> Registration(User user)
         {
             user.EmailConfirm = false;

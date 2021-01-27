@@ -24,8 +24,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
     public class EventController : CrudControllerBase<EventDTO, Event,EventEntity,int>
     {
         protected IEventService EventService => (EventService) Service;
+
+      
         public EventController(IEventService service, IMapper mapper) : base(service, mapper)
         {
+            
         }
 
         #region Get List 
@@ -97,14 +100,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public override Task<ActionResult<EventDTO>> Create(EventDTO dto)
+        public override async Task<ActionResult<EventDTO>> Create(EventDTO dto)
         {
-            
-            if (dto.EmailNotification)
-            {
-                //TODO create notificationEmail sender
-            }
-            return base.Create(dto);
+            return await base.Create(dto);
         }
 
 
