@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Security.Policy;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
@@ -13,7 +11,6 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
-    //todo implement methods 
     public interface IUserService : IServiceCrudModel<User,int,UserEntity>
     {
         Task<User> Registration(User user);
@@ -35,23 +32,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             SendEmailService = emailService;
             EmailService = emailDbService;
         }
-
-        ////override to add organization
-        //public override async Task<List<User>> List(ISpecification<UserEntity> specification)
-        //{
-        //    List<UserEntity> entities = await Repository.ListAsync(specification);
-        //    List<User> models = Mapper.Map<List<User>>(entities);
-        //    foreach (var user in models)
-        //    {
-        //        if(user.UserOrganizationId==null) continue;
-        //        user.UserOrganization = await OrganizationService.Get((int)user.UserOrganizationId);
-
-        //    }
-        //    return models;
-        //}
-
-       
-
+        
         public async Task<User> Registration(User user)
         {
             user.EmailConfirm = false;
@@ -68,7 +49,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         public async Task<User> Login(string login, string password)
         {
-            var user = Repository.ListAsync(new UserByLoginSpecification(login, password)).Result.FirstOrDefault();
+            var user = (await Repository.ListAsync(new UserByLoginSpecification(login, password))).FirstOrDefault();
             var result = Mapper.Map<User>(user);
             return result;
 

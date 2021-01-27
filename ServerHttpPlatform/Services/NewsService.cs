@@ -8,8 +8,6 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 
-//todo upload and change multimedia
-
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
     public interface INewsService:IServiceCrudModel<News, int, NewsEntity>

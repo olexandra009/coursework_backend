@@ -43,7 +43,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             return result;
         }
 
-        // todo write notFound
+        // TODO write notFound
         /// <summary>
         /// Get item by id 
         /// </summary>

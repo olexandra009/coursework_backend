@@ -13,7 +13,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
         /// </summary>
         /// <param name="organizationId"></param>
         /// <param name="query"></param>
-        //todo test this specification
+      
         public CreatedEventsOrganizationIdSpecification(int organizationId, PagedSortListQuery query) : base(query.Take,
                                                                                                              query.Skip,
                                                                                                              query.SortProp,

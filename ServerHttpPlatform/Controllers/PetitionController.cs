@@ -9,7 +9,6 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,13 +58,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ListResult<PetitionDTO>> FilteredByStatus(string timeStatus, string votesStatus, PagedSortListQuery query)
         {
+
             var resultModel =
-                await PetitionService.List(new FilterStatusPetitionSpecification(query, timeStatus, votesStatus));
+                await PetitionService.List(new FilterStatusPetitionSpecification(PetitionService.SuccessfulMinimumVotesNumber(), query, timeStatus, votesStatus));
             var result = new ListResult<PetitionDTO>()
             {
                 Result = Mapper.Map<List<PetitionDTO>>(resultModel),
                 Total = await PetitionService.Count(
-                    new FilterStatusPetitionSpecification(query.TakeAll(), timeStatus, votesStatus))
+                    new FilterStatusPetitionSpecification(PetitionService.SuccessfulMinimumVotesNumber(), query.TakeAll(), timeStatus, votesStatus))
             };
             return result;
         }
@@ -98,7 +98,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public Task<ListResult<PetitionDTO>> FilteredByVotes(int userId, PagedSortListQuery query)
         {
-            //todo do we need? create specification
+            //TODO do we need? create specification
             throw new NotImplementedException();
         }
 

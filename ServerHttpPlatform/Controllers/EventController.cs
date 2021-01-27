@@ -102,7 +102,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             
             if (dto.EmailNotification)
             {
-                //todo create notificationEmail sender
+                //TODO create notificationEmail sender
             }
             return base.Create(dto);
         }

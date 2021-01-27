@@ -16,7 +16,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Commo
 
         public virtual async Task<TModel> Get(TKey id)
         {
-            //todo read about .ConfigureAwait()
             TEntity entity = await Repository.GetByIdAsync(id).ConfigureAwait(false);
             TModel model = Mapper.Map<TModel>(entity);
             return model;
@@ -52,7 +51,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Commo
             }
         }
 
-        //todo implement using specification 
         public virtual async Task<bool> Exist(TKey id)
         {
             TEntity entity = await Repository.GetByIdAsync(id);

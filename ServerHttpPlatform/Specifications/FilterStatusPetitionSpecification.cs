@@ -12,10 +12,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
         /// <summary>
         /// Create specification for getting list of petition filtered by finish date and votes count
         /// </summary>
+        /// <param name="number">a number of votes for successful petition</param>
         /// <param name="query"></param>
         /// <param name="timeStatus">allow values active, act, close, cls</param>
         /// <param name="votesStatus">allow values succ, successful, unsucc, unsuccessful</param>
-        public FilterStatusPetitionSpecification(PagedSortListQuery query, string timeStatus = null, string votesStatus = null) 
+        public FilterStatusPetitionSpecification(int number, PagedSortListQuery query, string timeStatus = null, string votesStatus = null) 
                                                 : base(query.Take, query.Skip, query.SortProp, query.SortOrder)
         {
             if (timeStatus != null)
@@ -36,16 +37,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
             }
             if(votesStatus==null) return;
 
-            //todo change num to param
             switch (votesStatus.ToLower())
             {
                 case "succ":
                 case "successful":
-                    Query.Where(p => p.UserVotes.Count >= 10);
+                    Query.Where(p => p.UserVotes.Count >= number);
                     break;
                 case "unsucc":
                 case "unsuccessful":
-                    Query.Where(p => p.UserVotes.Count < 10);
+                    Query.Where(p => p.UserVotes.Count < number);
                     break;
                 default:
                     throw new ArgumentException();

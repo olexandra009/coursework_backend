@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
@@ -14,22 +17,23 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
         Task<Application> AddResult(int applicationId, string result);
         Task<Application> ChangeStatus(int applicationId, StatusModel statusModel);
+        Task<Application> ChangeAnswerer(int applicationId, int answererId);
         Task<Application> ChangeTextOrSubject(int applicationId, Application applicationModel);
     }
-   
-    //TODO : upload multimedia
-
+    
     public class ApplicationService : ServiceCrudModel<Application, int, ApplicationEntity>, IApplicationService
     {
         protected IUserService UserService;
         protected IMultimediaService MultimediaService;
-        //todo change to use variable in settings 
-        private static readonly TimeSpan DateToDelete = new TimeSpan(365,1, 0, 0);
-        public ApplicationService(IMapper mapper, IUserService userService,
+        private  readonly TimeSpan _dateToDelete;
+        public ApplicationService(IMapper mapper, IUserService userService, IConfiguration configuration,
                                   IApplicationRepository repository, IMultimediaService multimedia) : base(mapper, repository)
         {
             UserService = userService;
             MultimediaService = multimedia;
+            var confSection = configuration.GetSection("AppConfiguration");
+            _dateToDelete = StringToTimeSpan.Convert(confSection["DeleteTimeSpan"]);
+
         }
 
         #region Get
@@ -50,9 +54,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             var application = Repository.GetByIdAsync(id).Result;
             DateTime? close = application.CloseDate ?? DateTime.Now;
-            if (application.Status == Status.Close && DateTime.Now > (close + DateToDelete))
+            if (application.Status == Status.Close && DateTime.Now > (close + _dateToDelete))
                 return base.Delete(id);
-            //todo change exception message
+            //TODO change exception message
             throw new NotSupportedException("Try to delete not close application or application with ");
         }
         #endregion
@@ -64,13 +68,24 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             application.Result = result;
             return base.Update(application);
         }
-        //TODO check how will convert statuses
+        
         public Task<Application> ChangeStatus(int applicationId, StatusModel statusModel)
         {
             var app = Repository.GetByIdAsync(applicationId).Result;
             var application = Mapper.Map<Application>(app);
             application.StatusModel = statusModel;
             return base.Update(application);
+        }
+
+        public async Task<Application> ChangeAnswerer(int applicationId, int answererId)
+        {
+            var application = await Get(applicationId);
+            if (application == null) return null;
+            var answerer = await UserService.Get(answererId);
+            if (answerer==null || !answerer.Role.Contains(Roles.ApplicationAdmin))
+                return null;
+            application.AnswerId = answererId;
+            return application;
         }
 
         public Task<Application> ChangeTextOrSubject(int applicationId, Application applicationModel)
@@ -81,10 +96,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             application.Text = applicationModel.Text;
             return base.Update(application);
         }
-
-        //TODO Change multimedia 
-
-
         #endregion
 
 

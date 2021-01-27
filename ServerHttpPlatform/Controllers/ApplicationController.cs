@@ -124,14 +124,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Update
-        //TODO Change and upload multimedia 
-        //TODO Change answerer
-
+        //If we want change multimedia client should send request for delete current and create new one
+        
         [ApiExplorerSettings(IgnoreApi = true)]
         public override Task<ActionResult<ApplicationDTO>> Update(int id, ApplicationDTO dto) 
         {
             return base.Update(id, dto);
         }
+       
         /// <summary>
         /// Add result to application
         /// </summary>
@@ -149,6 +149,23 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             var app = await ApplicationService.AddResult(id, result);
             var appDto = Mapper.Map<ApplicationDTO>(app);
             return appDto;
+        }
+
+        /// <summary>
+        /// Change answerer of application
+        /// </summary>
+        /// <param name="applicationId"></param>
+        /// <param name="answererId"></param>
+        /// <returns></returns>
+        [HttpPut("/changeAnswerer")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ApplicationDTO>> ChangeAnswerer(int applicationId, int answererId)
+        {
+            var model = await ApplicationService.ChangeAnswerer(applicationId, answererId);
+            if (model == null) return NotFound();
+            var dto = Mapper.Map<ApplicationDTO>(model);
+            return dto;
         }
         /// <summary>
         /// Change application status 

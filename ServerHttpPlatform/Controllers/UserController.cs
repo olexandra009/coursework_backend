@@ -23,6 +23,7 @@ using Microsoft.IdentityModel.Tokens;
 //  list of users that voted petition 
 //  authorization for each endpoint 
 
+//TODO create update methods for user
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
     [Route("api/[controller]")]
@@ -125,7 +126,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return Mapper.Map<UserDTO>(model);
         }
 
-        //todo should we send page here?
+        //TODO should we send page here?
         [HttpGet("/confirm_email")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -180,9 +181,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             var result = Mapper.Map<UserDTO>(user);
             return result;
         }
-
-        //todo create update methods 
-
         #endregion
 
 

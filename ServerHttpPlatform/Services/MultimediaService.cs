@@ -12,7 +12,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
 
     }
-     
+     //TODO delete and create multimedia with integration to S3
     public class MultimediaService : ServiceCrudModel<Multimedia, int, MultimediaEntity>, IMultimediaService
     {
         public MultimediaService(IMapper mapper, IMultimediaRepository repository) : base(mapper, repository)
@@ -21,7 +21,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
 
         public async Task<Multimedia> UploadMultimedia(Multimedia multimedia, bool image=true)
-        {
+        { 
             var file = multimedia.Url;
             multimedia.Url = String.Empty;
 
@@ -31,7 +31,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             if (!image)
                 fileName = $"video-{multimedia.Id}.mp4";
             var bytes = Convert.FromBase64String(file);
-            //todo write method that will be upload file and return url
+            //TODO write method that will be upload file and return url
             multimediaCreated.Url = fileName;
             return await base.Update(multimediaCreated);
         }

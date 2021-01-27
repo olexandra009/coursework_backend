@@ -19,7 +19,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
                                                                                     query.SortProp,
                                                                                     query.SortOrder)
         {
-            //todo check if it works correct
             Query.Where(u=>CompareUsersRole(u.Role, role));
         }
 
