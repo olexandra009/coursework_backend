@@ -12,6 +12,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -28,6 +29,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class UserController : CrudControllerBase<UserDTO, User, UserEntity, int>
     {
         protected IUserService UserService => (IUserService) Service;
@@ -85,7 +87,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
 
             var person = UserService.Login(login, password).Result;
-            if (!person.EmailConfirm) throw new AccessViolationException("Email is not confirm!");
+           // if (!person.EmailConfirm) throw new AccessViolationException("Email is not confirm!");
             if (person != null)
             {
                 var claims = new List<Claim>

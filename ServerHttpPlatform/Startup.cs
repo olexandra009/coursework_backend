@@ -25,6 +25,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -66,14 +68,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
 
             //    opts.SignIn.RequireConfirmedEmail = true;
             //});
-
-
+            
             services.AddDbContext<PersonalUsersInfoContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("ReadOnlyConnection"),
                     new MySqlServerVersion(new Version(8, 0, 11))));
 
             services.AddAutoMapper((configuration) => configuration.AddProfile<MappingProfile>(),
                 typeof(Startup)); // scan and register automapper profiles in this assembly
+
+
+            services.AddCors(options => options.AddPolicy(MyAllowSpecificOrigins,
+                builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
@@ -117,14 +122,18 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
 
             app.UseHttpsRedirection();
 
+        
+
             app.UseRouting();
+
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireCors(MyAllowSpecificOrigins);
             });
         }
     }
