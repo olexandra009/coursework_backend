@@ -12,6 +12,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.HasKey(n => n.Id);
             builder.Property(n => n.Header).HasColumnName("Header").IsRequired();
             builder.Property(n => n.Text).HasColumnName("Text").IsRequired();
+            builder.Property(n => n.Answer).HasColumnName("Answer").IsRequired(false);
             builder.Property(n => n.StarDate).HasColumnName("Start").IsRequired();
             builder.Property(n => n.FinishDate).HasColumnName("End").IsRequired();
         }

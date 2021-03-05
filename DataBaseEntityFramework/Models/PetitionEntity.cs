@@ -10,6 +10,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 
         private string _header;
         private string _text;
+        private string _answer;
         private DateTime _starDate;
         private DateTime _finishDate;
 
@@ -38,6 +39,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
             set => _text = value;
         }
 
+        public string Answer
+        {
+            get => _answer;
+            set => _answer = value;
+        }
         public DateTime StarDate
         {
             get => _starDate;

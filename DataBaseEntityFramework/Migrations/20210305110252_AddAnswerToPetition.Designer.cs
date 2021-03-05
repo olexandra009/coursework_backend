@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migrations
 {
     [DbContext(typeof(PlatformDbContext))]
-    [Migration("20210125151838_AddEmailConfirmTable1")]
-    partial class AddEmailConfirmTable1
+    [Migration("20210305110252_AddAnswerToPetition")]
+    partial class AddAnswerToPetition
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,22 +68,23 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EmailConfirmEntity", b =>
                 {
-                    b.Property<int>("UserKey")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("UserId");
+                        .HasColumnType("int");
 
                     b.Property<string>("Code")
+                        .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
                         .HasColumnName("Code");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserKey")
                         .HasColumnType("int")
-                        .HasColumnName("UserId1");
+                        .HasColumnName("UserId");
 
-                    b.HasKey("UserKey");
+                    b.HasKey("Id")
+                        .HasName("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasAlternateKey("UserKey");
 
                     b.ToTable("EmailConfirm");
                 });
@@ -216,7 +217,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
-                        .HasColumnName("Organization name");
+                        .HasColumnName("Organization_name");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("longtext CHARACTER SET utf8mb4")
@@ -232,6 +233,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("Answer")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4")
+                        .HasColumnName("Answer");
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
@@ -283,7 +288,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
 
                     b.Property<string>("Login")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -302,8 +307,6 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("Login");
 
                     b.HasIndex("UserOrganizationId");
 
@@ -351,8 +354,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
             modelBuilder.Entity("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EmailConfirmEntity", b =>
                 {
                     b.HasOne("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.UserEntity", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .WithOne("EmailConfirmEntity")
+                        .HasForeignKey("KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EmailConfirmEntity", "UserKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -479,6 +484,8 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                     b.Navigation("CreatedNews");
 
                     b.Navigation("CreatedPetitions");
+
+                    b.Navigation("EmailConfirmEntity");
 
                     b.Navigation("VotedPetitions");
                 });

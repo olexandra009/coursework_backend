@@ -232,6 +232,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Answer")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4")
+                        .HasColumnName("Answer");
+
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
