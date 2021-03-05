@@ -19,6 +19,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
         public Task<EmailConfirmation> CreateNewInstance(string login, int id);
         public Task<bool> CheckCode(int id, string code);
+     
     }
     public class EmailConfirmationService : ServiceCrudModel<EmailConfirmation, int, EmailConfirmEntity>, IEmailConfirmationService
     {
@@ -45,8 +46,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             {
                 Console.WriteLine("With: " + emailModel.Code);
             }
-            return emailModel != null && emailModel.Code.ToLower().Equals(code.ToLower());
-        
+
+            if (emailModel != null && emailModel.Code.ToLower().Equals(code.ToLower()))
+            {
+                await Delete(emailModel.Id);
+                return true;
+            }
+
+            return false;
+
         }
 
         private string GetCodeForEmailConfirmation(string login, int id)

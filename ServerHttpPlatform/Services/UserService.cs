@@ -23,6 +23,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<User> ChangePassword(int userId, string password);
 
         Task<User> ExtendRole(int userId, string inp);
+        Task<User> UpdateUser(int userId, User model);
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
@@ -44,10 +45,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         public override async  Task<User> Get(int id)
         {
             var user = await base.Get(id);
-            Organization organization = null;
+            if (user == null) return null;
             if (user.UserOrganizationId != null)
             {
-                organization = await OrganizationService.Get((int) user.UserOrganizationId);
+                var organization = await OrganizationService.Get((int) user.UserOrganizationId);
                 user.UserOrganization = organization;
                 user.UserOrganizationName = organization.Name;
             }
@@ -113,6 +114,33 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             user.Password = password;
             var changed = await Update(user);
             return changed;
+        }
+
+
+        public async Task<User> ChangeEmail(int userId, string email)
+        {
+            var firstUser = await Get(userId);
+            firstUser.Email = email;
+            firstUser.EmailConfirm = false;
+            var user = await Update(firstUser);
+            string login = user.Login;
+            var emailConfirm = await EmailService.CreateNewInstance(login, userId);
+            var code = HttpUtility.UrlEncode(emailConfirm.Code);
+            var url = "https://" + $"localhost:44336/confirm_email?id={userId}&code={code}";
+            await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
+            return user;
+        }
+        public async Task<User> UpdateUser(int userId, User model)
+        {
+            var user = await Get(userId);
+            if (user == null) return null;
+            model.Id = user.Id;
+            model.Role = user.Role;
+            model.Email = user.Email;
+            model.Password = user.Password;
+            model.Login = user.Login;
+            model.EmailConfirm = user.EmailConfirm;
+            return await base.Update(model);
         }
 
         public async Task<User> ExtendRole(int userId, string inp)

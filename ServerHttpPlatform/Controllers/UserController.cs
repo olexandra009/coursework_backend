@@ -153,7 +153,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [AllowAnonymous]
-        public async Task<IActionResult> IsLoginExists([FromBody]string login)
+        public async Task<IActionResult> IsLoginExists(string login)
         {
             var user = await UserService.GetUserByLogin(login);
             if (user == null) return NotFound();
@@ -220,11 +220,28 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return result;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public override Task<ActionResult<UserDTO>> Update(int id, UserDTO dto)
+        {
+            return base.Update(id, dto);
+        }
+
+        [HttpPut("/update")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<UserDTO>> UpdateUser(int userId, UserDTO user)
+        {
+            var update = Mapper.Map<User>(user);
+            var model = await UserService.UpdateUser(userId, update);
+            var dto = Mapper.Map<UserDTO>(model);
+            return dto;
+        }
+
 
         [HttpPut("/change_login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDTO>> ChangeLogin([FromQuery]int userId, [FromBody]string login)
+        public async Task<ActionResult<UserDTO>> ChangeLogin([FromQuery]int userId, [FromForm]string login)
         {
             User user = await UserService.ChangeLogin(userId, login);
             if (user == null) return NotFound();
