@@ -8,10 +8,12 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -75,10 +77,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
                     SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
+            var u = UserService.Login(user.Login, user.Password).Result;
+            var userDto = Mapper.Map<UserDTO>(u);
+            userDto.Password = "hidden";
             var response = new
             {
                 access_token = encodedJwt,
-                username = identity.Name
+                user = userDto,
             };
             return new JsonResult(response);
         }
@@ -87,9 +92,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
 
             var person = UserService.Login(login, password).Result;
-           // if (!person.EmailConfirm) throw new AccessViolationException("Email is not confirm!");
             if (person != null)
             {
+                if (!person.EmailConfirm) throw new AccessViolationException("Email is not confirm!");
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
@@ -120,12 +125,22 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             try
             {
                 model = await UserService.Registration(model);
+                var response = Mapper.Map<UserDTO>(model);
+                response.Password = "hidden";
+                return response;
             }
             catch (ArgumentException e)
             {
                 return Conflict(e);
             }
-            return Mapper.Map<UserDTO>(model);
+        }
+
+        [HttpPut("/user/check")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = "User, SuperUser, NewsAndEvents, Moderator, ApplicationAdmin, UserManager")]
+        public IActionResult CheckToken()
+        {
+            return Ok(new { token = true });
         }
 
         //TODO should we send page here?
@@ -138,11 +153,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             if (user == null) return NotFound(); 
             return Ok();
         }
-
-
         #endregion
-
-
 
         #region Get List
         /// <summary>
@@ -156,12 +167,20 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         public async Task<ActionResult<ListResult<UserDTO>>> GetByRole(string role, PagedSortListQuery query)
         {
             var modelList = await UserService.List(new UserByRoleSpecification(role, query));
+            modelList.ForEach(a=>a.Password="hidden");
             var result = new ListResult<UserDTO>()
             {
                 Result = Mapper.Map<List<UserDTO>>(modelList),
                 Total = await UserService.Count(new UserByRoleSpecification(role, query.TakeAll()))
             };
             return result;
+        }
+
+        public override async Task<ListResult<UserDTO>> GetList(PagedSortListQuery query)
+        {
+            var users= await base.GetList(query);
+            users.Result.ForEach(u=> u.Password="hidden");
+            return users;
         }
 
         #endregion
@@ -172,7 +191,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// Change users role
         /// </summary>
         /// <param name="userId"></param>
-        /// <param name="role">allows values: user, superuser, handAppAdmin, moderator, admin, userManagerAdmin</param>
+        /// <param name="role">allows values: </param>
         /// <returns></returns>
         [HttpPut("/change_role")]
         [ProducesResponseType(StatusCodes.Status200OK)]

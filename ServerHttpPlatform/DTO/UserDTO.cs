@@ -15,8 +15,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO
         public string Password { get; set; }
         public string Role { get; set; }
 
-        public OrganizationDTO UserOrganization { get; set; }
+      
+        // public OrganizationDTO UserOrganization { get; set; }
         public int? UserOrganizationId { get; set; }
+        public string UserOrganizationName { get; set; }
 
     }
 }

@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using Ardalis.Specification;
 using AutoMapper;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
@@ -36,6 +34,19 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             EmailService = emailDbService;
         }
 
+
+        public override async  Task<User> Get(int id)
+        {
+            var user = await base.Get(id);
+            Organization organization = null;
+            if (user.UserOrganizationId != null)
+            {
+                organization = await OrganizationService.Get((int) user.UserOrganizationId);
+                user.UserOrganization = organization;
+                user.UserOrganizationName = organization.Name;
+            }
+            return user;
+        }
 
         public async Task<User> Registration(User user)
         {
@@ -71,14 +82,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         public async Task<User> UpdateRole(int id, string role)
         {
-            var user = await Repository.GetByIdAsync(id);
-            var userModel = Mapper.Map<User>(user);
+            var userModel = await Get(id);
+         //   var userModel = Mapper.Map<User>(user);
             userModel.Role = role;
-            var userEntity = Mapper.Map<UserEntity>(userModel);
-            await Repository.UpdateAsync(userEntity);
-            User result = Mapper.Map<User>(userEntity);
-            result = await Task.FromResult(result).ConfigureAwait(false);
-            return result;
+            var updated = await Update(userModel);
+            return updated;
         }
 
       

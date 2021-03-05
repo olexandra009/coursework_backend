@@ -10,7 +10,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
         {
             builder.ToTable("Organization");
             builder.HasKey(u => u.Id);
-            builder.Property(u => u.Name).HasColumnName("Organization name").IsRequired();
+            builder.Property(u => u.Name).HasColumnName("Organization_name").IsRequired();
             builder.Property(u => u.Address).HasColumnName("Address").IsRequired(false);
             builder.Property(u => u.PhoneNumber).HasColumnName("PhoneNumber").IsRequired(false);
             builder.HasMany(o => o.Users)

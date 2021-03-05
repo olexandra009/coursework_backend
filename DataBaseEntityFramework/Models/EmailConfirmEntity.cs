@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
-   public class EmailConfirmEntity
+   public class EmailConfirmEntity:DbModel<int>
     {
-        public int Id { get; set; }
         public UserEntity User { get; set; }
         public int UserKey { get; set; }
         public string Code { get; set; }

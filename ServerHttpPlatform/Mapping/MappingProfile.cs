@@ -48,6 +48,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping
 
             CreateMap<User, UserDTO>();
             CreateMap<UserDTO, User>();
+
+
             CreateMap<User, UserEntity>();
             CreateMap<UserEntity, User>();
 

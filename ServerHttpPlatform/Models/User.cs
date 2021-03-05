@@ -17,8 +17,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models
 
         public Organization UserOrganization { get; set; }
         public int? UserOrganizationId { get; set; }
+        public string UserOrganizationName { get; set; }
         public List<Petition> CreatedPetitions { get; set; }
-
         public List<Votes> VotedPetitions { get; set;}
 
     }

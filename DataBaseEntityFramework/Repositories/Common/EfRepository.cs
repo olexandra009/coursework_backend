@@ -3,12 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ardalis.Specification;
 using Ardalis.Specification.EntityFrameworkCore;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common
 {
     public class EfRepository<TEntity> : IRepository<TEntity>
-    where TEntity: class
+    where TEntity: DbModel<int>
     {
         protected readonly DbContext _dbContext;
         public EfRepository(DbContext dbContext)
@@ -26,6 +27,15 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
+        }
+
+        private bool IsDetached(TEntity entity)
+        {
+            var localEntity = _dbContext.Set<TEntity>().Local?.FirstOrDefault(x => Equals(x.Id, entity.Id));
+            if (localEntity != null) // entity stored in local
+                return false;
+
+            return _dbContext.Entry(entity).State == EntityState.Detached;
         }
 
         public virtual async Task DeleteAsync(TEntity entity)
