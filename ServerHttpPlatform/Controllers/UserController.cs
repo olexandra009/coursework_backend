@@ -95,11 +95,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             if (person != null)
             {
                 if (!person.EmailConfirm) throw new AccessViolationException("Email is not confirm!");
+                var roles = person.Role.Split(", ");
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
                 };
+                foreach (var role in roles)
+                {
+                    claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, role));
+                }
+               
                 ClaimsIdentity claimsIdentity =
                     new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                         ClaimsIdentity.DefaultRoleClaimType);
@@ -137,10 +142,22 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 
         [HttpPut("/user/check")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Authorize(Roles = "User, SuperUser, NewsAndEvents, Moderator, ApplicationAdmin, UserManager")]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public IActionResult CheckToken()
         {
             return Ok(new { token = true });
+        }
+
+
+        [HttpPost("/loginExists")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsLoginExists([FromBody]string login)
+        {
+            var user = await UserService.GetUserByLogin(login);
+            if (user == null) return NotFound();
+            return Ok();
         }
 
         //TODO should we send page here?
@@ -202,6 +219,36 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             var result = Mapper.Map<UserDTO>(user);
             return result;
         }
+
+
+        [HttpPut("/change_login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<UserDTO>> ChangeLogin([FromQuery]int userId, [FromBody]string login)
+        {
+            User user = await UserService.ChangeLogin(userId, login);
+            if (user == null) return NotFound();
+            var result = Mapper.Map<UserDTO>(user);
+            return result;
+        }
+
+        [HttpPut("/change_password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> ChangePassword([FromQuery] int userId, [FromBody] string password)
+        {
+            User user = await UserService.ChangePassword(userId, password);
+            if (user == null) return NotFound();
+            return Ok();
+        }
+
+        //[HttpPost("/extendRole")]
+        //public async Task<ActionResult<UserDTO>> ExtendRole(int userId, [FromBody]string inp)
+        //{
+
+
+        //    return result;
+        //}
         #endregion
 
 

@@ -15,8 +15,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
         Task<User> Registration(User user);
         Task<User> Login(string login, string password);
+        Task<User> GetUserByLogin(string login);
         Task<User> UpdateRole(int id, string role);
         Task<User> ConfirmEmail(int userId, string code);
+
+        Task<User> ChangeLogin(int userId, string login);
+        Task<User> ChangePassword(int userId, string password);
+
+        Task<User> ExtendRole(int userId, string inp);
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
@@ -62,6 +68,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return created;
         }
 
+        public async Task<User> GetUserByLogin(string login)
+        {
+            var user = (await Repository.ListAsync(new UserByLoginSpecification(login))).FirstOrDefault();
+            var result = Mapper.Map<User>(user);
+            return result;
+        }
+
+
+
         public async Task<User> Login(string login, string password)
         {
             var user = (await Repository.ListAsync(new UserByLoginSpecification(login, password))).FirstOrDefault();
@@ -78,6 +93,31 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             user.EmailConfirm = true;
             var updated = await Update(user);
             return updated;
+        }
+
+        public async Task<User> ChangeLogin(int userId, string login)
+        {
+            var check = await GetUserByLogin(login);
+            var user = await Get(userId);
+            if (user == null) return null;
+            if (check != null) return user; 
+            user.Login = login;
+            var changed = await Update(user);
+            return changed;
+        }
+
+        public async Task<User> ChangePassword(int userId, string password)
+        {
+            var user = await Get(userId);
+            if (user == null) return null;
+            user.Password = password;
+            var changed = await Update(user);
+            return changed;
+        }
+
+        public async Task<User> ExtendRole(int userId, string inp)
+        {
+            throw new System.NotImplementedException();
         }
 
         public async Task<User> UpdateRole(int id, string role)

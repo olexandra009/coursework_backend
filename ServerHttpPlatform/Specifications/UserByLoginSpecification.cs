@@ -13,5 +13,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
         {
             Query.Where(u => u.Login == login && u.Password == password);
         }
+        public UserByLoginSpecification(string login)
+        {
+            Query.Where(u => u.Login == login);
+        }
     }
 }
