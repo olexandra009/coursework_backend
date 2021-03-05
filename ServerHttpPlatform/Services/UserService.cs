@@ -24,6 +24,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         Task<User> ExtendRole(int userId, string inp);
         Task<User> UpdateUser(int userId, User model);
+        Task<User> ChangeEmail(int userId, string email);
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {

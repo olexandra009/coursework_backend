@@ -181,7 +181,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <returns></returns>
         [HttpGet("/filtered_by_role")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ListResult<UserDTO>>> GetByRole(string role, PagedSortListQuery query)
+        public async Task<ActionResult<ListResult<UserDTO>>> GetByRole(string role, [FromQuery]PagedSortListQuery query)
         {
             var modelList = await UserService.List(new UserByRoleSpecification(role, query));
             modelList.ForEach(a=>a.Password="hidden");
@@ -237,6 +237,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return dto;
         }
 
+        [HttpPut("/update_email")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<UserDTO>> UpdateEmail(int userId, [FromForm] string email)
+        {
+           var user =  await UserService.ChangeEmail(userId, email);
+           return Mapper.Map<UserDTO>(user);
+        }
+
 
         [HttpPut("/change_login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -252,7 +261,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/change_password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ChangePassword([FromQuery] int userId, [FromBody] string password)
+        public async Task<IActionResult> ChangePassword([FromQuery] int userId, [FromForm] string password)
         {
             User user = await UserService.ChangePassword(userId, password);
             if (user == null) return NotFound();
