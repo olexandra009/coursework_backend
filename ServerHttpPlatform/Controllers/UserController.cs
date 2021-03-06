@@ -193,6 +193,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return result;
         }
 
+
+        [HttpGet("/api/get_user_by_organization")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<List<UserDTO>>> GetDto(int id)
+        {
+            var users = await UserService.GetUserByOrganizationId(id);
+            return Mapper.Map<List<UserDTO>>(users);
+        }
+
+
         public override async Task<ListResult<UserDTO>> GetList(PagedSortListQuery query)
         {
             var users= await base.GetList(query);

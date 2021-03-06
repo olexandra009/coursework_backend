@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
@@ -7,6 +8,7 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
@@ -22,6 +24,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<User> ChangeLogin(int userId, string login);
         Task<User> ChangePassword(int userId, string password);
 
+        Task<List<User>> GetUserByOrganizationId(int orgId);
         Task<User> ExtendRole(int userId, string inp);
         Task<User> UpdateUser(int userId, User model);
         Task<User> ChangeEmail(int userId, string email);
@@ -77,6 +80,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return result;
         }
 
+        public async Task<List<User>> GetUserByOrganizationId(int orgId)
+        {
+            var user = await Repository.ListAsync(new UsersByOrganizationIdSpecification(orgId, new PagedSortListQuery().TakeAll()));
+            return Mapper.Map<List<User>>(user);
+        }
 
 
         public async Task<User> Login(string login, string password)

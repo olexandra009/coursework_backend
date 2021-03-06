@@ -9,7 +9,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
     {
         const int DefaultSkip = 0;
         const int DefaultTake = 10;
-        const string DefaultOrder = "asc";
+        const string DefaultOrder = "desc";
         
         public int Skip { get; set; } = DefaultSkip;
         public int Take { get; set; } = DefaultTake;

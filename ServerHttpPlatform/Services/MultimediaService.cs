@@ -10,13 +10,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
     public interface IMultimediaService : IServiceCrudModel<Multimedia, int, MultimediaEntity>
     {
-
+        Task<Multimedia> UploadMultimedia(Multimedia multimedia, bool image = true);
     }
      //TODO delete and create multimedia with integration to S3
     public class MultimediaService : ServiceCrudModel<Multimedia, int, MultimediaEntity>, IMultimediaService
     {
         public MultimediaService(IMapper mapper, IMultimediaRepository repository) : base(mapper, repository)
         {
+          
         }
 
 
@@ -25,15 +26,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             var file = multimedia.Url;
             multimedia.Url = String.Empty;
 
-            var multimediaCreated = await base.Create(multimedia);
+           // var multimediaCreated = await base.Create(multimedia);
             
             var fileName = $"image-{multimedia.Id}.png";
             if (!image)
                 fileName = $"video-{multimedia.Id}.mp4";
-            var bytes = Convert.FromBase64String(file);
+            //var bytes = Convert.FromBase64String(file);
             //TODO write method that will be upload file and return url
-            multimediaCreated.Url = fileName;
-            return await base.Update(multimediaCreated);
+            multimedia.Url = fileName;
+            return multimedia;
         }
     }
 }
