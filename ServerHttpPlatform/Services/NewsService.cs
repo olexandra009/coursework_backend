@@ -54,7 +54,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
                 updatedList.Add(await MultimediaService.UploadMultimedia(multimedia));
             }
             model.Multimedias = updatedList;
-            return await base.Create(model);
+            var modelCreated =  await base.Create(model);
+            var userModel = await UserService.Get(modelCreated.AuthorId);
+            modelCreated.Author = userModel;
+            return modelCreated;
+
         }
 
         public override Task<News> Update(News model)
