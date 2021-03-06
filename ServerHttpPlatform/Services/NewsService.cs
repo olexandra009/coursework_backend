@@ -61,10 +61,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         }
 
-        public override Task<News> Update(News model)
+        public override async Task<News> Update(News model)
         {
             model.Edited = true;
-            return base.Update(model);
+            var updated = await base.Update(model);
+            var userModel = await UserService.Get(updated.AuthorId);
+            updated.Author = userModel;
+            return updated;
         }
     }
 }
