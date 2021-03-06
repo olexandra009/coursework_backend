@@ -12,6 +12,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models
         public int UserId { get; set; }
         public Petition Petition { get; set; }
         public int PetitionId { get; set; }
+        public DateTime DateTimeCreated { get; set; }
 
     }
 }

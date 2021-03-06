@@ -1,8 +1,12 @@
-﻿namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
+﻿using System;
+
+namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     public class VotesEntity : DbModel<int>
     {
         #region Fields
+
+        private DateTime _dateTimeCreated;
 
         #region Foriegn keys and principal entities 
         private UserEntity _user;
@@ -36,6 +40,12 @@
         {
             get => _petitionId;
             private set => _petitionId = value;
+        }
+
+        public DateTime DateTimeCreated
+        {
+            get => _dateTimeCreated;
+            private set => _dateTimeCreated = value;
         }
         #endregion
 /*

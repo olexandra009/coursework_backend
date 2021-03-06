@@ -9,7 +9,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO
         public int Id { get; set; }
         public string Header { get; set; }
         public string Text { get; set; }
-        public DateTime DateTimeCreation { get; set; }
+        public string DateTimeCreation { get; set; }
         public bool Edited { get; set; }
         public bool ShowAuthor { get; set; }
         public UserDTO Author { get; set; }

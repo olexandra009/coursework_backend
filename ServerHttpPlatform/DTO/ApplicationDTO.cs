@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO
 {
@@ -30,8 +29,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO
         public string Text { get; set; }
         public StatusDTO Status { get; set; }
         public string Result { get; set; }
-        public DateTime OpenDate { get; set; }
-        public DateTime? CloseDate { get; set; }
+        public string OpenDate { get; set; }
+        public string? CloseDate { get; set; }
         public UserDTO Author { get; set; }
         public UserDTO Answerer { get; set; }
         public List<MultimediaDTO> Multimedias { get; set; }

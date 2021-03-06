@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
@@ -57,7 +58,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
             var model = await Service.Get(id);
             if (model == null)
                 return NotFound();
+            if(typeof(TDto)==typeof(EventDTO))
+                Console.WriteLine(value: (model as Event).StartDate);
             var result = Mapper.Map<TDto>(model);
+            if (typeof(TDto) == typeof(EventDTO))
+                Console.WriteLine(value: (result as EventDTO).StartDate);
             return result;
 
         }
@@ -72,13 +77,21 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Co
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public virtual async Task<ActionResult<TDto>> Update(TKey id, [FromBody] TDto dto)
         {
+            Console.WriteLine("UPDATE");
             var exist = await Service.Get(id);
             if (exist == null)
                 return NotFound();
+            if (typeof(TDto) == typeof(EventDTO))
+                Console.WriteLine(value: (dto as EventDTO).StartDate);
             var model = Mapper.Map<TModel>(dto);
+            if (typeof(TDto) == typeof(EventDTO))
+                Console.WriteLine(value: (model as Event).StartDate);
             model.Id = id;
             var update = await Service.Update(model);
             var result = Mapper.Map<TDto>(update);
+            if(typeof(TDto) == typeof(EventDTO))
+                 Console.WriteLine(value: (update as Event).StartDate);
+            Console.WriteLine("ENDUPDATE");
             return result;
         }
         /// <summary>

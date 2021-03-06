@@ -11,6 +11,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
         {
             builder.ToTable("Votes");
             builder.HasKey(cs => cs.Id);
+            builder.Property(v => v.DateTimeCreated).IsRequired(true).HasColumnName("created");
             builder.HasAlternateKey(cs => new { cs.PetitionId, cs.UserId});
            
            

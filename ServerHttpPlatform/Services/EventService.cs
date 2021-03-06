@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Ardalis.Specification;
 using AutoMapper;
@@ -46,11 +47,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return model;
         }
 
-        //TODO: check if such update is working
-        public override Task<Event> Update(Event model)
+      
+        public override async Task<Event> Update(Event model)
         {
             model.Edited = true;
-            return base.Update(model);
+            var updated = await base.Update(model);
+            var userModel = await UserService.Get(updated.AuthorId);
+            updated.Author = userModel;
+            return updated;
         }
 
         public override async Task<Event> Create(Event model)
@@ -73,7 +77,18 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
                 await MailService.SendEventNotificationLetter(emails.ToArray(), model, fromName);
             }
-            return await base.Create(model);
+
+            List<Multimedia> updatedList = new List<Multimedia>();
+            foreach (var multimedia in model.Multimedias)
+            {
+                updatedList.Add(await MultimediaService.UploadMultimedia(multimedia));
+            }
+            model.Multimedias = updatedList;
+            var modelCreated = await base.Create(model);
+            var userModel = await UserService.Get(modelCreated.AuthorId);
+            modelCreated.Author = userModel;
+            return modelCreated;
+
         }
     }
 }
