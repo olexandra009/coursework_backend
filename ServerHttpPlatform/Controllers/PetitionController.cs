@@ -24,7 +24,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         public PetitionController(IPetitionService service, IMapper mapper) : base(service, mapper)
         {
         }
-       
+
+        public override async Task<ActionResult<PetitionDTO>> Get(int id)
+        {
+            var petition = await base.Get(id);
+            petition.Value.VotesNumber = petition.Value.UserVotes.Count;
+            return petition;
+        }
+
         [ApiExplorerSettings(IgnoreApi = true)]
         public override Task<ActionResult<PetitionDTO>> Update(int id, PetitionDTO dto)
         {
@@ -41,11 +48,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public override Task<ListResult<PetitionDTO>> GetList(PagedSortListQuery query)
+        public override async Task<ListResult<PetitionDTO>> GetList(PagedSortListQuery query)
         {
             if (string.IsNullOrEmpty(query.SortProp))
                 query.SortProp = "StarDate";
-            return base.GetList(query);
+            var list = await base.GetList(query);
+            list.Result.ForEach(async p=>p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
+            return list;
         }
         /// <summary>
         /// Get filtered by status petition
@@ -56,14 +65,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <returns></returns>
         [HttpGet("/filter_by_status")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ListResult<PetitionDTO>> FilteredByStatus(string timeStatus, string votesStatus, PagedSortListQuery query)
+        public async Task<ListResult<PetitionDTO>> FilteredByStatus(string timeStatus, string votesStatus, [FromQuery]PagedSortListQuery query)
         {
 
             var resultModel =
                 await PetitionService.List(new FilterStatusPetitionSpecification(PetitionService.SuccessfulMinimumVotesNumber(), query, timeStatus, votesStatus));
+            var resultDto =
+                Mapper.Map<List<PetitionDTO>>(resultModel);
+            resultDto.ForEach(async p => p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
             var result = new ListResult<PetitionDTO>()
             {
-                Result = Mapper.Map<List<PetitionDTO>>(resultModel),
+                Result = resultDto,
                 Total = await PetitionService.Count(
                     new FilterStatusPetitionSpecification(PetitionService.SuccessfulMinimumVotesNumber(), query.TakeAll(), timeStatus, votesStatus))
             };
@@ -77,13 +89,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <returns></returns>
         [HttpGet("/filter_by_author")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ListResult<PetitionDTO>> FilteredByAuthor(int userId, PagedSortListQuery query)
+        public async Task<ListResult<PetitionDTO>> FilteredByAuthor(int userId, [FromQuery]PagedSortListQuery query)
         {
             var resultModel =
                 await PetitionService.List(new CreatedPetitionByUserIdSpecification(userId, query));
+            var resultDto =
+                Mapper.Map<List<PetitionDTO>>(resultModel);
+            resultDto.ForEach(async p => p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
             var result = new ListResult<PetitionDTO>()
             {
-                Result = Mapper.Map<List<PetitionDTO>>(resultModel),
+                Result = resultDto,
                 Total = await PetitionService.Count(new CreatedPetitionByUserIdSpecification(userId, query.TakeAll()))
             };
             return result;
@@ -96,10 +111,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <returns></returns>
         [HttpGet("/filter_by_voted_author")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public Task<ListResult<PetitionDTO>> FilteredByVotes(int userId, PagedSortListQuery query)
+        public async Task<ListResult<PetitionDTO>> FilteredByVotes(int userId, [FromQuery]PagedSortListQuery query)
         {
-            //TODO do we need? create specification
-            throw new NotImplementedException();
+            var petition = await PetitionService.GetPetitionByUserVote(userId, query);
+            var resultDto = Mapper.Map<List<PetitionDTO>>(petition);
+            resultDto.ForEach(async p => p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
+            var result = new ListResult<PetitionDTO>()
+            {
+                Result = resultDto,
+                Total = await PetitionService.CountVotes(userId, query.TakeAll())
+            };
+            return result;
         }
 
 
