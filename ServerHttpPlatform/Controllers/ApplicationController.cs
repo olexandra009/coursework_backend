@@ -83,6 +83,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <value>3 - Close</value>
         /// </param>
         /// <returns></returns>
+      
         [HttpGet("/getListFilteredByAuthor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -141,7 +142,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/addResult/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ApplicationDTO>> AddResult(int id, [FromBody]string result)
+        public async Task<ActionResult<ApplicationDTO>> AddResult(int id, [FromForm]string result)
         {
             var exist = await ApplicationService.Get(id);
             if (exist == null)
@@ -199,6 +200,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <param name="id"></param>
         /// <param name="application"></param>
         /// <returns></returns>
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPut("/changeTextOrSubject/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]

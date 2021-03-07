@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
@@ -38,9 +39,30 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         #region Get
 
+        public override async Task<Application> Create(Application model)
+        {
+            List<Multimedia> updatedList = new List<Multimedia>();
+            foreach (var multimedia in model.Multimedias)
+            {
+                updatedList.Add(await MultimediaService.UploadMultimedia(multimedia));
+            }
+            model.Multimedias = updatedList;
+            var modelCreated = await base.Create(model);
+            var userModel = await UserService.Get(modelCreated.AuthorId);
+            modelCreated.Author = userModel;
+            if (modelCreated.AnswerId != null)
+            {
+                var userModelAnswerer = await UserService.Get((int)modelCreated.AnswerId);
+                modelCreated.Author = userModelAnswerer;
+            }
+            modelCreated.StatusModel = StatusModel.Waiting;
+            return modelCreated;
+        }
+
         public override async Task<Application> Get(int id)
         {
             var model =  await base.Get(id);
+            if (model == null) return null;
             model.Author = await UserService.Get(model.AuthorId);
             if (model.AnswerId != null)
                 model.Answerer = await UserService.Get((int)model.AnswerId);
@@ -85,7 +107,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             if (answerer==null || !answerer.Role.Contains(Roles.ApplicationAdmin))
                 return null;
             application.AnswerId = answererId;
-            return application;
+            return await base.Update(application);
         }
 
         public Task<Application> ChangeTextOrSubject(int applicationId, Application applicationModel)

@@ -56,6 +56,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
                 user.UserOrganization = organization;
                 user.UserOrganizationName = organization.Name;
             }
+
+            user.Password = "hidden";
             return user;
         }
 

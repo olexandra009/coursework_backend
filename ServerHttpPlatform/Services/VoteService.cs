@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Ardalis.Specification;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
@@ -17,23 +20,24 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     }
     public class VoteService : ServiceCrudModel<Votes, int, VotesEntity>, IVoteService
     {
-        protected IPetitionService PetitionService;
-        protected IUserService UserService;
-        public VoteService(IMapper mapper, IPetitionService petitionService, IUserService userService, IVotesRepository repository) : base(mapper, repository)
+
+       protected IUserService UserService;
+        public VoteService(IMapper mapper, IUserService service, IVotesRepository repository) : base(mapper, repository)
         {
-            PetitionService = petitionService;
-            UserService = userService;
+               UserService = service;
         }
-        //to add user and petition
-        public override async Task<List<Votes>> List(ISpecification<VotesEntity> specification)
+
+        public override async Task<List<Votes>> List()
         {
-            var models = await base.List(specification);
-            foreach (var vote in models)
-            {
-                vote.Petition = await PetitionService.Get(vote.PetitionId);
-                vote.User = await UserService.Get(vote.UserId);
-            }
-            return models;
+            var votes = await base.List();
+            votes.ForEach(vote=> vote.User = UserService.Get(vote.UserId).Result);
+            return votes;
+        }
+
+        public override Task<Votes> Create(Votes model)
+        {
+            model.DateTimeCreated = DateTime.UtcNow;
+            return base.Create(model);
         }
     }
 }

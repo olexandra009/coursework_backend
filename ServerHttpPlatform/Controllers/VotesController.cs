@@ -9,6 +9,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
+using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,5 +43,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 
             return base.Create(dto);
         }
+
+        [HttpGet("/votes_number")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetVotesNumber(int petitionId)
+        {
+            var result = await VoteService.Count(new VotesForPetitionWithIdSpecification(petitionId));
+            return Ok(new { count = result });
+        }
+
     }
 }
