@@ -141,6 +141,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
             return user;
         }
+
+
         public async Task<User> UpdateUser(int userId, User model)
         {
             var user = await Get(userId);
@@ -151,7 +153,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             model.Password = user.Password;
             model.Login = user.Login;
             model.EmailConfirm = user.EmailConfirm;
-            return await base.Update(model);
+            return await Update(model);
         }
 
         public async Task<User> ExtendRole(int userId, string inp)

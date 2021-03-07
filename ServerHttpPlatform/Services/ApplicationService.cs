@@ -47,6 +47,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             {
                 application.Multimedias = await MultimediaService.List(new MultimediaByApplicationIdSpecification(application.Id));
                 application.Author = await UserService.Get(application.AuthorId);
+                if (application.AnswerId != null)
+                    application.Answerer = await UserService.Get((int)application.AnswerId);
+
             }
 
             return models;
@@ -101,6 +104,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             var applic = Repository.GetByIdAsync(applicationId).Result;
             var application = Mapper.Map<Application>(applic);
             application.Result = result;
+            application.CloseDate = DateTime.UtcNow;
+            application.StatusModel = StatusModel.Close;
             return base.Update(application);
         }
         
@@ -120,6 +125,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             if (answerer==null || !answerer.Role.Contains(Roles.ApplicationAdmin))
                 return null;
             application.AnswerId = answererId;
+            application.StatusModel = StatusModel.InProcess;
             return await base.Update(application);
         }
 

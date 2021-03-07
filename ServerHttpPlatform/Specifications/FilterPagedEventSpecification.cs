@@ -24,10 +24,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
             switch (filter.ToLower())
             {
                 case "active":
-                    Query.Where(e => e.EndDate <= DateTime.Now);
+                    Query.Where(e => e.EndDate >= DateTime.Now);
                     break;
                 case "pass":
-                    Query.Where(e => e.EndDate > DateTime.Now);
+                    Query.Where(e => e.EndDate < DateTime.Now);
                     break;
                 default:
                     throw new ArgumentException();

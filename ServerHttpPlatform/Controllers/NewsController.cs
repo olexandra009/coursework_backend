@@ -46,8 +46,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <returns></returns>
         [HttpGet("/news_by_organization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ListResult<NewsDTO>>> FilteredByOrganization(int organizationId,
-            PagedSortListQuery query)
+        public async Task<ActionResult<ListResult<NewsDTO>>> FilteredByOrganization(int organizationId, [FromQuery]PagedSortListQuery query)
         {
             if (string.IsNullOrEmpty(query.SortProp))
                 query.SortProp = "DateTimeCreation";

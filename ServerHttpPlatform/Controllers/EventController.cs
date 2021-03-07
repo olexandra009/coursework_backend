@@ -54,7 +54,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpGet("/filter_by_time")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ListResult<EventDTO>>> FilteredByTime(string filter, PagedSortListQuery query)
+        public async Task<ActionResult<ListResult<EventDTO>>> FilteredByTime(string filter, [FromQuery]PagedSortListQuery query)
         {
             try
             {
@@ -80,7 +80,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <returns></returns>
         [HttpGet("/filter_by_organization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ListResult<EventDTO>>> FilteredByOrganization(int organizationId, PagedSortListQuery query)
+        public async Task<ActionResult<ListResult<EventDTO>>> FilteredByOrganization(int organizationId, [FromQuery]PagedSortListQuery query)
         {
             var modelList = await EventService.List(new CreatedEventsOrganizationIdSpecification(organizationId, query));
             var result = new ListResult<EventDTO>()
@@ -91,10 +91,25 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return result;
   
         }
+
+
+        [HttpGet("/filterOrganizationTime")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ListResult<EventDTO>>> FilteredByOrganizationAndTime(int organizationId, string filter, [FromQuery]PagedSortListQuery query)
+        {
+            var modelList = await EventService.List(new SortedEventsByOrganizationAndTimeSpecification(organizationId,filter,query));
+            var result = new ListResult<EventDTO>()
+            {
+                Result = Mapper.Map<List<EventDTO>>(modelList),
+                Total = await EventService.Count(new SortedEventsByOrganizationAndTimeSpecification(organizationId, filter, query.TakeAll()))
+            };
+            return result;
+
+        }
         #endregion
 
         #region Create
-       
+
         /// <summary>
         /// Create event 
         /// </summary>
