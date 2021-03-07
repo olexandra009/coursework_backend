@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Ardalis.Specification;
 using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
@@ -38,6 +39,18 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         }
 
         #region Get
+
+        public override async Task<List<Application>> List(ISpecification<ApplicationEntity> specification)
+        {
+            var models = await base.List(specification);
+            foreach (var application in models)
+            {
+                application.Multimedias = await MultimediaService.List(new MultimediaByApplicationIdSpecification(application.Id));
+                application.Author = await UserService.Get(application.AuthorId);
+            }
+
+            return models;
+        }
 
         public override async Task<Application> Create(Application model)
         {

@@ -5,6 +5,7 @@ using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using AutoMapper.Extensions.EnumMapping;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping
 {
@@ -16,19 +17,30 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping
             CreateMap<Application, ApplicationDTO>().ForMember(dto=>dto.OpenDate, 
                                                     configExpression=>configExpression.MapFrom(model=>model.OpenDate.ToString("u")))
                                                     .ForMember(dto=>dto.CloseDate, 
-                                                    configExpression=>configExpression.MapFrom(model=>(model.CloseDate==null)?null:((DateTime)model.CloseDate).ToString("u")));
+                                                    configExpression=>configExpression.MapFrom(model=>(model.CloseDate==null)?null:((DateTime)model.CloseDate).ToString("u")))
+                                                    .ForMember(dto => dto.Status, ex => ex.MapFrom(model => model.StatusModel));
+
+
             CreateMap<ApplicationDTO, Application>().ForMember(model => model.OpenDate,
                                                          configExpression => configExpression.MapFrom(dto => DateTime.Parse(dto.OpenDate, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal)))
                                                     .ForMember(model => model.CloseDate,
                                                         configExpression => configExpression.MapFrom(dto =>
-                                                            (dto.CloseDate == null) ? (DateTime?) null : (DateTime.Parse(dto.CloseDate, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal))));
-            CreateMap<Application, ApplicationEntity>();
-            CreateMap<ApplicationEntity, Application>();
+                                                            (dto.CloseDate == null) ? (DateTime?) null : (DateTime.Parse(dto.CloseDate, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal))))
+                                                    .ForMember(model => model.StatusModel, ex => ex.MapFrom(dto => dto.Status));
+            CreateMap<Application, ApplicationEntity>().ForMember(entity=>entity.Status, ex=>ex.MapFrom(model=>model.StatusModel));
+            CreateMap<ApplicationEntity, Application>().ForMember(model => model.StatusModel, ex => ex.MapFrom(entity => entity.Status));
+            ;
 
-            CreateMap<StatusModel, StatusDTO>();
-            CreateMap<Status, StatusModel>();
-            CreateMap<StatusModel, Status > ();
-            CreateMap<StatusDTO, StatusModel>();
+            CreateMap<StatusModel, StatusDTO>().ConvertUsingEnumMapping(opt => opt.MapValue(StatusModel.NullStatus, StatusDTO.NullStatus)
+                                               .MapValue(StatusModel.Waiting, StatusDTO.Waiting).MapValue(StatusModel.Close, StatusDTO.Close).MapValue(StatusModel.InProcess, StatusDTO.InProcess));
+            CreateMap<Status, StatusModel>().ConvertUsingEnumMapping(opt => opt.MapValue(Status.NullStatus, StatusModel.NullStatus)
+                                               .MapValue(Status.Waiting, StatusModel.Waiting).MapValue(Status.Close, StatusModel.Close).MapValue(Status.InProcess, StatusModel.InProcess));
+            CreateMap<StatusModel, Status > ().ConvertUsingEnumMapping(opt => opt.MapValue(StatusModel.NullStatus, Status.NullStatus)
+                .MapValue(StatusModel.Waiting, Status.Waiting).MapValue(StatusModel.Close, Status.Close).MapValue(StatusModel.InProcess, Status.InProcess));
+
+            CreateMap<StatusDTO, StatusModel>().ConvertUsingEnumMapping(opt => opt.MapValue(StatusDTO.NullStatus, StatusModel.NullStatus)
+                .MapValue(StatusDTO.Waiting, StatusModel.Waiting).MapValue(StatusDTO.Close, StatusModel.Close).MapValue(StatusDTO.InProcess, StatusModel.InProcess));
+            
 
 
             CreateMap<Event, EventDTO>().ForMember(dto=>dto.StartDate, confExp=>confExp.MapFrom(model=>model.StartDate.ToString("u")))

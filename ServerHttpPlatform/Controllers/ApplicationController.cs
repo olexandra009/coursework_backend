@@ -236,5 +236,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
           
         }
         #endregion
+
+        public override Task<ActionResult<ApplicationDTO>> Create(ApplicationDTO dto)
+        {
+            Console.WriteLine(dto.Status);
+            return base.Create(dto);
+        }
     }
 }
