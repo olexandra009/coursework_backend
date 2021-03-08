@@ -121,6 +121,22 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return result;
         }
 
+
+        [HttpGet("/filter_author_status")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ListResult<PetitionDTO>> FilteredByAuthorAndStatus(int userId, string timeStatus, string voteStatus, [FromQuery] PagedSortListQuery query)
+        {
+            var resultModel =
+                await PetitionService.List(new FilterPetitionByStatusAndUserIdSpecification(PetitionService.SuccessfulMinimumVotesNumber(), userId, query, timeStatus, voteStatus));
+            // var resultDto =
+            // resultDto.ForEach(async p => p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
+            var result = new ListResult<PetitionDTO>()
+            {
+                Result = Mapper.Map<List<PetitionDTO>>(resultModel),
+                Total = await PetitionService.Count(new FilterPetitionByStatusAndUserIdSpecification(PetitionService.SuccessfulMinimumVotesNumber(), userId, query.TakeAll(), timeStatus, voteStatus))
+            };
+            return result;
+        }
         ///// <summary>
         ///// Get list of petition by user vote id
         ///// </summary>

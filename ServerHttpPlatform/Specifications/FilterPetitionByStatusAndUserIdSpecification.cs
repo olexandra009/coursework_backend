@@ -1,23 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
 {
-    /// <summary>
-    /// Specification for getting list of petition filtered by finish date and votes count
-    /// </summary>
-    public class FilterStatusPetitionSpecification : PagedSpecification<PetitionEntity>
+    public class FilterPetitionByStatusAndUserIdSpecification : PagedSpecification<PetitionEntity>
     {
-        /// <summary>
-        /// Create specification for getting list of petition filtered by finish date and votes count
-        /// </summary>
-        /// <param name="number">a number of votes for successful petition</param>
-        /// <param name="query"></param>
-        /// <param name="timeStatus">allow values active, act, close, cls</param>
-        /// <param name="votesStatus">allow values succ, successful, unsucc, unsuccessful</param>
-        public FilterStatusPetitionSpecification(int number, PagedSortListQuery query, string timeStatus = null, string votesStatus = null) 
-                                                : base(query.Take, query.Skip, query.SortProp, query.SortOrder)
+        public FilterPetitionByStatusAndUserIdSpecification(int number, int userId, PagedSortListQuery query, string timeStatus = null, string votesStatus = null)
+            : base(query.Take, query.Skip, query.SortProp, query.SortOrder)
         {
             if (timeStatus != null)
             {
@@ -35,7 +28,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
                         throw new ArgumentException();
                 }
             }
-            if(votesStatus==null) return;
+            if (votesStatus == null) return;
 
             switch (votesStatus.ToLower())
             {
@@ -51,6 +44,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
                     throw new ArgumentException();
             }
 
+            Query.Where(p => p.AuthorId == userId);
 
         }
     }
