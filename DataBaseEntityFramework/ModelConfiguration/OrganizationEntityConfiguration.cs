@@ -16,7 +16,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.HasMany(o => o.Users)
                 .WithOne(u => u.UserOrganization)
                 .HasForeignKey(u => u.UserOrganizationId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.NoAction).IsRequired(false); 
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -20,7 +21,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<User> GetUserByLogin(string login);
         Task<User> UpdateRole(int id, string role);
         Task<User> ConfirmEmail(int userId, string code);
-
+        Task<User> GetUserByEmail(string email);
         Task<User> ChangeLogin(int userId, string login);
         Task<User> ChangePassword(int userId, string password);
 
@@ -28,6 +29,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<User> ExtendRole(int userId, string inp);
         Task<User> UpdateUser(int userId, User model);
         Task<User> ChangeEmail(int userId, string email);
+        Task<bool> SendResetPasswordEmail(string token, string name, string email);
+        Task<User> ChangeOrganization(int userId, int? organizationId);
+        Task<bool> ReSendEmailConfirmation(string email);
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
@@ -57,7 +61,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
                 user.UserOrganizationName = organization.Name;
             }
 
-            user.Password = "hidden";
+            //user.Password = "hidden";
             return user;
         }
 
@@ -73,6 +77,19 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             var url = "https://"+ $"localhost:44336/confirm_email?id={userId}&code={code}";
             await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
             return created;
+        }
+
+        public async Task<bool> ReSendEmailConfirmation(string email)
+        {
+            var user = List(new UserByEmailSpecification(email)).Result.FirstOrDefault();
+            if(user==null) return false;
+            if (user.EmailConfirm) return false;
+            var emailConfirm = (await EmailService.List(new EmailConfirmationByUserIdSpecification(user.Id))).FirstOrDefault();
+            if (emailConfirm == null) return false;
+            var code = HttpUtility.UrlEncode(emailConfirm.Code);
+            var url = "https://" + $"localhost:44336/confirm_email?id={user.Id}&code={code}";
+            await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
+            return true;
         }
 
         public async Task<User> GetUserByLogin(string login)
@@ -107,6 +124,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return updated;
         }
 
+        public async Task<User> GetUserByEmail(string email)
+        {
+            var users = await Repository.ListAsync(new UserByEmailSpecification(email));
+            if (users.Count == 0) return null;
+            var entity =  users.FirstOrDefault();
+            return Mapper.Map<User>(entity);
+
+        }
         public async Task<User> ChangeLogin(int userId, string login)
         {
             var check = await GetUserByLogin(login);
@@ -118,10 +143,28 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return changed;
         }
 
+        public async Task<User> ChangeOrganization(int userId, int? organizationId)
+        {
+            var user = await Get(userId);
+            if (user == null) return null;
+            user.UserOrganizationId = organizationId;
+            var changed = await Update(user);
+            return changed;
+        }
+
+        public async Task<bool> SendResetPasswordEmail(string token, string name, string email)
+        {
+            var url = "https://" + $"localhost:44336/reset_password/{token}";
+            await SendEmailService.SendResetPasswordLetter(email, name, url);
+            return true;
+        }
+
+
         public async Task<User> ChangePassword(int userId, string password)
         {
             var user = await Get(userId);
             if (user == null) return null;
+            Console.WriteLine(user.UserOrganizationId + " " + user.Id);
             user.Password = password;
             var changed = await Update(user);
             return changed;
@@ -147,13 +190,17 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             var user = await Get(userId);
             if (user == null) return null;
-            model.Id = user.Id;
-            model.Role = user.Role;
-            model.Email = user.Email;
             model.Password = user.Password;
-            model.Login = user.Login;
+            model.Email = user.Email;
             model.EmailConfirm = user.EmailConfirm;
-            return await Update(model);
+            model.Id = user.Id;
+            model.UserOrganizationId = user.UserOrganizationId;
+            model.Role = user.Role;
+            //user.FirstName = model.FirstName;
+            //user.SecondName = model.SecondName;
+            //user.LastName = model.LastName;
+            //user.PhoneNumber = model.PhoneNumber;
+            return await Update(user);
         }
 
         public async Task<User> ExtendRole(int userId, string inp)

@@ -11,6 +11,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
+using Microsoft.Extensions.Hosting.Internal;
 
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
@@ -121,6 +122,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             var application = await Get(applicationId);
             if (application == null) return null;
+            application.Author = null;
+            application.Answerer = null;
             var answerer = await UserService.Get(answererId);
             if (answerer==null || !answerer.Role.Contains(Roles.ApplicationAdmin))
                 return null;

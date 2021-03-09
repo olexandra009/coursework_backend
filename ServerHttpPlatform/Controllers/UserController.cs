@@ -26,7 +26,6 @@ using Microsoft.IdentityModel.Tokens;
 //  list of users that voted petition 
 //  authorization for each endpoint 
 
-//TODO create update methods for user
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
     [Route("api/[controller]")]
@@ -115,6 +114,31 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         }
         #endregion
 
+        #region ForgotPassword
+
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            var user = await UserService.GetUserByEmail(email);
+            if (user == null) return NotFound();
+            var identity = GetIdentity(user.Login, user.Password);
+            var now = DateTime.UtcNow;
+            var jwt = new JwtSecurityToken(
+                issuer: AuthOptions.ISSUER,
+                audience: AuthOptions.AUDIENCE,
+                notBefore: now,
+                claims: identity.Claims,
+                expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
+                    SecurityAlgorithms.HmacSha256));
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            await UserService.SendResetPasswordEmail(encodedJwt, user.FirstName,email);
+
+            return Ok();
+        }
+
+
+        #endregion
+
         #region Registration
         /// <summary>
         /// New user registration (create new user)
@@ -140,15 +164,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             }
         }
 
-        [HttpPut("/user/check")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
-        public IActionResult CheckToken()
-        {
-            return Ok(new { token = true });
-        }
-
-
         [HttpPost("/loginExists")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -160,7 +175,28 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return Ok();
         }
 
-        //TODO should we send page here?
+        [HttpPost("/emailExists")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
+        public async Task<IActionResult> IsEmailExists(string email)
+        {
+            var user = await UserService.GetUserByEmail(email);
+            if (user == null) return NotFound();
+            return Ok();
+        }
+        [HttpPost("/emailConfirmResend")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
+        public async Task<IActionResult> ReSendEmail(string email)
+        {
+            bool result = await UserService.ReSendEmailConfirmation(email);
+            if (!result) return NotFound();
+            return Ok();
+        }
+
+       
         [HttpGet("/confirm_email")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -214,27 +250,57 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
 
+        public override async Task<ActionResult<UserDTO>> Get(int id)
+        {
+            var user = await base.Get(id);
+            user.Value.Password = "hidden";
+            return user;
+
+        }
+
+        [HttpPut("/user/check")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
+        public IActionResult CheckToken()
+        {
+            return Ok(new { token = true });
+        }
+
+
         #region Update
         /// <summary>
         /// Change users role
         /// </summary>
         /// <param name="userId"></param>
-        /// <param name="role">allows values: </param>
+        /// <param name="userDto"></param>
         /// <returns></returns>
         [HttpPut("/change_role")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDTO>> ChangeRole(int userId, string role)
+        public async Task<ActionResult<UserDTO>> ChangeRole(int userId, UserDTO userDto)
         {
-            User user = await UserService.UpdateRole(userId, role);
-            var result = Mapper.Map<UserDTO>(user);
-            return result;
+            var exist = await UserService.Get(userId);
+            if (exist == null) return null;
+            try
+            {
+                var user = Mapper.Map<User>(userDto);
+                var update = MakeEqual(exist, user);
+                update.Role = userDto.Role;
+                var result = await UserService.Update(update);
+                var dto = Mapper.Map<UserDTO>(result);
+                dto.Password = "hidden";
+                return dto;
+            }
+            catch (Exception exception)
+            {
+                return NotFound(exception);
+            }
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
-        public override Task<ActionResult<UserDTO>> Update(int id, UserDTO dto)
+        public override  Task<ActionResult<UserDTO>> Update(int id, UserDTO dto)
         {
-            return base.Update(id, dto);
+            return  base.Update(id, dto);
         }
 
         [HttpPut("/update")]
@@ -242,41 +308,116 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserDTO>> UpdateUser(int userId, UserDTO user)
         {
+            var userExist = await UserService.Get(userId);
             var update = Mapper.Map<User>(user);
-            var model = await UserService.UpdateUser(userId, update);
+            var userToUpdate = MakeEqual(userExist, update);
+            userToUpdate.FirstName = user.FirstName;
+            userToUpdate.LastName = user.LastName;
+            userToUpdate.SecondName = user.SecondName;
+            userToUpdate.PhoneNumber = user.PhoneNumber;
+            var model = await UserService.Update(update);
             var dto = Mapper.Map<UserDTO>(model);
+            dto.Password = "hidden";
             return dto;
+        }
+
+        [HttpPut("/updateOrganization")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<UserDTO>> UpdateUserOrganization([FromQuery]int userId, UserDTO userDto)
+        {
+            var exist = await UserService.Get(userId);
+            if (exist == null) return null;
+            try
+            {
+                var user = Mapper.Map<User>(userDto);
+                var update = MakeEqual(exist, user);
+                update.UserOrganizationId = userDto.UserOrganizationId;
+                var result = await UserService.Update(update);
+                var dto = Mapper.Map<UserDTO>(result);
+                dto.Password = "hidden";
+                return dto;
+            }
+            catch (Exception exception)
+            {
+                return NotFound(exception);
+            }
+         
         }
 
         [HttpPut("/update_email")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDTO>> UpdateEmail(int userId, [FromForm] string email)
+        public async Task<ActionResult<UserDTO>> UpdateEmail(int userId, UserDTO userDto)
         {
-           var user =  await UserService.ChangeEmail(userId, email);
-           return Mapper.Map<UserDTO>(user);
+            var exist = await UserService.Get(userId);
+            if (exist == null) return null;
+            try
+            {
+                var user = Mapper.Map<User>(userDto);
+                var update = MakeEqual(exist, user);
+                update.Email = userDto.Email;
+                var result = await UserService.Update(update);
+                var dto = Mapper.Map<UserDTO>(result);
+                //todo send email
+                dto.Password = "hidden";
+                return dto;
+            }
+            catch (Exception exception)
+            {
+                return NotFound(exception);
+            }
         }
 
 
         [HttpPut("/change_login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDTO>> ChangeLogin([FromQuery]int userId, [FromForm]string login)
+        [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
+        public async Task<ActionResult<UserDTO>> ChangeLogin([FromQuery]int userId, UserDTO userDto)
         {
-            User user = await UserService.ChangeLogin(userId, login);
-            if (user == null) return NotFound();
-            var result = Mapper.Map<UserDTO>(user);
-            return result;
+            var log = await UserService.GetUserByLogin(userDto.Login);
+            if (log != null) return Conflict();
+            var exist = await UserService.Get(userId);
+            if (exist == null) return NotFound();
+            try
+            {
+                var user = Mapper.Map<User>(userDto);
+                var update = MakeEqual(exist, user);
+                update.Login = userDto.Login;
+                var result = await UserService.Update(update);
+                var dto = Mapper.Map<UserDTO>(result);
+                dto.Password = "hidden";
+                return dto;
+            }
+            catch (Exception exception)
+            {
+                return NotFound(exception);
+            }
         }
 
         [HttpPut("/change_password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ChangePassword([FromQuery] int userId, [FromForm] string password)
+        public async Task<IActionResult> ChangePassword([FromQuery] int userId, UserDTO userDto)
         {
-            User user = await UserService.ChangePassword(userId, password);
-            if (user == null) return NotFound();
-            return Ok();
+            var exist = await UserService.Get(userId);
+            if (exist == null) return NotFound();
+            try
+            {
+                var user = Mapper.Map<User>(userDto);
+                var update = MakeEqual(exist, user);
+                update.Password = userDto.Password;
+                var result = await UserService.Update(update);
+                var dto = Mapper.Map<UserDTO>(result);
+                dto.Password = "hidden";
+                return Ok();
+            }
+            catch (Exception exception)
+            {
+                return NotFound(exception);
+            }
+          
         }
 
         //[HttpPost("/extendRole")]
@@ -288,6 +429,20 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         //}
         #endregion
 
-
+        private User MakeEqual(User source, User destination)
+        {
+            destination.Password = source.Password;
+            destination.Id = source.Id;
+            destination.FirstName = source.FirstName;
+            destination.LastName = source.LastName;
+            destination.SecondName = source.SecondName;
+            destination.EmailConfirm = source.EmailConfirm;
+            destination.PhoneNumber = source.PhoneNumber;
+            destination.Role = source.Role;
+            destination.Email = source.Email;
+            destination.UserOrganizationId = source.UserOrganizationId;
+            destination.Login = source.Login;
+            return destination;
+        }
     }
 }

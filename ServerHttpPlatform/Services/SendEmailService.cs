@@ -11,15 +11,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
 
         Task SendEventNotificationLetter(string[] email, Event @event, string fromName);
+        Task SendResetPasswordLetter(string email, string name, string url);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="email">Emails to send</param>
-        /// <param name="subject"></param>
-        /// <param name="text"></param>
-        /// <param name="fromName">Name of sender</param>
-        /// <returns></returns>
         Task SendLetters(string[] email, string subject, string text, string fromName);
 
         Task SendConfirmLetter(string email, string name, string url);
@@ -41,6 +34,19 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
                           $"</p> <a href={url}>Confirm email</a>" +
                            "<p> Yours truly,<br/>Platform Utc Administration";
            return SendLetters(new[] {email}, subject, text);
+
+        }
+
+        public Task SendResetPasswordLetter(string email, string name, string url)
+        {
+
+            string subject = "Email Confirmation";
+            string text = $"<p>Hi, {name}</p> <p>You have received this email you have try" +
+                          "to reset Platform Utc.</p>" +
+                          "</p> Please follow this link to complete the action: " +
+                          $"</p> <a href={url}>Reset password</a>" +
+                          "<p> Yours truly,<br/>Platform Utc Administration";
+            return SendLetters(new[] { email }, subject, text);
 
         }
 

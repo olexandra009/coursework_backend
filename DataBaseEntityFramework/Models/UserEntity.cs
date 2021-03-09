@@ -89,7 +89,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
         public int? UserOrganizationId
         {
             get => _userOrganizationId;
-            private set => _userOrganizationId = value;
+            set => _userOrganizationId = value;
         }
 
         public string Role
