@@ -6,6 +6,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
@@ -98,6 +99,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
+                    new Claim("person/user/identificate", person.Id.ToString()),
+
                 };
                 foreach (var role in roles)
                 {
@@ -115,7 +118,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region ForgotPassword
-
+        [HttpPost("/forgot_password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ForgotPassword(string email)
         {
             var user = await UserService.GetUserByEmail(email);
@@ -131,7 +136,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(),
                     SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-            await UserService.SendResetPasswordEmail(encodedJwt, user.FirstName,email);
+            await UserService.SendResetPasswordEmail(user.Id, encodedJwt, user.FirstName,email);
 
             return Ok();
         }
@@ -324,15 +329,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/updateOrganization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDTO>> UpdateUserOrganization([FromQuery]int userId, UserDTO userDto)
+        public async Task<ActionResult<UserDTO>> UpdateUserOrganization([FromQuery]int userId, [FromQuery]int organization /*UserDTO userDto*/)
         {
             var exist = await UserService.Get(userId);
             if (exist == null) return null;
             try
             {
-                var user = Mapper.Map<User>(userDto);
+                var user = new User();
                 var update = MakeEqual(exist, user);
-                update.UserOrganizationId = userDto.UserOrganizationId;
+                update.UserOrganizationId = organization==0?null:organization;
                 var result = await UserService.Update(update);
                 var dto = Mapper.Map<UserDTO>(result);
                 dto.Password = "hidden";
@@ -357,9 +362,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
                 var user = Mapper.Map<User>(userDto);
                 var update = MakeEqual(exist, user);
                 update.Email = userDto.Email;
+                update.EmailConfirm = false;
                 var result = await UserService.Update(update);
                 var dto = Mapper.Map<UserDTO>(result);
-                //todo send email
+                await UserService.SendEmailConfirm(dto.Login, dto.Id, result);
                 dto.Password = "hidden";
                 return dto;
             }
@@ -396,11 +402,37 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             }
         }
 
+        private int GetUserIdFromToken(string authorization)
+        {
+            //cut start "Bearer "
+            var stream = authorization.Substring(7);
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(stream);
+            var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
+            //Get claim with id
+            if (tokenS == null) return 0;
+            Claim id = tokenS.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
+            if (id == null) return 0;
+            string userTokenId = id.Value;
+            try
+            {
+                int userId = Int32.Parse(userTokenId);
+                return userId;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
         [HttpPut("/change_password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> ChangePassword([FromQuery] int userId, UserDTO userDto)
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
+        public async Task<IActionResult> ChangePassword([FromQuery] int userId, UserDTO userDto, [FromHeader] string authorization)
         {
+            var changedId = GetUserIdFromToken(authorization);
+            if (changedId != userId) return NotFound();
             var exist = await UserService.Get(userId);
             if (exist == null) return NotFound();
             try

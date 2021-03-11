@@ -29,9 +29,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<User> ExtendRole(int userId, string inp);
         Task<User> UpdateUser(int userId, User model);
         Task<User> ChangeEmail(int userId, string email);
-        Task<bool> SendResetPasswordEmail(string token, string name, string email);
+        Task<bool> SendResetPasswordEmail(int id, string token, string name, string email);
         Task<User> ChangeOrganization(int userId, int? organizationId);
         Task<bool> ReSendEmailConfirmation(string email);
+        Task SendEmailConfirm(string login, int userId, User user);
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
@@ -72,11 +73,24 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             var created = await Create(user);
             int userId = created.Id;
             string login = created.Login;
+            await SendEmailConfirm(login, userId, user);
+            return created;
+        }
+
+        public async Task SendEmailConfirm(string login, int userId, User user)
+        {
+            var existConfirm = await EmailService.List(new EmailConfirmationByUserIdSpecification(userId));
+            if (existConfirm.Count != 0)
+            {
+                foreach (var conf in existConfirm)
+                {
+                    await EmailService.Delete(conf.Id);
+                }
+            }
             var emailConfirm = await EmailService.CreateNewInstance(login, userId);
             var code = HttpUtility.UrlEncode(emailConfirm.Code);
-            var url = "https://"+ $"localhost:44336/confirm_email?id={userId}&code={code}";
+            var url = "https://" + $"localhost:44336/confirm_email?id={userId}&code={code}";
             await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
-            return created;
         }
 
         public async Task<bool> ReSendEmailConfirmation(string email)
@@ -152,9 +166,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return changed;
         }
 
-        public async Task<bool> SendResetPasswordEmail(string token, string name, string email)
+        public async Task<bool> SendResetPasswordEmail(int id, string token, string name, string email)
         {
-            var url = "https://" + $"localhost:44336/reset_password/{token}";
+            var url = "https://" + $"localhost:44336/reset_password/{id}/{token}";
             await SendEmailService.SendResetPasswordLetter(email, name, url);
             return true;
         }

@@ -40,7 +40,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         public Task SendResetPasswordLetter(string email, string name, string url)
         {
 
-            string subject = "Email Confirmation";
+            string subject = "Reset Password";
             string text = $"<p>Hi, {name}</p> <p>You have received this email you have try" +
                           "to reset Platform Utc.</p>" +
                           "</p> Please follow this link to complete the action: " +
