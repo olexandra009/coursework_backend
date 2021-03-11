@@ -79,9 +79,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             }
 
             List<Multimedia> updatedList = new List<Multimedia>();
+            int i = 0;
             foreach (var multimedia in model.Multimedias)
             {
-                updatedList.Add(await MultimediaService.UploadMultimedia(multimedia));
+                updatedList.Add(await MultimediaService.UploadMultimedia(multimedia, 2, i));
+                i++;
             }
             model.Multimedias = updatedList;
             var modelCreated = await base.Create(model);
@@ -89,6 +91,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             modelCreated.Author = userModel;
             return modelCreated;
 
+        }
+
+        public override async Task Delete(int id)
+        {
+            var events = await Get(id);
+            events.Multimedias.ForEach(image =>
+                MultimediaService.DeleteMultimediaFromS3(image));
+            await base.Delete(id);
         }
     }
 }

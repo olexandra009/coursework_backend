@@ -20,7 +20,7 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConf
             builder.HasMany(e => e.Multimedias)
                 .WithOne(m => m.News)
                 .HasForeignKey(m => m.NewsId)
-                .OnDelete(DeleteBehavior.ClientCascade)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired(false);
 
         }

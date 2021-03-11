@@ -59,9 +59,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         public override async Task<Application> Create(Application model)
         {
             List<Multimedia> updatedList = new List<Multimedia>();
+            int i = 0;
             foreach (var multimedia in model.Multimedias)
             {
-                updatedList.Add(await MultimediaService.UploadMultimedia(multimedia));
+                updatedList.Add(await MultimediaService.UploadMultimedia(multimedia, 3, i));
+                i++;
             }
             model.Multimedias = updatedList;
             var modelCreated = await base.Create(model);
@@ -89,12 +91,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         #endregion
         #region Delete
-        public override Task Delete(int id)
+        public override async Task Delete(int id)
         {
-            var application = Repository.GetByIdAsync(id).Result;
+            var application = await Get(id);
             DateTime? close = application.CloseDate ?? DateTime.Now;
-            if (application.Status == Status.Close && DateTime.Now > (close + _dateToDelete))
-                return base.Delete(id);
+            if (application.StatusModel == StatusModel.Close && DateTime.Now > (close + _dateToDelete))
+            {
+                application.Multimedias.ForEach(image =>
+                MultimediaService.DeleteMultimediaFromS3(image));
+                await base.Delete(id);
+            }
             //TODO change exception message
             throw new NotSupportedException("Try to delete not close application or application with ");
         }
