@@ -222,7 +222,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             var user = await Get(userId);
             var result = ReadOnlyService.ExistsByIpnOrPassportNumber(line, isIpn, user);
-            if (!result) return null;
+            if (!result) return user;
             User updatedUser = new User();
             updatedUser = MakeEqual(user,updatedUser);
             updatedUser.Role += ", SuperUser";

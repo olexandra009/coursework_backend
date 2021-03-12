@@ -451,11 +451,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             }
           
         }
-
+       
+      
         [HttpPost("/extendRole")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<UserDTO>> ExtendRole(int userId, [FromForm] string inpOrPass, [FromForm] bool isIpn)
         {
             var result = await UserService.ExtendRole(userId, inpOrPass, isIpn);
+            if (result == null) return NotFound();
             result.Password = "hidden";
             return Mapper.Map<UserDTO>(result);
         }
