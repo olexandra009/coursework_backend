@@ -58,7 +58,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
 
             services.AddDbContext<PlatformDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-                //  options.UseNpgsql(new NpgsqlConnection().);
+            //  options.UseNpgsql(new NpgsqlConnection().);
 
             //services.AddIdentity<UserEntity, IdentityRole>().AddEntityFrameworkStores<PlatformDbContext>().AddDefaultTokenProviders();
 
