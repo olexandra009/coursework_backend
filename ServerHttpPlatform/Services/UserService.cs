@@ -26,7 +26,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<User> ChangePassword(int userId, string password);
 
         Task<List<User>> GetUserByOrganizationId(int orgId);
-        Task<User> ExtendRole(int userId, string inp);
+        Task<User> ExtendRole(int userId, string line, bool isIpn);
         Task<User> UpdateUser(int userId, User model);
         Task<User> ChangeEmail(int userId, string email);
         Task<bool> SendResetPasswordEmail(int id, string token, string name, string email);
@@ -40,14 +40,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         protected ISendEmailService SendEmailService;
         protected IOrganizationService OrganizationService;
         protected IEmailConfirmationService EmailService;
-    
+        protected IUserReadOnlyService ReadOnlyService;
 
-        public UserService(IMapper mapper, IOrganizationService organizationService, 
+        public UserService(IMapper mapper, IOrganizationService organizationService, IUserReadOnlyService readOnlyService,
                           ISendEmailService emailService, IUserRepository repository, IEmailConfirmationService emailDbService) : base(mapper, repository)
         {
             OrganizationService = organizationService;
             SendEmailService = emailService;
             EmailService = emailDbService;
+            ReadOnlyService = readOnlyService;
         }
 
 
@@ -217,9 +218,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return await Update(user);
         }
 
-        public async Task<User> ExtendRole(int userId, string inp)
+        public async Task<User> ExtendRole(int userId, string line, bool isIpn)
         {
-            throw new System.NotImplementedException();
+            var user = await Get(userId);
+            var result = ReadOnlyService.ExistsByIpnOrPassportNumber(line, isIpn, user);
+            if (!result) return null;
+            User updatedUser = new User();
+            updatedUser = MakeEqual(user,updatedUser);
+            updatedUser.Role += ", SuperUser";
+            var updated = await Update(updatedUser);
+            return updated;
         }
 
         public async Task<User> UpdateRole(int id, string role)
@@ -230,7 +238,21 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             var updated = await Update(userModel);
             return updated;
         }
+        private User MakeEqual(User source, User destination)
+        {
+            destination.Password = source.Password;
+            destination.Id = source.Id;
+            destination.FirstName = source.FirstName;
+            destination.LastName = source.LastName;
+            destination.SecondName = source.SecondName;
+            destination.EmailConfirm = source.EmailConfirm;
+            destination.PhoneNumber = source.PhoneNumber;
+            destination.Role = source.Role;
+            destination.Email = source.Email;
+            destination.UserOrganizationId = source.UserOrganizationId;
+            destination.Login = source.Login;
+            return destination;
+        }
 
-      
     }
 }

@@ -8,7 +8,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UserReadOnlyRepository>()
-                .As<IUserReadOnlyRepository>().InstancePerLifetimeScope();
+                .As<IReadOnlyRepository>().InstancePerLifetimeScope();
         }
     }
 }

@@ -452,13 +452,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
           
         }
 
-        //[HttpPost("/extendRole")]
-        //public async Task<ActionResult<UserDTO>> ExtendRole(int userId, [FromBody]string inp)
-        //{
-
-
-        //    return result;
-        //}
+        [HttpPost("/extendRole")]
+        public async Task<ActionResult<UserDTO>> ExtendRole(int userId, [FromForm] string inpOrPass, [FromForm] bool isIpn)
+        {
+            var result = await UserService.ExtendRole(userId, inpOrPass, isIpn);
+            result.Password = "hidden";
+            return Mapper.Map<UserDTO>(result);
+        }
         #endregion
 
         private User MakeEqual(User source, User destination)
