@@ -71,8 +71,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             //});
 
             services.AddDbContext<PersonalUsersInfoContext>(options =>
-                options.UseMySql(Configuration.GetConnectionString("ReadOnlyConnection"),
-                    new MySqlServerVersion(new Version(8, 0, 11))));
+                options.UseNpgsql(Configuration.GetConnectionString("ReadOnlyConnection")));
 
             services.AddAutoMapper((configuration) => configuration.AddProfile<MappingProfile>(),
                 typeof(Startup)); // scan and register automapper profiles in this assembly
