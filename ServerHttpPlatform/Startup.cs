@@ -20,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Npgsql;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
 {
@@ -56,10 +57,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             #endregion
 
             services.AddDbContext<PlatformDbContext>(options =>
-                options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
-                    new MySqlServerVersion(new Version(8, 0, 11))));
-           
-          
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                //  options.UseNpgsql(new NpgsqlConnection().);
+
             //services.AddIdentity<UserEntity, IdentityRole>().AddEntityFrameworkStores<PlatformDbContext>().AddDefaultTokenProviders();
 
             //services.Configure<IdentityOptions>(opts =>
@@ -69,7 +69,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
 
             //    opts.SignIn.RequireConfirmedEmail = true;
             //});
-            
+
             services.AddDbContext<PersonalUsersInfoContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("ReadOnlyConnection"),
                     new MySqlServerVersion(new Version(8, 0, 11))));

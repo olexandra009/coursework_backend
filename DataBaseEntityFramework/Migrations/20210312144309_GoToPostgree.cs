@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migrations
 {
-    public partial class ReInitPlatformUTCDB : Migration
+    public partial class GoToPostgree : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,11 +12,11 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "Organization",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Organizationname = table.Column<string>(name: "Organization name", type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Address = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Organization_name = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,18 +27,18 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    SecondName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    LastName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Email = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Login = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Password = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    UserOrganizationId = table.Column<int>(type: "int", nullable: true),
-                    Role = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    EmailConfirm = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    SecondName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Login = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    UserOrganizationId = table.Column<int>(type: "integer", nullable: true),
+                    Role = table.Column<string>(type: "text", nullable: true),
+                    EmailConfirm = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,16 +54,16 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "Application",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AuthorId = table.Column<int>(type: "int", nullable: false),
-                    AnswerId = table.Column<int>(type: "int", nullable: true),
-                    Subject = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Text = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    Result = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    Open = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Close = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false),
+                    AnswerId = table.Column<int>(type: "integer", nullable: true),
+                    Subject = table.Column<string>(type: "text", nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    Result = table.Column<string>(type: "text", nullable: true),
+                    Open = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Close = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -86,10 +86,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "EmailConfirm",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    Code = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,16 +107,16 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "Event",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    EventName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Description = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    End = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Edited = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ShowAuthor = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    EmailNotification = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EventName = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Start = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    End = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Edited = table.Column<bool>(type: "boolean", nullable: false),
+                    ShowAuthor = table.Column<bool>(type: "boolean", nullable: false),
+                    EmailNotification = table.Column<bool>(type: "boolean", nullable: false),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,14 +133,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "News",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Header = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Text = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Edited = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ShowAuthor = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Header = table.Column<string>(type: "text", nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Edited = table.Column<bool>(type: "boolean", nullable: false),
+                    ShowAuthor = table.Column<bool>(type: "boolean", nullable: false),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,13 +157,14 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "Petition",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Header = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Text = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    Start = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    End = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    AuthorId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Header = table.Column<string>(type: "text", nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: false),
+                    Answer = table.Column<string>(type: "text", nullable: true),
+                    Start = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    End = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    AuthorId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -180,12 +181,12 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                 name: "Multimedia",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Url = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: true),
-                    NewsId = table.Column<int>(type: "int", nullable: true),
-                    ApplicationId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Url = table.Column<string>(type: "text", nullable: false),
+                    EventId = table.Column<int>(type: "integer", nullable: true),
+                    NewsId = table.Column<int>(type: "integer", nullable: true),
+                    ApplicationId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -207,17 +208,18 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Migration
                         column: x => x.NewsId,
                         principalTable: "News",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Votes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    PetitionId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    PetitionId = table.Column<int>(type: "integer", nullable: false),
+                    created = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
