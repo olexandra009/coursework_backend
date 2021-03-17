@@ -56,22 +56,31 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 });
             #endregion
 
-            services.AddDbContext<PlatformDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
-            //  options.UseNpgsql(new NpgsqlConnection().);
+            var main = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var outer = Environment.GetEnvironmentVariable("HEROKU_POSTGRESQL_OLIVE_URL");
+            
+            if (main != null)
+            {
+                ConnectionStringObject mainObject = new ConnectionStringObject(main);
+                string connection =
+                    $"host={mainObject.Host};port={mainObject.Port};database={mainObject.Database};user id={mainObject.UserId}; password={mainObject.Password};Pooling=true;SSLMode=Require; TrustServerCertificate=True;";
+                services.AddDbContext<PlatformDbContext>(options =>
+                    options.UseNpgsql(connection));
+            } else
+                services.AddDbContext<PlatformDbContext>(options =>
+                     options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddIdentity<UserEntity, IdentityRole>().AddEntityFrameworkStores<PlatformDbContext>().AddDefaultTokenProviders();
-
-            //services.Configure<IdentityOptions>(opts =>
-            //{
-            //    opts.User.RequireUniqueEmail = true;
-            //    opts.Password.RequiredLength = 8;
-
-            //    opts.SignIn.RequireConfirmedEmail = true;
-            //});
-
-            services.AddDbContext<PersonalUsersInfoContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("ReadOnlyConnection")));
+            if (outer != null)
+            {
+                ConnectionStringObject conObject = new ConnectionStringObject(outer);
+                string connection =
+                    $"host={conObject.Host};port={conObject.Port};database={conObject.Database};user id={conObject.UserId}; password={conObject.Password};Pooling=true;SSLMode=Require; TrustServerCertificate=True;";
+                services.AddDbContext<PersonalUsersInfoContext>(options =>
+                    options.UseNpgsql(connection));
+            }
+            else
+                services.AddDbContext<PersonalUsersInfoContext>(options =>
+                     options.UseNpgsql(Configuration.GetConnectionString("ReadOnlyConnection")));
 
             services.AddAutoMapper((configuration) => configuration.AddProfile<MappingProfile>(),
                 typeof(Startup)); // scan and register automapper profiles in this assembly
@@ -81,6 +90,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
             services.AddControllers().AddNewtonsoftJson();
+
+            services.AddHealthChecks();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ServerHttpPlatform", Version = "v1" });
@@ -88,6 +99,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
             
         }
 
@@ -134,6 +146,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers().RequireCors(MyAllowSpecificOrigins);
+                endpoints.MapHealthChecks("/api/health");
+
             });
         }
     }

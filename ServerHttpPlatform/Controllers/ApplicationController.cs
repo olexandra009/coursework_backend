@@ -9,6 +9,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +37,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <param name="query"></param>
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public override Task<ListResult<ApplicationDTO>> GetList(PagedSortListQuery query)
         {
             if (string.IsNullOrEmpty(query.SortProp))
@@ -57,6 +60,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpGet("/getListFilteredByStatus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByStatusList(StatusDTO status, [FromQuery] PagedSortListQuery query)
         {
            
@@ -87,6 +92,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpGet("/getListFilteredByAuthor")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByAuthorAndStatus(int authorId, [FromQuery] PagedSortListQuery query, [FromQuery] StatusDTO status = StatusDTO.NullStatus)
         {
             var statusModel = Mapper.Map<StatusModel>(status);
@@ -110,6 +117,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpGet("/getListFilteredByAnswerer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "ApplicationAdmin")]
         public async Task<ActionResult<ListResult<ApplicationDTO>>> GetFilteredByAnswerer([FromQuery] PagedSortListQuery query, StatusDTO status = StatusDTO.InProcess, int? answererId = null)
         {
             var statusModel = Mapper.Map<StatusModel>(status);
@@ -142,6 +151,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/addResult/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "ApplicationAdmin")]
         public async Task<ActionResult<ApplicationDTO>> AddResult(int id, [FromForm]string result)
         {
             var exist = await ApplicationService.Get(id);
@@ -161,6 +172,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/changeAnswerer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "ApplicationAdmin")]
         public async Task<ActionResult<ApplicationDTO>> ChangeAnswerer(int applicationId, int answererId)
         {
             var model = await ApplicationService.ChangeAnswerer(applicationId, answererId);
@@ -182,6 +195,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/changeStatus/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "ApplicationAdmin")]
         public async Task<ActionResult<ApplicationDTO>> ChangeStatus(int id, StatusDTO statusDto)
         {
             if (statusDto == StatusDTO.NullStatus) return NotFound("Not allowed such status");
@@ -222,6 +237,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [ApiExplorerSettings(IgnoreApi = true)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public override async Task<ActionResult> Delete(int id)
         {
@@ -237,6 +253,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         }
         #endregion
 
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public override Task<ActionResult<ApplicationDTO>> Create(ApplicationDTO dto)
         {
             Console.WriteLine(dto.Status);

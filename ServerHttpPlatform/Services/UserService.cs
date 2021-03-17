@@ -90,7 +90,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             }
             var emailConfirm = await EmailService.CreateNewInstance(login, userId);
             var code = HttpUtility.UrlEncode(emailConfirm.Code);
-            var url = "https://" + $"localhost:44336/confirm_email?id={userId}&code={code}";
+            var url = "https://" + $"communication-platform.herokuapp.com/#/confirm/{userId}/{code}";
             await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
         }
 
@@ -102,7 +102,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             var emailConfirm = (await EmailService.List(new EmailConfirmationByUserIdSpecification(user.Id))).FirstOrDefault();
             if (emailConfirm == null) return false;
             var code = HttpUtility.UrlEncode(emailConfirm.Code);
-            var url = "https://" + $"localhost:44336/confirm_email?id={user.Id}&code={code}";
+            var url = "https://" + $"communication-platform.herokuapp.com/#/confirm/{user.Id}/{code}";
             await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
             return true;
         }
@@ -169,7 +169,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         public async Task<bool> SendResetPasswordEmail(int id, string token, string name, string email)
         {
-            var url = "https://" + $"localhost:44336/reset_password/{id}/{token}";
+            var url = "https://" + $"communication-platform.herokuapp.com/#/reset_password/{id}/{token}";
             await SendEmailService.SendResetPasswordLetter(email, name, url);
             return true;
         }
@@ -195,7 +195,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             string login = user.Login;
             var emailConfirm = await EmailService.CreateNewInstance(login, userId);
             var code = HttpUtility.UrlEncode(emailConfirm.Code);
-            var url = "https://" + $"localhost:44336/confirm_email?id={userId}&code={code}";
+            var url = "https://" + $"communication-platform.herokuapp.com/#/confirm/{userId}/{code}";
             await SendEmailService.SendConfirmLetter(user.Email, $"{user.FirstName} {user.SecondName} {user.LastName}", url);
             return user;
         }

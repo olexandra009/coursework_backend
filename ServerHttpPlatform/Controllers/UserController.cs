@@ -9,7 +9,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper.QueryableExtensions;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
@@ -48,6 +47,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPost("/login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
         public IActionResult Token([FromBody]LoginUserDtO user)
         {
             ClaimsIdentity identity;
@@ -121,6 +121,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPost("/forgot_password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(string email)
         {
             var user = await UserService.GetUserByEmail(email);
@@ -140,8 +141,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 
             return Ok();
         }
-
-
         #endregion
 
         #region Registration
@@ -153,6 +152,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPost("/registration")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
+        [AllowAnonymous]
         public async Task<ActionResult<UserDTO>> Registration(UserDTO dto)
         {
             var model = Mapper.Map<User>(dto);
@@ -190,11 +190,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             if (user == null) return NotFound();
             return Ok();
         }
-        [HttpPost("/emailConfirmResend")]
+        [HttpGet("/emailConfirmResend")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [AllowAnonymous]
-        public async Task<IActionResult> ReSendEmail(string email)
+        public async Task<IActionResult> ReSendEmail([FromQuery]string email)
         {
             bool result = await UserService.ReSendEmailConfirmation(email);
             if (!result) return NotFound();
@@ -205,6 +205,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpGet("/confirm_email")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
         public async Task<ActionResult> Confirmation([FromQuery]int id, [FromQuery]string code)
         {
             var user = await UserService.ConfirmEmail(id, code);
@@ -222,6 +223,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <returns></returns>
         [HttpGet("/filtered_by_role")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "Moderator,ApplicationAdmin,UserManager")]
         public async Task<ActionResult<ListResult<UserDTO>>> GetByRole(string role, [FromQuery]PagedSortListQuery query)
         {
             var modelList = await UserService.List(new UserByRoleSpecification(role, query));
@@ -238,13 +241,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpGet("/api/get_user_by_organization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "UserManager")]
         public async Task<ActionResult<List<UserDTO>>> GetDto(int id)
         {
             var users = await UserService.GetUserByOrganizationId(id);
             return Mapper.Map<List<UserDTO>>(users);
         }
 
-
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "Moderator,ApplicationAdmin,UserManager")]
         public override async Task<ListResult<UserDTO>> GetList(PagedSortListQuery query)
         {
             var users= await base.GetList(query);
@@ -253,8 +259,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         }
 
         #endregion
-
-
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public override async Task<ActionResult<UserDTO>> Get(int id)
         {
             var user = await base.Get(id);
@@ -268,7 +274,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public IActionResult CheckToken()
         {
-            return Ok(new { token = true });
+            Claim i = HttpContext.User.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
+
+            return Ok(new { token = true, claim = i.Value });
         }
 
 
@@ -282,6 +290,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/change_role")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "UserManager")]
         public async Task<ActionResult<UserDTO>> ChangeRole(int userId, UserDTO userDto)
         {
             var exist = await UserService.Get(userId);
@@ -311,8 +321,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDTO>> UpdateUser(int userId, UserDTO user)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
+        public async Task<ActionResult<UserDTO>> UpdateUser(int userId, UserDTO user, [FromHeader] string authorization)
         {
+            var changedId = GetUserIdFromToken(authorization);
+            if (changedId != userId) return Unauthorized();
             var userExist = await UserService.Get(userId);
             var update = Mapper.Map<User>(user);
             var userToUpdate = MakeEqual(userExist, update);
@@ -329,7 +343,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/updateOrganization")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDTO>> UpdateUserOrganization([FromQuery]int userId, [FromQuery]int organization /*UserDTO userDto*/)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "UserManager")]
+        public async Task<ActionResult<UserDTO>> UpdateUserOrganization([FromQuery]int userId, [FromQuery]int organization)
         {
             var exist = await UserService.Get(userId);
             if (exist == null) return null;
@@ -353,8 +369,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/update_email")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDTO>> UpdateEmail(int userId, UserDTO userDto)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
+        public async Task<ActionResult<UserDTO>> UpdateEmail(int userId, UserDTO userDto, [FromHeader] string authorization)
         {
+            var changedId = GetUserIdFromToken(authorization);
+            if (changedId != userId) return Unauthorized();
             var exist = await UserService.Get(userId);
             if (exist == null) return null;
             try
@@ -380,8 +400,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status409Conflict)]
-        public async Task<ActionResult<UserDTO>> ChangeLogin([FromQuery]int userId, UserDTO userDto)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
+        public async Task<ActionResult<UserDTO>> ChangeLogin([FromQuery]int userId, UserDTO userDto, [FromHeader] string authorization)
         {
+            var changedId = GetUserIdFromToken(authorization);
+            if (changedId != userId) return Unauthorized();
             var log = await UserService.GetUserByLogin(userDto.Login);
             if (log != null) return Conflict();
             var exist = await UserService.Get(userId);
@@ -407,7 +431,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             //cut start "Bearer "
             var stream = authorization.Substring(7);
             var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(stream);
             var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
             //Get claim with id
             if (tokenS == null) return 0;
@@ -428,11 +451,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPut("/change_password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public async Task<IActionResult> ChangePassword([FromQuery] int userId, UserDTO userDto, [FromHeader] string authorization)
         {
             var changedId = GetUserIdFromToken(authorization);
-            if (changedId != userId) return NotFound();
+            if (changedId != userId) return Unauthorized();
             var exist = await UserService.Get(userId);
             if (exist == null) return NotFound();
             try
@@ -456,6 +480,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [HttpPost("/extendRole")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public async Task<ActionResult<UserDTO>> ExtendRole(int userId, [FromForm] string inpOrPass, [FromForm] bool isIpn)
         {
             var result = await UserService.ExtendRole(userId, inpOrPass, isIpn);
@@ -464,6 +489,18 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return Mapper.Map<UserDTO>(result);
         }
         #endregion
+
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
+        public override async Task<ActionResult> Delete(int id)
+        {
+            Claim i = HttpContext.User.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
+            if(i==null) return Unauthorized();
+            if (string.IsNullOrEmpty(i.Value)) return Unauthorized();
+            int deleted = int.Parse(i.Value);
+            if(deleted!=id) return Unauthorized();
+            return await base.Delete(id);
+        }
 
         private User MakeEqual(User source, User destination)
         {
@@ -481,4 +518,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return destination;
         }
     }
+
+
 }
