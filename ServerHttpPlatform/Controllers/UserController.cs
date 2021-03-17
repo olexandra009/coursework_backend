@@ -30,7 +30,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowOrigin")]
+   
     public class UserController : CrudControllerBase<UserDTO, User, UserEntity, int>
     {
         protected IUserService UserService => (IUserService) Service;
@@ -250,7 +250,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         }
 
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Authorize(Roles = "Moderator,ApplicationAdmin,UserManager")]
+        [Authorize(Roles = "Moderator, ApplicationAdmin, UserManager")]
         public override async Task<ListResult<UserDTO>> GetList(PagedSortListQuery query)
         {
             var users= await base.GetList(query);

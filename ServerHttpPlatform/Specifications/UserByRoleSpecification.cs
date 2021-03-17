@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using AutoMapper.QueryableExtensions;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
 {
@@ -20,7 +22,20 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications
             query.SortProp,
             query.SortOrder)
         {
-            Query.Where(u => u.Role.Contains(role, StringComparison.OrdinalIgnoreCase));
+            string rolePatter = "%" + role + "%";
+            switch (role)
+            {
+                case "SuperUser":
+                    Query.Where(x => EF.Functions.Like(x.Role, rolePatter));
+                    break;
+                case "User":
+                    Query.Where(x => EF.Functions.Like(x.Role, rolePatter));
+                    break;
+                 default:
+                     Query.Where(x => EF.Functions.Like(x.Role, rolePatter));
+                     break;
+            }
+
 
         }
 
