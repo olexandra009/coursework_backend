@@ -70,7 +70,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
                     SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var u = UserService.Login(user.Login, user.Password).Result;
+            var u = UserService.Login(user.Login, user.Password, true).Result;
             var userDto = Mapper.Map<UserDTO>(u);
             userDto.Password = "hidden";
             var response = new
@@ -81,10 +81,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return new JsonResult(response);
         }
 
-        private ClaimsIdentity GetIdentity(string login, string password)
+        private ClaimsIdentity GetIdentity(string login, string password, bool hashed = false)
         {
 
-            var person = UserService.Login(login, password).Result;
+            var person = UserService.Login(login, password, hashed).Result;
             if (person != null)
             {
                 if (!person.EmailConfirm) throw new AccessViolationException("Email is not confirm!");
@@ -119,7 +119,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
             var user = await UserService.GetUserByEmail(email);
             if (user == null) return NotFound();
-            var identity = GetIdentity(user.Login, user.Password);
+            var identity = GetIdentity(user.Login, user.Password, true);
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
                 issuer: AuthOptions.ISSUER,
@@ -137,6 +137,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         #endregion
 
         #region Registration
+
         /// <summary>
         /// New user registration (create new user)
         /// </summary>

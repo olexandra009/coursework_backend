@@ -4,143 +4,43 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     public class UserEntity : DbModel<int>
     {
-        #region Fields
+        #region Properties
 
-        private string _firstName;
-        private string _secondName;
-        private string _lastName;
-        private string _phoneNumber;
-        private string _email;
+        public string FirstName { get; set; }
+        public string SecondName { get;  set; }
+        public string LastName { get;  set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+
 
         #region Authentification and authorization information
-        private string _login;
-        private string _password;
-        private string _role;
-        private bool _emailConfirm;
+
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string Salt { get; set; }
+        public string Role { get; set; }
+        public bool EmailConfirm { get; set; }
         #endregion
 
 
         #region Foriegn key and principal entity 
-        private OrganizationEntity _userOrganization;
-        private int? _userOrganizationId;
+
+        public OrganizationEntity UserOrganization { get; set; }
+        public int? UserOrganizationId { get; set; }
         #endregion
+
 
         #region Dependent entities
-        //one to many
-        private List<NewsEntity> _createdNews; 
-        private List<EventEntity> _createdEvents;
-        private List<ApplicationEntity> _createdApplications;
-        private List<ApplicationEntity> _answerApplications;
-        private List<PetitionEntity> _createdPetitions;
-        //many to many
-        private List<VotesEntity> _votedPetitions;
+
+        public List<NewsEntity> CreatedNews { get; set; }
+        public List<EventEntity> CreatedEvents { get; set; }
+        public List<ApplicationEntity> CreatedApplications { get; set; }
+        public List<ApplicationEntity> AnswerApplications { get; set; }
+        public List<PetitionEntity> CreatedPetitions { get; set; }
+        public List<VotesEntity> VotedPetitions { get; set; }
+        public EmailConfirmEntity EmailConfirmEntity { get; set; }
         #endregion
 
-        #endregion
-
-        #region Properties
-        public string FirstName
-        {
-            get => _firstName;
-            private set => _firstName = value;
-        }
-
-        public string SecondName
-        {
-            get=>_secondName;
-            private set => _secondName = value;
-        }
-
-        public string LastName
-        {
-            get => _lastName ;
-            private set => _lastName = value;
-        }
-
-        public string PhoneNumber
-        {
-            get => _phoneNumber;
-            private set => _phoneNumber = value;
-        }
-
-        public string Email
-        {
-            get => _email;
-            private set => _email = value;
-        }
-
-        public string Login
-        {
-            get => _login;
-            private set => _login = value;
-        }
-
-        public string Password
-        {
-            get => _password;
-            private set => _password = value;
-        }
-
-        public OrganizationEntity UserOrganization
-        {
-            get => _userOrganization;
-            private set => _userOrganization = value;
-        }
-        public int? UserOrganizationId
-        {
-            get => _userOrganizationId;
-            set => _userOrganizationId = value;
-        }
-
-        public string Role
-        {
-            get => _role;
-            set => _role = value;
-        }
-
-        public List<NewsEntity> CreatedNews
-        {
-            get => _createdNews;
-            set => _createdNews = value;
-        }
-        public bool EmailConfirm
-        {
-            get => _emailConfirm;
-            private set => _emailConfirm = value;
-        }
-
-
-        public List<EventEntity> CreatedEvents
-        {
-            get => _createdEvents;
-            set => _createdEvents = value;
-        }
-
-        public List<ApplicationEntity> CreatedApplications
-        {
-            get => _createdApplications;
-            set => _createdApplications = value;
-        }
-
-        public List<ApplicationEntity> AnswerApplications
-        {
-            get => _answerApplications;
-            set => _answerApplications = value;
-        }
-
-        public List<PetitionEntity> CreatedPetitions
-        {
-            get => _createdPetitions;
-            set => _createdPetitions = value;
-        }
-
-        public List<VotesEntity> VotedPetitions
-        {
-            get => _votedPetitions;
-            set => _votedPetitions = value;
-        }
-
-         public EmailConfirmEntity EmailConfirmEntity { get; set;}
         #endregion
 
     }

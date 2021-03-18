@@ -13,6 +13,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models
         public bool EmailConfirm { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public string Salt { get; set; }
         public string Role { get; set; }
 
         public Organization UserOrganization { get; set; }

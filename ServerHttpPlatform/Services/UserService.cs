@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using AutoMapper;
@@ -10,6 +11,7 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
@@ -17,7 +19,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     public interface IUserService : IServiceCrudModel<User,int,UserEntity>
     {
         Task<User> Registration(User user);
-        Task<User> Login(string login, string password);
+        Task<User> Login(string login, string password, bool isHash);
         Task<User> GetUserByLogin(string login);
         Task<User> UpdateRole(int id, string role);
         Task<User> ConfirmEmail(int userId, string code);
@@ -63,7 +65,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
                 user.UserOrganizationName = organization.Name;
             }
 
-            //user.Password = "hidden";
             return user;
         }
 
@@ -71,6 +72,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             user.EmailConfirm = false;
             user.Role = "User";
+            user.Salt = GenerateUserSalt();
+            user.Password = HashUserPassword(user.Password, user.Salt);
             var created = await Create(user);
             int userId = created.Id;
             string login = created.Login;
@@ -121,9 +124,16 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         }
 
 
-        public async Task<User> Login(string login, string password)
+        public async Task<User> Login(string login, string password, bool isHash)
         {
-            var user = (await Repository.ListAsync(new UserByLoginSpecification(login, password))).FirstOrDefault();
+            var user = (await Repository.ListAsync(new UserByLoginSpecification(login))).FirstOrDefault();
+            if (user == null) return null;
+            if (isHash)
+            {
+                return Mapper.Map<User>(user);
+            }
+            string hashed = HashUserPassword(password, user.Salt);
+            if (hashed != user.Password) return null;
             var result = Mapper.Map<User>(user);
             return result;
 
@@ -181,7 +191,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             var user = await Get(userId);
             if (user == null) return null;
-            user.Password = password;
+            user.Salt = GenerateUserSalt();
+            user.Password = HashUserPassword(password, user.Salt);
+            user.UserOrganization = null;
             var changed = await Update(user);
             return changed;
         }
@@ -239,5 +251,27 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return updated;
         }
 
+
+        private string GenerateUserSalt()
+        {
+            byte[] salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(salt);
+            }
+
+            return Convert.ToBase64String(salt);
+        }
+        private string HashUserPassword(string password, string stringSalt)
+        {
+            byte[] salt = Convert.FromBase64String(stringSalt);
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+            return hashed;
+        }
     }
 }
