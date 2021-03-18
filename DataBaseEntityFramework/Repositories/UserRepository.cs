@@ -1,4 +1,5 @@
-﻿using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
+﻿using System.Threading.Tasks;
+using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common;
 
 namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories
@@ -14,5 +15,16 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
             
         }
 
+        public override async Task UpdateAsync(UserEntity entity)
+        {
+            var orgId = entity.UserOrganizationId;
+            _dbContext.Set<UserEntity>().Update(entity);
+            await _dbContext.SaveChangesAsync();
+            if (orgId == entity.UserOrganizationId) return;
+            entity.UserOrganizationId = orgId;
+            _dbContext.Set<UserEntity>().Update(entity);
+            await _dbContext.SaveChangesAsync();
+            
+        }
     }
 }

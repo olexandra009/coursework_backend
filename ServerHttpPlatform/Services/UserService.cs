@@ -32,7 +32,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<bool> SendResetPasswordEmail(int id, string token, string name, string email);
         Task<User> ChangeOrganization(int userId, int? organizationId);
         Task<bool> ReSendEmailConfirmation(string email);
-        Task SendEmailConfirm(string login, int userId, User user);
+      
     }
     public class UserService:ServiceCrudModel<User, int, UserEntity>, IUserService
     {
@@ -78,7 +78,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             return created;
         }
 
-        public async Task SendEmailConfirm(string login, int userId, User user)
+        private async Task SendEmailConfirm(string login, int userId, User user)
         {
             var existConfirm = await EmailService.List(new EmailConfirmationByUserIdSpecification(userId));
             if (existConfirm.Count != 0)
@@ -149,12 +149,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         }
         public async Task<User> ChangeLogin(int userId, string login)
         {
-            var check = await GetUserByLogin(login);
-            var user = await Get(userId);
-            if (user == null) return null;
-            if (check != null) return user; 
-            user.Login = login;
-            var changed = await Update(user);
+            var log = await GetUserByLogin(login); 
+            if (log != null) throw new NotSupportedException("There is such login");
+            var exist = await Get(userId);
+            if (exist == null) throw new KeyNotFoundException("There is no such user");
+            exist.UserOrganization = null;
+            exist.Login = login;
+            var changed = await Update(exist);
             return changed;
         }
 
@@ -162,7 +163,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             var user = await Get(userId);
             if (user == null) return null;
-            user.UserOrganizationId = organizationId;
+            user.UserOrganizationId = organizationId == 0?null:organizationId;
+            user.UserOrganization = null;
             var changed = await Update(user);
             return changed;
         }
@@ -179,7 +181,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             var user = await Get(userId);
             if (user == null) return null;
-            Console.WriteLine(user.UserOrganizationId + " " + user.Id);
             user.Password = password;
             var changed = await Update(user);
             return changed;
@@ -189,8 +190,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         public async Task<User> ChangeEmail(int userId, string email)
         {
             var firstUser = await Get(userId);
+            if (firstUser == null) return null;
             firstUser.Email = email;
             firstUser.EmailConfirm = false;
+            firstUser.UserOrganization = null;
             var user = await Update(firstUser);
             string login = user.Login;
             var emailConfirm = await EmailService.CreateNewInstance(login, userId);
@@ -205,53 +208,35 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             var user = await Get(userId);
             if (user == null) return null;
-            model.Password = user.Password;
-            model.Email = user.Email;
-            model.EmailConfirm = user.EmailConfirm;
-            model.Id = user.Id;
-            model.UserOrganizationId = user.UserOrganizationId;
-            model.Role = user.Role;
-            //user.FirstName = model.FirstName;
-            //user.SecondName = model.SecondName;
-            //user.LastName = model.LastName;
-            //user.PhoneNumber = model.PhoneNumber;
+            user.UserOrganization = null;
+            user.FirstName = model.FirstName;
+            user.SecondName = model.SecondName;
+            user.LastName = model.LastName;
+            user.PhoneNumber = model.PhoneNumber;
             return await Update(user);
         }
+
 
         public async Task<User> ExtendRole(int userId, string line, bool isIpn)
         {
             var user = await Get(userId);
+            if (user == null) return null;
             var result = ReadOnlyService.ExistsByIpnOrPassportNumber(line, isIpn, user);
             if (!result) return user;
-            User updatedUser = new User();
-            updatedUser = MakeEqual(user,updatedUser);
-            updatedUser.Role += ", SuperUser";
-            var updated = await Update(updatedUser);
+            user.Role += ", SuperUser";
+            user.UserOrganization = null;
+            var updated = await Update(user);
             return updated;
         }
 
         public async Task<User> UpdateRole(int id, string role)
         {
             var userModel = await Get(id);
-         //   var userModel = Mapper.Map<User>(user);
+            if (userModel == null) return null;
             userModel.Role = role;
+            userModel.UserOrganization = null;
             var updated = await Update(userModel);
             return updated;
-        }
-        private User MakeEqual(User source, User destination)
-        {
-            destination.Password = source.Password;
-            destination.Id = source.Id;
-            destination.FirstName = source.FirstName;
-            destination.LastName = source.LastName;
-            destination.SecondName = source.SecondName;
-            destination.EmailConfirm = source.EmailConfirm;
-            destination.PhoneNumber = source.PhoneNumber;
-            destination.Role = source.Role;
-            destination.Email = source.Email;
-            destination.UserOrganizationId = source.UserOrganizationId;
-            destination.Login = source.Login;
-            return destination;
         }
 
     }

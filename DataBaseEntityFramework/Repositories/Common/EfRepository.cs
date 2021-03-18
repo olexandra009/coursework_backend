@@ -26,37 +26,10 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositor
 
         public virtual async Task UpdateAsync(TEntity entity)
         {
-            
-            if (typeof(TEntity) == (typeof(UserEntity)))
-            {
-                int? orgId = (entity as UserEntity).UserOrganizationId;
-                _dbContext.Entry(entity).State = EntityState.Modified;
-                await _dbContext.SaveChangesAsync();
-                if (orgId != (entity as UserEntity).UserOrganizationId)
-                {
-                    (entity as UserEntity).UserOrganizationId = orgId;
-                    _dbContext.Entry(entity).State = EntityState.Modified;
-                    await _dbContext.SaveChangesAsync();
-
-                }
-                return;
-            }
-
             _dbContext.Attach(entity);
             _dbContext.Entry(entity).State = EntityState.Modified;
-            //foreach (var reference in _dbContext.Entry(entity).References)
-            //    reference.IsModified = true;
             await _dbContext.SaveChangesAsync();
            
-        }
-
-        private bool IsDetached(TEntity entity)
-        {
-            var localEntity = _dbContext.Set<TEntity>().Local?.FirstOrDefault(x => Equals(x.Id, entity.Id));
-            if (localEntity != null) // entity stored in local
-                return false;
-
-            return _dbContext.Entry(entity).State == EntityState.Detached;
         }
 
         public virtual async Task DeleteAsync(TEntity entity)

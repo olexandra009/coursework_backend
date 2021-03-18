@@ -36,9 +36,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Commo
         public virtual async Task<TModel> Update(TModel model)
         {
             TEntity existsEntity = await Repository.GetByIdAsync(model.Id);
-            TEntity entity = Mapper.Map(model, existsEntity);
-            await Repository.UpdateAsync(entity).ConfigureAwait(false);
-            TModel result = Mapper.Map<TModel>(entity);
+            Mapper.Map(model, existsEntity);
+            await Repository.UpdateAsync(existsEntity).ConfigureAwait(false);
+            TModel result = Mapper.Map<TModel>(existsEntity);
             result = await Task.FromResult(result).ConfigureAwait(false);
             return result;
         }

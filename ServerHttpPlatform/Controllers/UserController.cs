@@ -264,12 +264,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 
         [HttpPut("/user/check")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public IActionResult CheckToken()
         {
-            Claim i = HttpContext.User.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
-
-            return Ok(new { token = true, claim = i.Value });
+            return Ok(new { token = true});
         }
 
 
@@ -287,22 +286,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [Authorize(Roles = "UserManager")]
         public async Task<ActionResult<UserDTO>> ChangeRole(int userId, UserDTO userDto)
         {
-            var exist = await UserService.Get(userId);
-            if (exist == null) return null;
-            try
-            {
-                var user = Mapper.Map<User>(userDto);
-                var update = MakeEqual(exist, user);
-                update.Role = userDto.Role;
-                var result = await UserService.Update(update);
-                var dto = Mapper.Map<UserDTO>(result);
-                dto.Password = "hidden";
-                return dto;
-            }
-            catch (Exception exception)
-            {
-                return NotFound(exception);
-            }
+            var user = await UserService.UpdateRole(userId, userDto.Role);
+            user.Password = "hidden";
+            return Mapper.Map<UserDTO>(user);
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
@@ -320,14 +306,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
             var changedId = GetUserIdFromToken(authorization);
             if (changedId != userId) return Unauthorized();
-            var userExist = await UserService.Get(userId);
             var update = Mapper.Map<User>(user);
-            var userToUpdate = MakeEqual(userExist, update);
-            userToUpdate.FirstName = user.FirstName;
-            userToUpdate.LastName = user.LastName;
-            userToUpdate.SecondName = user.SecondName;
-            userToUpdate.PhoneNumber = user.PhoneNumber;
-            var model = await UserService.Update(update);
+            var model = await UserService.UpdateUser(userId, update);
             var dto = Mapper.Map<UserDTO>(model);
             dto.Password = "hidden";
             return dto;
@@ -340,23 +320,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [Authorize(Roles = "UserManager")]
         public async Task<ActionResult<UserDTO>> UpdateUserOrganization([FromQuery]int userId, [FromQuery]int organization)
         {
-            var exist = await UserService.Get(userId);
-            if (exist == null) return null;
-            try
-            {
-                var user = new User();
-                var update = MakeEqual(exist, user);
-                update.UserOrganizationId = organization==0?null:organization;
-                var result = await UserService.Update(update);
-                var dto = Mapper.Map<UserDTO>(result);
-                dto.Password = "hidden";
-                return dto;
-            }
-            catch (Exception exception)
-            {
-                return NotFound(exception);
-            }
-         
+            var user =await  UserService.ChangeOrganization(userId, organization);
+            return Mapper.Map<UserDTO>(user);
         }
 
         [HttpPut("/update_email")]
@@ -368,24 +333,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
             var changedId = GetUserIdFromToken(authorization);
             if (changedId != userId) return Unauthorized();
-            var exist = await UserService.Get(userId);
-            if (exist == null) return null;
-            try
-            {
-                var user = Mapper.Map<User>(userDto);
-                var update = MakeEqual(exist, user);
-                update.Email = userDto.Email;
-                update.EmailConfirm = false;
-                var result = await UserService.Update(update);
-                var dto = Mapper.Map<UserDTO>(result);
-                await UserService.SendEmailConfirm(dto.Login, dto.Id, result);
-                dto.Password = "hidden";
-                return dto;
-            }
-            catch (Exception exception)
-            {
-                return NotFound(exception);
-            }
+
+            var user = await UserService.ChangeEmail(userId, userDto.Email);
+            return Mapper.Map<UserDTO>(user);
         }
 
 
@@ -399,47 +349,22 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
             var changedId = GetUserIdFromToken(authorization);
             if (changedId != userId) return Unauthorized();
-            var log = await UserService.GetUserByLogin(userDto.Login);
-            if (log != null) return Conflict();
-            var exist = await UserService.Get(userId);
-            if (exist == null) return NotFound();
             try
             {
-                var user = Mapper.Map<User>(userDto);
-                var update = MakeEqual(exist, user);
-                update.Login = userDto.Login;
-                var result = await UserService.Update(update);
-                var dto = Mapper.Map<UserDTO>(result);
-                dto.Password = "hidden";
-                return dto;
+                var user = await UserService.ChangeLogin(userId, userDto.Login);
+                user.Password = "hidden";
+                return Mapper.Map<UserDTO>(user);
             }
-            catch (Exception exception)
+            catch (KeyNotFoundException)
             {
-                return NotFound(exception);
+                return NotFound();
+            }
+            catch (NotSupportedException ex)
+            {
+                return Conflict(ex);
             }
         }
 
-        private int GetUserIdFromToken(string authorization)
-        {
-            //cut start "Bearer "
-            var stream = authorization.Substring(7);
-            var handler = new JwtSecurityTokenHandler();
-            var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
-            //Get claim with id
-            if (tokenS == null) return 0;
-            Claim id = tokenS.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
-            if (id == null) return 0;
-            string userTokenId = id.Value;
-            try
-            {
-                int userId = Int32.Parse(userTokenId);
-                return userId;
-            }
-            catch
-            {
-                return 0;
-            }
-        }
 
         [HttpPut("/change_password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -450,23 +375,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
             var changedId = GetUserIdFromToken(authorization);
             if (changedId != userId) return Unauthorized();
+            
             var exist = await UserService.Get(userId);
             if (exist == null) return NotFound();
-            try
-            {
-                var user = Mapper.Map<User>(userDto);
-                var update = MakeEqual(exist, user);
-                update.Password = userDto.Password;
-                var result = await UserService.Update(update);
-                var dto = Mapper.Map<UserDTO>(result);
-                dto.Password = "hidden";
-                return Ok();
-            }
-            catch (Exception exception)
-            {
-                return NotFound(exception);
-            }
-          
+
+            await UserService.ChangePassword(userId, userDto.Password);
+            return Ok();
         }
        
       
@@ -495,22 +409,27 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return await base.Delete(id);
         }
 
-        private User MakeEqual(User source, User destination)
+        private int GetUserIdFromToken(string authorization)
         {
-            destination.Password = source.Password;
-            destination.Id = source.Id;
-            destination.FirstName = source.FirstName;
-            destination.LastName = source.LastName;
-            destination.SecondName = source.SecondName;
-            destination.EmailConfirm = source.EmailConfirm;
-            destination.PhoneNumber = source.PhoneNumber;
-            destination.Role = source.Role;
-            destination.Email = source.Email;
-            destination.UserOrganizationId = source.UserOrganizationId;
-            destination.Login = source.Login;
-            return destination;
+            //cut start "Bearer "
+            var stream = authorization.Substring(7);
+            var handler = new JwtSecurityTokenHandler();
+            var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
+            
+            //Get claim with id
+            Claim id = tokenS?.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
+            if (id == null) return 0;
+            string userTokenId = id.Value;
+            try
+            {
+                int userId = Int32.Parse(userTokenId);
+                return userId;
+            }
+            catch
+            {
+                return 0;
+            }
         }
-
 
 
     }
