@@ -304,7 +304,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public async Task<ActionResult<UserDTO>> UpdateUser(int userId, UserDTO user, [FromHeader] string authorization)
         {
-            var changedId = GetUserIdFromToken(authorization);
+            Claim i = HttpContext.User.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
+            if (i == null) return Unauthorized();
+            var changedId = int.Parse(i.Value);
             if (changedId != userId) return Unauthorized();
             var update = Mapper.Map<User>(user);
             var model = await UserService.UpdateUser(userId, update);
@@ -331,7 +333,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public async Task<ActionResult<UserDTO>> UpdateEmail(int userId, UserDTO userDto, [FromHeader] string authorization)
         {
-            var changedId = GetUserIdFromToken(authorization);
+            Claim i = HttpContext.User.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
+            if (i == null) return Unauthorized();
+            var changedId = int.Parse(i.Value);
             if (changedId != userId) return Unauthorized();
 
             var user = await UserService.ChangeEmail(userId, userDto.Email);
@@ -347,7 +351,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public async Task<ActionResult<UserDTO>> ChangeLogin([FromQuery]int userId, UserDTO userDto, [FromHeader] string authorization)
         {
-            var changedId = GetUserIdFromToken(authorization);
+            Claim i = HttpContext.User.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
+            if (i == null) return Unauthorized();
+            var changedId = int.Parse(i.Value);
             if (changedId != userId) return Unauthorized();
             try
             {
@@ -373,7 +379,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public async Task<IActionResult> ChangePassword([FromQuery] int userId, UserDTO userDto, [FromHeader] string authorization)
         {
-            var changedId = GetUserIdFromToken(authorization);
+            Claim i = HttpContext.User.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
+            if (i == null) return Unauthorized();
+            var changedId = int.Parse(i.Value);
             if (changedId != userId) return Unauthorized();
             
             var exist = await UserService.Get(userId);
@@ -403,34 +411,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         {
             Claim i = HttpContext.User.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
             if(i==null) return Unauthorized();
+
             if (string.IsNullOrEmpty(i.Value)) return Unauthorized();
             int deleted = int.Parse(i.Value);
             if(deleted!=id) return Unauthorized();
             return await base.Delete(id);
         }
-
-        private int GetUserIdFromToken(string authorization)
-        {
-            //cut start "Bearer "
-            var stream = authorization.Substring(7);
-            var handler = new JwtSecurityTokenHandler();
-            var tokenS = handler.ReadToken(stream) as JwtSecurityToken;
-            
-            //Get claim with id
-            Claim id = tokenS?.Claims.FirstOrDefault(s => s.Type == "person/user/identificate");
-            if (id == null) return 0;
-            string userTokenId = id.Value;
-            try
-            {
-                int userId = Int32.Parse(userTokenId);
-                return userId;
-            }
-            catch
-            {
-                return 0;
-            }
-        }
-
+        
 
     }
 
