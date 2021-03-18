@@ -14,17 +14,10 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-
-// summary should be done
-//  create registration methods with email confirmation 
-//  create updates methods: all user information, password, email(with new confirmation)
-//  list of users that voted petition 
-//  authorization for each endpoint 
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 {
@@ -517,6 +510,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             destination.Login = source.Login;
             return destination;
         }
+
+
+
     }
 
 
