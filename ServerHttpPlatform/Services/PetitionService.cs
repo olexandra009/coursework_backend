@@ -18,19 +18,24 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         public Task<int> GetVotesNumber(int id);
         Task<List<Petition>> GetPetitionByUserVote(int userId, PagedSortListQuery query);
         Task<int> CountVotes(int userId, PagedSortListQuery query);
+        Task SendEmailAnswer(Petition petition);
     }
     public class PetitionService : ServiceCrudModel<Petition, int, PetitionEntity>, IPetitionService
     {
+        protected ISendEmailService EmailService;
         protected IUserService UserService;
         protected IVoteService VoteService;
         private readonly int _minimumVotesNumber;
-        public PetitionService(IMapper mapper, IConfiguration configuration, IVoteService _voteService,
-                                IUserService userService, IPetitionRepository repository) : base(mapper, repository)
+        public PetitionService(IMapper mapper, IConfiguration configuration, IVoteService voteService,
+                                IUserService userService, IPetitionRepository repository, ISendEmailService emailService) : base(mapper, repository)
         {
-            VoteService = _voteService;
+            VoteService = voteService;
             UserService = userService;
+            EmailService = emailService;
             _minimumVotesNumber = Convert.ToInt32(configuration.GetSection("AppConfiguration")["SuccessfulVotesNumber"]);
         }
+
+
 
 
         public override async Task<Petition> Get(int id)
@@ -58,6 +63,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         public async Task<int> CountVotes(int userId, PagedSortListQuery query)
         {
             return await VoteService.Count(new VotesByUserWithIdSpecification(userId, query));
+        }
+
+        public async Task SendEmailAnswer(Petition petition)
+        {
+            var author = await UserService.Get(petition.AuthorId);
+            if (author == null) return;
+            await EmailService.SendAnswerPetitionLetter(author.Email, author.FirstName, petition.Header,
+                petition.Answer);
+
         }
 
         public int SuccessfulMinimumVotesNumber()

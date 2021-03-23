@@ -28,16 +28,19 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
     {
         protected IUserService UserService;
         protected IMultimediaService MultimediaService;
+        protected ISendEmailService EmailService;
         private  readonly TimeSpan _dateToDelete;
-        public ApplicationService(IMapper mapper, IUserService userService, IConfiguration configuration,
+        public ApplicationService(IMapper mapper, IUserService userService, IConfiguration configuration, ISendEmailService emailService,
                                   IApplicationRepository repository, IMultimediaService multimedia) : base(mapper, repository)
         {
             UserService = userService;
             MultimediaService = multimedia;
+            EmailService = emailService;
             var confSection = configuration.GetSection("AppConfiguration");
             _dateToDelete = StringToTimeSpan.Convert(confSection["DeleteTimeSpan"]);
 
         }
+
 
         #region Get
 
@@ -106,14 +109,18 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         }
         #endregion
         #region Edit
-        public Task<Application> AddResult(int applicationId, string result)
+        public async Task<Application> AddResult(int applicationId, string result)
         {
             var applic = Repository.GetByIdAsync(applicationId).Result;
             var application = Mapper.Map<Application>(applic);
             application.Result = result;
             application.CloseDate = DateTime.UtcNow;
             application.StatusModel = StatusModel.Close;
-            return base.Update(application);
+            var user = await UserService.Get(application.AuthorId);
+            if(user==null) return await base.Update(application);
+            await EmailService.SendAnswerApplicationLetter(user.Email, user.FirstName, application.Subject,
+                application.Result);
+            return await base.Update(application);
         }
         
         public Task<Application> ChangeStatus(int applicationId, StatusModel statusModel)
