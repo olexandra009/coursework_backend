@@ -20,6 +20,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<int> CountVotes(int userId, PagedSortListQuery query);
         Task SendEmailAnswer(Petition petition);
     }
+
     public class PetitionService : ServiceCrudModel<Petition, int, PetitionEntity>, IPetitionService
     {
         protected ISendEmailService EmailService;
@@ -34,9 +35,6 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             EmailService = emailService;
             _minimumVotesNumber = Convert.ToInt32(configuration.GetSection("AppConfiguration")["SuccessfulVotesNumber"]);
         }
-
-
-
 
         public override async Task<Petition> Get(int id)
         {
@@ -54,9 +52,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         public async Task<List<Petition>> GetPetitionByUserVote(int userId, PagedSortListQuery query)
         {
-            var votesList= await VoteService.List(new VotesByUserWithIdSpecification(userId, query));
+            var votesList = await VoteService.List(new VotesByUserWithIdSpecification(userId, query));
             List<Petition> petitions = new List<Petition>();
-            votesList.ForEach(async vote=>petitions.Add(await Get(vote.PetitionId)));
+            votesList.ForEach(async vote => petitions.Add(await Get(vote.PetitionId)));
             return petitions;
         }
 
@@ -80,3 +78,4 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         }
     }
 }
+

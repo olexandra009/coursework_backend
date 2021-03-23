@@ -11,8 +11,6 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
-using Microsoft.Extensions.Hosting.Internal;
-
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
@@ -23,13 +21,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<Application> ChangeAnswerer(int applicationId, int answererId);
         Task<Application> ChangeTextOrSubject(int applicationId, Application applicationModel);
     }
-    
+
     public class ApplicationService : ServiceCrudModel<Application, int, ApplicationEntity>, IApplicationService
     {
         protected IUserService UserService;
         protected IMultimediaService MultimediaService;
         protected ISendEmailService EmailService;
         private  readonly TimeSpan _dateToDelete;
+
         public ApplicationService(IMapper mapper, IUserService userService, IConfiguration configuration, ISendEmailService emailService,
                                   IApplicationRepository repository, IMultimediaService multimedia) : base(mapper, repository)
         {
@@ -83,7 +82,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         public override async Task<Application> Get(int id)
         {
-            var model =  await base.Get(id);
+            var model = await base.Get(id);
             if (model == null) return null;
             model.Author = await UserService.Get(model.AuthorId);
             if (model.AnswerId != null)
@@ -122,7 +121,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
                 application.Result);
             return await base.Update(application);
         }
-        
+
         public Task<Application> ChangeStatus(int applicationId, StatusModel statusModel)
         {
             var app = Repository.GetByIdAsync(applicationId).Result;
@@ -138,7 +137,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             application.Author = null;
             application.Answerer = null;
             var answerer = await UserService.Get(answererId);
-            if (answerer==null || !answerer.Role.Contains(Roles.ApplicationAdmin))
+            if (answerer == null || !answerer.Role.Contains(Roles.ApplicationAdmin))
                 return null;
             application.AnswerId = answererId;
             application.StatusModel = StatusModel.InProcess;
