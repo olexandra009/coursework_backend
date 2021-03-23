@@ -6,94 +6,22 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
 {
     public class NewsEntity : DbModel<int>
     {
-        #region Fields
+      
+        public string Header { get;  set; }
 
-       
-        private string _header;
-        private string _text;
-        private DateTime _dateTimeCreation;
-        private bool _edited;
-        private bool _showAuthor;
+        public string Text { get;  set; }
 
-        #region Foriegn key and principal entity
-        private UserEntity _author;
-        private int _authorId;
-        #endregion
+        public DateTime DateTimeCreation { get;  set; }
 
-        #region Dependent entity
-        //one to many
-        private List<MultimediaEntity> _multimedias;
-        #endregion
+        public bool Edited { get;  set; }
 
-        #endregion
+        public bool ShowAuthor { get;  set; }
 
-        #region Properties
+        public UserEntity Author { get;  set; }
 
-       
-        public string Header
-        {
-            get => _header;
-            private set => _header = value;
-        }
+        public int AuthorId { get;  set; }
 
-        public string Text
-        {
-            get => _text;
-            private set => _text = value;
-        }
+        public List<MultimediaEntity> Multimedias { get; set; }
 
-        public DateTime DateTimeCreation
-        {
-            get => _dateTimeCreation;
-            private set => _dateTimeCreation = value;
-        }
-
-        public bool Edited
-        {
-            get => _edited;
-            private set => _edited = value;
-        }
-        public bool ShowAuthor
-        {
-            get => _showAuthor;
-            private set => _showAuthor = value;
-        }
-
-        public UserEntity Author
-        {
-            get => _author;
-            private set { _author = value; }
-        }
-        public int AuthorId
-        {
-            get => _authorId;
-            private set { _authorId = value; }
-        }
-        public List<MultimediaEntity> Multimedias
-        {
-            get => _multimedias;
-            set => _multimedias = value;
-        }
-        #endregion
-        /*
-        #region Constructors
-
-        public News(int id, string header, string text, DateTime dateTimeCreation, bool showAuthor, 
-                    bool edited, User author, int authorId) : this()
-        {
-            Id = id;
-            Header = header;
-            Text = text;
-            DateTimeCreation = dateTimeCreation;
-            Edited = edited;
-            Author = author;
-            AuthorId = authorId;
-            ShowAuthor = showAuthor;
-        }
-
-        public News() { }
-
-        #endregion
-        */
     }
 }

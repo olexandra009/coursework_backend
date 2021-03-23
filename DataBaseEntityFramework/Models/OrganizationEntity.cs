@@ -6,42 +6,22 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     public class OrganizationEntity:DbModel<int>
     {
         #region Fields
-       
-        private string _name;
-        private string _address;
-        private string _phoneNumber;
 
         #region Dependent Entity
-        private List<UserEntity> _users;
+
         #endregion
 
         #endregion
 
         #region Properties
        
-        public string Name
-        {
-            get => _name;
-            private set => _name = value;
-        }
+        public string Name { get; set; }
 
-        public string Address
-        {
-            get => _address;
-            private set => _address = value;
-        }
+        public string Address { get; set; }
 
-        public string PhoneNumber
-        {
-            get => _phoneNumber;
-            private set => _phoneNumber = value;
-        }
+        public string PhoneNumber { get; set; }
 
-        public List<UserEntity> Users
-        {
-            get => _users;
-            set => _users = value;
-        }
+        public List<UserEntity> Users { get; set; }
 
         #endregion
 /*

@@ -17,121 +17,28 @@ namespace KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models
     }
     public class ApplicationEntity : DbModel<int>
     {
-        #region Fields
+        #region Properties
 
-        private string _subject;
-        private string _text;
-        private Status _status; 
-        private string _result;
-        private DateTime _openDate;
-        private DateTime? _closeDate;
+        #region Foriegn keys and principal entities
 
-
-        #region Foriegn keys and principal entities 
-        private UserEntity _author;
-        private int _authorId;
-        private UserEntity _answerer;
-        private int? _answerId;
+        public int AuthorId { get; set; }
+        public int? AnswerId { get; set; }
+        public UserEntity Author { get; set; }
+        public UserEntity Answerer { get; set; }
         #endregion
+
+        public string Subject { get; set; }
+        public string Text { get; set; }
+        public Status Status { get; set; }
+        public string Result { get; set; }
+        public DateTime OpenDate { get;  set; }
+        public DateTime? CloseDate { get; set; }
 
         #region Dependent entity
-        private List<MultimediaEntity> _multimedias;
+        public List<MultimediaEntity> Multimedias { get; set; }
         #endregion
 
         #endregion
-
-        #region Properties
-        public int AuthorId
-        {
-            get => _authorId;
-            set => _authorId = value;
-        }
-        public int? AnswerId
-        {
-            get => _answerId;
-            set => _answerId = value;
-        }
-        public string Subject
-        {
-            get => _subject;
-            set => _subject = value;
-        }
-
-        public string Text
-        {
-            get => _text;
-            set => _text = value;
-        }
-
-        public Status Status
-        {
-            get => _status;
-            set => _status = value;
-        }
-
-        public string Result
-        {
-            get => _result;
-            set => _result = value;
-        }
-
-        public DateTime OpenDate
-        {
-            get => _openDate;
-            private set => _openDate = value;
-        }
-
-        public DateTime? CloseDate
-        {
-            get => _closeDate;
-            set => _closeDate = value;
-        }
-
-        public UserEntity Author
-        {
-            get => _author;
-            set => _author = value;
-        }
-
-        public UserEntity Answerer
-        {
-            get => _answerer;
-            set => _answerer = value;
-        }
-        public List<MultimediaEntity> Multimedias
-        {
-            get => _multimedias;
-            set => _multimedias = value;
-        }
-        #endregion
-
-        /*
-        #region Constructors
-
-        public Application(int id, string subject, string text, Status status, 
-                           DateTime openDate, User author, int authorId,
-                           User answerer = null, int? answerId = null, 
-                           DateTime? closeDate = null, string result = null) :this()
-        {
-            Subject = subject;
-            Text = text;
-            Status = status;
-            Result = result;
-            OpenDate = openDate;
-            CloseDate = closeDate;
-            Author = author;
-            AuthorId = authorId;
-            Answerer = answerer;
-            AnswerId = answerId;
-        }
-
-        public Application()
-        {
-
-        }
-
-        #endregion
-   */
     }
 
 }
