@@ -50,11 +50,11 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         public Task SendResetPasswordLetter(string email, string name, string url)
         {
 
-            string subject = "Reset Password";
-            string text = $"<p>Hi, {name}</p> <p>You have received this email you have try" +
-                          "to reset Platform Utc.</p>" +
-                          "</p> Please follow this link to complete the action: " +
-                          $"</p> <a href={url}>Reset password</a>" +
+            string subject = "Відновлення паролю";
+            string text = $"<p>Вітаємо, {name}</p> <p>Ви отримали цей емейл тому, що щойно намагались" +
+                          "скинути пароль від облікового запису Community Platform.</p>" +
+                          "</p>Будь ласка, перейдіть за посиланням для підтвердження дії: " +
+                          $"</p> <a href={url}>Скинути пароль</a>" +
                           "<p>З повагою,<br/>Адміністрація Community Platform";
             return SendLetters(new[] { email }, subject, text);
 
