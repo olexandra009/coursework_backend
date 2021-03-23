@@ -1,4 +1,706 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-	<Font Name="Segoe UI" Size="9" />
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common.ServiceCrudModel&lt;TModel, TKey, TEntity&gt;">
+    <Position X="8" Y="2.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAAAAAAAAEAAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>Services\Common\ServiceCrudModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common.ServiceListModel&lt;TModel, TEntity&gt;">
+    <Position X="4.75" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAEAAACAAAAAQAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Services\Common\ServiceListModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.ApplicationService">
+    <Position X="15.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAIAAAAAABAAAAAgAAIAAUAAEQAAAAABAAAAAI=</HashCode>
+      <FileName>Services\ApplicationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.EmailConfirmationService">
+    <Position X="8" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAIAAAAEAA=</HashCode>
+      <FileName>Services\EmailConfirmationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.MultimediaService">
+    <Position X="4.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Services\MultimediaService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.NewsService">
+    <Position X="13.25" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAAgAAAAAEAAEAAAAAABAAAAAI=</HashCode>
+      <FileName>Services\NewsService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.OrganizationService">
+    <Position X="13.25" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\OrganizationService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.PetitionService">
+    <Position X="6.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAABEAAAAgAAAAAAAAAQAAAAAAhAAAAA=</HashCode>
+      <FileName>Services\PetitionService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.SendEmailService" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="1.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAIBAACAAAAAAAAAAAAAAAAAAABFAAAAAAAA=</HashCode>
+      <FileName>Services\SendEmailService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.UploadMultimediaService" BaseTypeListCollapsed="true">
+    <Position X="12" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAEgAAAAQAA=</HashCode>
+      <FileName>Services\UploadMultimediaService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.UserReadOnlyService" BaseTypeListCollapsed="true">
+    <Position X="12" Y="3.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Services\UserReadOnlyService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.UserService">
+    <Position X="10" Y="5.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQCAAQAUAAgABAgAAACAAACQBAIIygAAAQABAECAA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.VoteService">
+    <Position X="8" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Services\VoteService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.EventService">
+    <Position X="17.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAAgAAAAAEAAkAAAAAABAAAAAI=</HashCode>
+      <FileName>Services\EventService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.Application" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABACAAAAAAAAAAAAgIAAAAQAEAAAAAAAABAICAQAAEA=</HashCode>
+      <FileName>Models\Application.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.EmailConfirmation" BaseTypeListCollapsed="true">
+    <Position X="18.25" Y="14.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAgAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\EmailConfirmation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.Event" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAoAAAAAQgAAAAAQAAABAAAEwAAAA=</HashCode>
+      <FileName>Models\Event.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.Multimedia" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="13.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAgABAgAAAAAQAAAAAAAgAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Models\Multimedia.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.News" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAAAAAAAAoAAAAAAAAAAAAQAAABAACAQAAAA=</HashCode>
+      <FileName>Models\News.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.Organization" BaseTypeListCollapsed="true">
+    <Position X="20.25" Y="14" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAAAAAAAAAAQAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Organization.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.Petition" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAAACAAAAgAAAAAAAAAAAAAAAAJAACgEAAAA=</HashCode>
+      <FileName>Models\Petition.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.User" BaseTypeListCollapsed="true">
+    <Position X="16.25" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AABCAEgAQCIAAIAAEAAASAAAAAAAAAgCAAAQAAEAAAg=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.Votes" BaseTypeListCollapsed="true">
+    <Position X="22.25" Y="13.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAgAEAAAgAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Votes.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common.CrudControllerBase&lt;TDto, TModel, TEntity, TKey&gt;">
+    <Position X="58" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABACAAAAAAAAAEAQEAAAAAAAAAAAAI=</HashCode>
+      <FileName>Controllers\Common\CrudControllerBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common.ListResult&lt;T&gt;">
+    <Position X="68.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\Common\ListResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.ApplicationController">
+    <Position X="60.5" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QAQQIAAABAAAAAAAAgAAAAAIAAUAAEAAAAAAAAEAAAI=</HashCode>
+      <FileName>Controllers\ApplicationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.EventController">
+    <Position X="63.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAABAAQI=</HashCode>
+      <FileName>Controllers\EventController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.NewsController">
+    <Position X="54.75" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAAAAAAAAAAAAAAAAEAAEAAAACAAAAAAAI=</HashCode>
+      <FileName>Controllers\NewsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.OrganizationController">
+    <Position X="60.75" Y="8.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAEAAECAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\OrganizationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.PetitionController">
+    <Position X="51.75" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAgAAAAQAEwAEAAAiAAAAAAAAI=</HashCode>
+      <FileName>Controllers\PetitionController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.UserController">
+    <Position X="57.75" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAABCGAAgABBAAAAgQAAQQkEAAAAIAAAAFAHABI=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.VotesController">
+    <Position X="54.75" Y="8.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAAAAEAAEAAAAAAAgAAAAA=</HashCode>
+      <FileName>Controllers\VotesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.ApplicationDTO">
+    <Position X="68.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABACAAAEAAAAAAAAgIAAAAQAEAAAAAAAABAACAQAAEA=</HashCode>
+      <FileName>DTO\ApplicationDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.EventDTO">
+    <Position X="72.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAgAAAAoAAAAAQgAAAAAQAAABAAAEwAAAA=</HashCode>
+      <FileName>DTO\EventDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.LoginUserDtO">
+    <Position X="72.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAQAAAAAAA=</HashCode>
+      <FileName>DTO\LoginUserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.MultimediaDTO">
+    <Position X="70.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAgAAAgAAAAAQAAAAAAAAAAAIAACAAAAAAAAAA=</HashCode>
+      <FileName>DTO\MultimediaDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.NewsDTO">
+    <Position X="74" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAAAAAAAAoAAAAAAAAAAAAQAAABAACAQAAAA=</HashCode>
+      <FileName>DTO\NewsDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.OrganizationDTO">
+    <Position X="68.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACAAAAAAAAAAAAAAQAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>DTO\OrganizationDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.PetitionDTO">
+    <Position X="70.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAACAAAAAAACAAAAgAAAAAAAAAAAAAAAAJAAChEAAAA=</HashCode>
+      <FileName>DTO\PetitionDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.UserDTO">
+    <Position X="74" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAEgAACIAAAAAEAAASAAAAAAAAAACAAAQAAEAAAg=</HashCode>
+      <FileName>DTO\UserDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.VotesDTO">
+    <Position X="72.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAgAEAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DTO\VotesDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping.MappingProfile">
+    <Position X="36" Y="15.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mapping\MappingProfile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping.StringToTimeSpan">
+    <Position X="38.25" Y="15.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mapping\StringToTimeSpan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules.RepositoryUtcAutofacModule">
+    <Position X="33.5" Y="15.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AutofacModules\RepositoryAutofacModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules.RepositoryReadOnlyAutofacModule">
+    <Position X="34.5" Y="12.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AutofacModules\RepositoryReadOnlyAutofacModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.AutofacModules.ServicesAutofacModule">
+    <Position X="34.5" Y="14" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AutofacModules\ServicesAutofacModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Auth.AuthOptions">
+    <Position X="31.25" Y="13" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQRAAAAAQAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Auth\AuthOption.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.ConnectionStringObject">
+    <Position X="38" Y="12.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAgACAAACAACAAAAAAAAAAA=</HashCode>
+      <FileName>ConnectionStringObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Startup" Collapsed="true">
+    <Position X="31.25" Y="15.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAQAAAAABAAAAAAAAAAAAAgAAACAAAAAA=</HashCode>
+      <FileName>Startup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Program" Collapsed="true">
+    <Position X="31.25" Y="16.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common.PagedSortListQuery" Collapsed="true">
+    <Position X="54.5" Y="12.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAIAAAAAAAAAAAAAAAAgAAAACAAAkIAAAAEAA=</HashCode>
+      <FileName>Specifications\Common\PagedSortListQuery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common.PagedSpecification&lt;T&gt;" Collapsed="true">
+    <Position X="51.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\Common\PagedSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common.SortSpecification&lt;T&gt;" Collapsed="true">
+    <Position X="49" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\Common\SortSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.ApplicationByAnswererIdSpecification" Collapsed="true">
+    <Position X="50.75" Y="15" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\ApplicationByAnswererIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.ApplicationsByAuthorIdSpecification" Collapsed="true">
+    <Position X="55.75" Y="15" Width="2.75" />
+    <InheritanceLine Type="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common.PagedSpecification&lt;T&gt;" ManuallyRouted="true">
+      <Path>
+        <Point X="52.25" Y="13.441" />
+        <Point X="52.25" Y="13.898" />
+        <Point X="54.635" Y="13.898" />
+        <Point X="54.635" Y="14.846" />
+        <Point X="57.125" Y="14.846" />
+        <Point X="57.125" Y="15" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\ApplicationsByAuthorIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.CodeUserConfirmEmailSpecification" Collapsed="true">
+    <Position X="51.75" Y="19.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\CodeUserConfirmEmailSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.ConfirmedUserNotificationSpecification" Collapsed="true">
+    <Position X="51.75" Y="18.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\ConfirmedUserNotificationSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.CreatedEventsOrganizationIdSpecification" Collapsed="true">
+    <Position X="47.25" Y="16" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\CreatedEventsOrganizationIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.CreatedNewsByOrganizationIdSpecification" Collapsed="true">
+    <Position X="50.75" Y="14" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\CreatedNewsByOrganizationIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.CreatedPetitionByUserIdSpecification" Collapsed="true">
+    <Position X="47.25" Y="17" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\CreatedPetitionByUserIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.EmailConfirmationByUserIdSpecification" Collapsed="true">
+    <Position X="48" Y="19.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\EmailConfirmationByUserIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.FilterByStatusApplicationSpecification" Collapsed="true">
+    <Position X="55.25" Y="16" Width="3" />
+    <InheritanceLine Type="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common.PagedSpecification&lt;T&gt;" ManuallyRouted="true">
+      <Path>
+        <Point X="52.25" Y="13.441" />
+        <Point X="52.25" Y="13.898" />
+        <Point X="54.589" Y="13.898" />
+        <Point X="54.589" Y="15.846" />
+        <Point X="56.75" Y="15.846" />
+        <Point X="56.75" Y="16" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\FilterByStatusApplicationSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.FilterPagedEventSpecification" Collapsed="true">
+    <Position X="47.25" Y="15" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\FilterPagedEventSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.FilterPetitionByStatusAndUserIdSpecification" Collapsed="true">
+    <Position X="54.75" Y="17" Width="4" />
+    <InheritanceLine Type="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common.PagedSpecification&lt;T&gt;" ManuallyRouted="true">
+      <Path>
+        <Point X="52.25" Y="13.441" />
+        <Point X="52.25" Y="13.898" />
+        <Point X="54.632" Y="13.898" />
+        <Point X="54.632" Y="16.846" />
+        <Point X="56.75" Y="16.846" />
+        <Point X="56.75" Y="17" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\FilterPetitionByStatusAndUserIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.FilterStatusPetitionSpecification" Collapsed="true">
+    <Position X="50.75" Y="16" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\FilterStatusPetitionSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.MultimediaByApplicationIdSpecification" Collapsed="true">
+    <Position X="55" Y="20.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\MultimediaByApplicationIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.MultimediaByEventIdSpecification" Collapsed="true">
+    <Position X="55" Y="19.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\MultimediaByEventIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.MultimediaByNewsIdSpecification" Collapsed="true">
+    <Position X="55" Y="18.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\MultimediaByNewsIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.SortedEventsByOrganizationAndTimeSpecification" Collapsed="true">
+    <Position X="50.75" Y="17" Width="3.5" />
+    <InheritanceLine Type="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.Common.PagedSpecification&lt;T&gt;" ManuallyRouted="true">
+      <Path>
+        <Point X="52.25" Y="13.441" />
+        <Point X="52.25" Y="13.898" />
+        <Point X="54.589" Y="13.898" />
+        <Point X="54.589" Y="15.846" />
+        <Point X="50.648" Y="15.846" />
+        <Point X="50.648" Y="16.846" />
+        <Point X="52.5" Y="16.846" />
+        <Point X="52.5" Y="17" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\SortedEventsByOrganizationAndTimeSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.UserByEmailSpecification" Collapsed="true">
+    <Position X="48" Y="20.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\UserByEmailSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.UserByLoginSpecification" Collapsed="true">
+    <Position X="48" Y="18.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\UserByLoginSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.UserByRoleSpecification" Collapsed="true">
+    <Position X="55" Y="14" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\UserByRoleSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.UsersByOrganizationIdSpecification" Collapsed="true">
+    <Position X="47.25" Y="14" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\UsersByOrganizationIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications.VotesForPetitionWithIdSpecification" Collapsed="true">
+    <Position X="51.75" Y="20.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Specifications\VotesForPetitionWithIdSpecification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common.IServiceCrudModel&lt;TModel, TKey, TEntity&gt;">
+    <Position X="26" Y="1.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAABAAAAAAAAAAAEAAEAAAAAAAAEAAAA=</HashCode>
+      <FileName>Services\Common\IServiceCRUDModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common.IServiceListModel&lt;TModel, TEntity&gt;">
+    <Position X="22.75" Y="1.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Services\Common\IServiceListModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IApplicationService">
+    <Position X="29.25" Y="7.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAIAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\ApplicationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IEmailConfirmationService">
+    <Position X="21.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEAA=</HashCode>
+      <FileName>Services\EmailConfirmationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IEventService">
+    <Position X="32" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\EventService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IMultimediaService">
+    <Position X="29.25" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Services\MultimediaService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.INewsService">
+    <Position X="21.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\NewsService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IOrganizationService">
+    <Position X="31.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\OrganizationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IPetitionService">
+    <Position X="23.5" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Services\PetitionService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.ISendEmailService">
+    <Position X="29.75" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAIBAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAA=</HashCode>
+      <FileName>Services\SendEmailService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IUploadMultimediaService">
+    <Position X="22.75" Y="3" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Services\UploadMultimediaService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IUserReadOnlyService">
+    <Position X="29.75" Y="1.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\UserReadOnlyService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IUserService">
+    <Position X="26.5" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQCAAQAUAAgAAAgAAACAAACQAAAIAgAAAQABAEAAA=</HashCode>
+      <FileName>Services\UserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.IVoteService">
+    <Position X="23.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\VoteService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.IModel&lt;Tkey&gt;">
+    <Position X="16.25" Y="14.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\IModel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models.StatusModel">
+    <Position X="26.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQACBAAA=</HashCode>
+      <FileName>Models\Application.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO.StatusDTO">
+    <Position X="70.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQACBAAA=</HashCode>
+      <FileName>DTO\ApplicationDTO.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

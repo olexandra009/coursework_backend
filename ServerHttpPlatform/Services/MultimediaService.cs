@@ -15,7 +15,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<Multimedia> UploadMultimedia(Multimedia multimedia, int from, int arrayId);
         Task DeleteMultimediaFromS3(Multimedia multimedia);
     }
-     //TODO delete and create multimedia with integration to S3
+   
     public class MultimediaService : ServiceCrudModel<Multimedia, int, MultimediaEntity>, IMultimediaService
     {
         protected IUploadMultimediaService UploadService;
