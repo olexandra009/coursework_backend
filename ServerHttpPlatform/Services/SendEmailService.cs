@@ -14,7 +14,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task SendResetPasswordLetter(string email, string name, string url);
 
         Task SendLetters(string[] email, string subject, string text, string fromName);
-
+        Task SendAnswerApplicationLetter(string email, string name, string answerSubject, string answer);
+        Task SendAnswerPetitionLetter(string email, string name, string petitionSubject, string answer);
         Task SendConfirmLetter(string email, string name, string url);
     }
     public class SendEmailService : ISendEmailService
@@ -24,15 +25,24 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         {
             _configuration = configuration.GetSection("EmailConnection");
         }
+
+        public Task SendAnswerPetitionLetter(string email, string name, string petitionSubject, string answer)
+        {
+            string subject = "Відповідь на петицію";
+            string text = $"<p>Вітаємо, {name}</p> <p>Ви отримали відповідь на петицію: <b>" +petitionSubject+"</b></p>"+
+                         $"<p>{answer}</p> З повагою,<br/>Адміністрація Community Platform";
+            return SendLetters(new[] { email }, subject, text);
+        }
+
         public Task SendConfirmLetter(string email, string name, string url)
         {
 
-            string subject = "Email Confirmation";
-            string text = $"<p>Hi, {name}</p> <p>You have received this email because your email " +
-                           "address was used for registration in Platform Utc.</p>" +
-                           "</p> Please follow this link to confirm your decision: " +
-                          $"</p> <a href={url}>Confirm email</a>" +
-                           "<p> Yours truly,<br/>Platform Utc Administration";
+            string subject = "Підтвердження пошти";
+            string text = $"<p>Вітаємо, {name}</p> <p>Ви отримали цей лист тому, що " +
+                           "ваша адреса була використана при реєстрації на Community Platform.</p>" +
+                           "</p> Бідь-ласка перейдіть за цим посиланням щоб підтвердити реєстрацію: " +
+                          $"</p> <a href={url}>Підтвердити</a>" +
+                           "<p>З повагою,<br/>Адміністрація Community Platform";
            return SendLetters(new[] {email}, subject, text);
 
         }
@@ -45,18 +55,18 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
                           "to reset Platform Utc.</p>" +
                           "</p> Please follow this link to complete the action: " +
                           $"</p> <a href={url}>Reset password</a>" +
-                          "<p> Yours truly,<br/>Platform Utc Administration";
+                          "<p>З повагою,<br/>Адміністрація Community Platform";
             return SendLetters(new[] { email }, subject, text);
 
         }
 
         public Task SendEventNotificationLetter(string[] email, Event @event, string fromName = "")
         {
-            string subject = $"Notification about {@event.Name}";
-            string text = $"<p>Hi, </p> <p>We invite you to attend {@event.Name}.</p>" +
-                          $"<p><b>When: {@event.StartDate.ToLocalTime()} - {@event.EndDate.ToLocalTime()}</b></p>" +
+            string subject = $"Оповіщення про {@event.Name}";
+            string text = $"<p>Вітаємо, </p> <p>Запрошуємо вас відвідати {@event.Name}.</p>" +
+                          $"<p><b>Коли: {@event.StartDate.ToLocalTime()} - {@event.EndDate.ToLocalTime()}</b></p>" +
                           $"<p>{@event.Description}</p>" +
-                          "<p>Yours truly, <br/>";
+                          "<p>З повагою, <br/>";
             if (!string.IsNullOrEmpty(fromName))
                 text += fromName + "</p>";
             return SendLetters(email, subject, text, fromName);
@@ -91,5 +101,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             Console.WriteLine("Send  letter to : " + email);
         }
 
+        public Task SendAnswerApplicationLetter(string email, string name, string answerSubject, string answer)
+        {
+            string subject = "Відповідь на зверенення";
+            string text = $"<p>Вітаємо, {name}</p> <p>Ви отримали відповідь на звернення: <b>" + answerSubject + "</b></p>" +
+                          $"<p>{answer}</p> З повагою,<br/>Адміністрація Community Platform";
+            return SendLetters(new[] { email }, subject, text);
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
     public class PetitionController : CrudControllerBase<PetitionDTO, Petition, PetitionEntity, int>
     {
         protected IPetitionService PetitionService => (PetitionService)Service;
+
         public PetitionController(IPetitionService service, IMapper mapper) : base(service, mapper)
         {
         }
@@ -40,21 +41,36 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return base.Update(id, dto);
         }
 
+        [HttpPut("/api/Petition/minimum")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [AllowAnonymous]
+        public ActionResult<int> PetitionCount()
+        {
+            return PetitionService.SuccessfulMinimumVotesNumber();
+        }
+
         [HttpPut("/api/Petition/addAnswer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [Authorize(Roles = "ApplicationAdmin")]
-        public async Task<ActionResult<PetitionDTO>> AddAnswer([FromQuery]int id, PetitionDTO dto)
+        public async Task<ActionResult<PetitionDTO>> AddAnswer([FromQuery] int id, PetitionDTO dto)
         {
             var petition = await PetitionService.Get(id);
             if (petition == null) return NotFound();
+            if (petition.Answer != null) return Conflict();
+            int votes = petition.UserVotes.Count;
+            int minimum = PetitionService.SuccessfulMinimumVotesNumber();
+            if (votes < minimum) return Forbid();
             var updated = Mapper.Map<Petition>(dto);
             updated.AuthorId = petition.AuthorId;
             updated.FinishDate = petition.FinishDate;
             updated.StarDate = petition.StarDate;
             updated.Text = petition.Text;
             updated.Header = petition.Header;
+            await PetitionService.SendEmailAnswer(updated);
             return await Update(id, Mapper.Map<PetitionDTO>(updated));
         }
 
@@ -74,9 +90,9 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
                 query.SortProp = "StarDate";
             //var list = await base.GetList(query);
             //list.Result.ForEach(async p=>p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
-            return await base.GetList(query); 
+            return await base.GetList(query);
         }
-        
+
 
         /// <summary>
         /// Get filtered by status petition
@@ -87,14 +103,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <returns></returns>
         [HttpGet("/filter_by_status")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ListResult<PetitionDTO>> FilteredByStatus(string timeStatus, string votesStatus, [FromQuery]PagedSortListQuery query)
+        public async Task<ListResult<PetitionDTO>> FilteredByStatus(string timeStatus, string votesStatus, [FromQuery] PagedSortListQuery query)
         {
 
             var resultModel =
                 await PetitionService.List(new FilterStatusPetitionSpecification(PetitionService.SuccessfulMinimumVotesNumber(), query, timeStatus, votesStatus));
-          //  var resultDto =
-           //     Mapper.Map<List<PetitionDTO>>(resultModel);
-           // resultDto.ForEach(async p => p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
+            //  var resultDto =
+            //     Mapper.Map<List<PetitionDTO>>(resultModel);
+            // resultDto.ForEach(async p => p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
             var result = new ListResult<PetitionDTO>()
             {
                 Result = Mapper.Map<List<PetitionDTO>>(resultModel),
@@ -111,12 +127,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         /// <returns></returns>
         [HttpGet("/filter_by_author")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ListResult<PetitionDTO>> FilteredByAuthor(int userId, [FromQuery]PagedSortListQuery query)
+        public async Task<ListResult<PetitionDTO>> FilteredByAuthor(int userId, [FromQuery] PagedSortListQuery query)
         {
             var resultModel =
                 await PetitionService.List(new CreatedPetitionByUserIdSpecification(userId, query));
-           // var resultDto =
-           // resultDto.ForEach(async p => p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
+            // var resultDto =
+            // resultDto.ForEach(async p => p.VotesNumber = await PetitionService.GetVotesNumber(p.Id));
             var result = new ListResult<PetitionDTO>()
             {
                 Result = Mapper.Map<List<PetitionDTO>>(resultModel),

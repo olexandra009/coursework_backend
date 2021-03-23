@@ -11,8 +11,6 @@ using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Mapping;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Specifications;
-using Microsoft.Extensions.Hosting.Internal;
-
 
 namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 {
@@ -23,21 +21,24 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         Task<Application> ChangeAnswerer(int applicationId, int answererId);
         Task<Application> ChangeTextOrSubject(int applicationId, Application applicationModel);
     }
-    
+
     public class ApplicationService : ServiceCrudModel<Application, int, ApplicationEntity>, IApplicationService
     {
         protected IUserService UserService;
         protected IMultimediaService MultimediaService;
-        private  readonly TimeSpan _dateToDelete;
-        public ApplicationService(IMapper mapper, IUserService userService, IConfiguration configuration,
+        protected ISendEmailService EmailService;
+        private readonly TimeSpan _dateToDelete;
+        public ApplicationService(IMapper mapper, IUserService userService, IConfiguration configuration, ISendEmailService emailService,
                                   IApplicationRepository repository, IMultimediaService multimedia) : base(mapper, repository)
         {
             UserService = userService;
             MultimediaService = multimedia;
+            EmailService = emailService;
             var confSection = configuration.GetSection("AppConfiguration");
             _dateToDelete = StringToTimeSpan.Convert(confSection["DeleteTimeSpan"]);
 
         }
+
 
         #region Get
 
@@ -80,7 +81,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         public override async Task<Application> Get(int id)
         {
-            var model =  await base.Get(id);
+            var model = await base.Get(id);
             if (model == null) return null;
             model.Author = await UserService.Get(model.AuthorId);
             if (model.AnswerId != null)
@@ -106,16 +107,20 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         }
         #endregion
         #region Edit
-        public Task<Application> AddResult(int applicationId, string result)
+        public async Task<Application> AddResult(int applicationId, string result)
         {
             var applic = Repository.GetByIdAsync(applicationId).Result;
             var application = Mapper.Map<Application>(applic);
             application.Result = result;
             application.CloseDate = DateTime.UtcNow;
             application.StatusModel = StatusModel.Close;
-            return base.Update(application);
+            var user = await UserService.Get(application.AuthorId);
+            if (user == null) return await base.Update(application);
+            await EmailService.SendAnswerApplicationLetter(user.Email, user.FirstName, application.Subject,
+                application.Result);
+            return await base.Update(application);
         }
-        
+
         public Task<Application> ChangeStatus(int applicationId, StatusModel statusModel)
         {
             var app = Repository.GetByIdAsync(applicationId).Result;
@@ -131,7 +136,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             application.Author = null;
             application.Answerer = null;
             var answerer = await UserService.Get(answererId);
-            if (answerer==null || !answerer.Role.Contains(Roles.ApplicationAdmin))
+            if (answerer == null || !answerer.Role.Contains(Roles.ApplicationAdmin))
                 return null;
             application.AnswerId = answererId;
             application.StatusModel = StatusModel.InProcess;
