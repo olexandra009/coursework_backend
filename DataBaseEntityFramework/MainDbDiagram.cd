@@ -1,2 +1,331 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration.ApplicationEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33.5" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelConfiguration\ApplicationEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration.EmailConfirmEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelConfiguration\EmailConfirmEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration.EventEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36.5" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelConfiguration\EventEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration.MultimediaEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33.5" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelConfiguration\MultimediaEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration.NewsEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelConfiguration\NewsEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration.OrganizationEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39" Y="2" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelConfiguration\OrganizationEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration.PetitionEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="33.5" Y="3" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelConfiguration\PetitionEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration.UserEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="36.5" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelConfiguration\UserEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.ModelConfiguration.VotesEntityConfiguration" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="39" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ModelConfiguration\VotesEntityConfiguration.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.ApplicationEntity">
+    <Position X="40.5" Y="12.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAEAAAAAAAAgIAAAAQAEAAAAAAAABAACAQAAEA=</HashCode>
+      <FileName>Models\ApplicationEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.DbModel&lt;TKey&gt;">
+    <Position X="37.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\DBModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EmailConfirmEntity">
+    <Position X="33.75" Y="15.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAARAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\EmailConfirmEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.EventEntity">
+    <Position X="33.5" Y="12.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAoAAAAAQgAAAAAQAAABAAAEwAAAA=</HashCode>
+      <FileName>Models\EventEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.MultimediaEntity">
+    <Position X="31.25" Y="12.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAgABAgAAAAAQAAAAAAAgAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Models\MultimediaEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.NewsEntity">
+    <Position X="38.5" Y="12.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAoAAAAAAAAAAAAQAAABAACAQAAAA=</HashCode>
+      <FileName>Models\NewsEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.OrganizationEntity">
+    <Position X="38.5" Y="15.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAQAQAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\OrganizationEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.PetitionEntity">
+    <Position X="42.5" Y="12.25" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAACAAAAgAAAAAAAAAAAAAAAAJAACgEAAAA=</HashCode>
+      <FileName>Models\PetitionEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.UserEntity">
+    <Position X="36" Y="12.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AABAAEiAQCIAAIAAEAAAQAAAAAAAAAgCAAQQAAEASAg=</HashCode>
+      <FileName>Models\UserEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.VotesEntity">
+    <Position X="31.25" Y="15" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAgAEAAAgAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\VotesEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common.EfRepository&lt;TEntity&gt;">
+    <Position X="16.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAABAAAAEAAAAAACAEAAAAAIAgAAAAAAAEAIIA=</HashCode>
+      <FileName>Repositories\Common\EfRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.ApplicationRepository" Collapsed="true">
+    <Position X="21.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\ApplicationRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.EmailConfirmationRepository" Collapsed="true">
+    <Position X="16" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\EmailConfirmationRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.EventRepository" Collapsed="true">
+    <Position X="15" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\EventRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.MultimediaRepository" Collapsed="true">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\MultimediaRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.NewsRepository" Collapsed="true">
+    <Position X="18.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\NewsRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.OrganizationRepository" Collapsed="true">
+    <Position X="12.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\OrganizationRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.PetitionRepository" Collapsed="true">
+    <Position X="17.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\PetitionRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.UserRepository" Collapsed="true">
+    <Position X="20.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\UserRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.VotesRepository" Collapsed="true">
+    <Position X="13.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\VotesRepository.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.PlatformDbContext">
+    <Position X="30" Y="1" Width="3" />
+    <TypeIdentifier>
+      <HashCode>ACAAACAAABIAAAJAAACAAAAAMgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PlatformDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.Common.IRepository&lt;TEntity&gt;">
+    <Position X="5.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAEAAAAAACAEAAAAAIAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Repositories\Common\IRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.IApplicationRepository" Collapsed="true">
+    <Position X="6" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\ApplicationRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.IEmailConfirmationRepository" Collapsed="true">
+    <Position X="9.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\EmailConfirmationRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.IEventRepository" Collapsed="true">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\EventRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.IMultimediaRepository" Collapsed="true">
+    <Position X="3.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\MultimediaRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.INewsRepository" Collapsed="true">
+    <Position X="10.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\NewsRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.IOrganizationRepository" Collapsed="true">
+    <Position X="7.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\OrganizationRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.IPetitionRepository" Collapsed="true">
+    <Position X="1.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\PetitionRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.IUserRepository" Collapsed="true">
+    <Position X="8.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\UserRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Repositories.IVotesRepository" Collapsed="true">
+    <Position X="5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Repositories\VotesRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models.Status">
+    <Position X="40.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQACBAAA=</HashCode>
+      <FileName>Models\ApplicationEntity.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
