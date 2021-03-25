@@ -20,7 +20,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<PlatformDbContext>();
+              //  var context = services.GetRequiredService<PlatformDbContext>();
                 //context.Users.Add(UserCreating("Admin", "Admin", "Admin", "as2ekcm", "admin@admin.ad", "qwRnvod23_ric", "User, SuperUser, NewsAndEvents, Moderator, ApplicationAdmin, UserManager", "", 6));
                 //context.Users.Add(UserCreating("Градислав", "Левович", "Маковецький", "grl@co.ua", "t_log011", "1W3e5p78", "User, SuperUser", "", 3));
                 //context.Users.Add(UserCreating("Радечко", "Владиславович", "Миклуха", "test@adb.b", "t_log012", "1Z3e5p79", "User, SuperUser", "", 2));
@@ -37,46 +37,45 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 //context.Users.Add(UserCreating("Соломія", "Азарівна", "Сторож", "as@we", "t_log021", "1i3e5p88", "User, SuperUser", "", 5));
                 //context.Users.Add(UserCreating("Moderator", "Admin", "Admin", "moderator@admin", "ajsp_29", "nsqEnnc_90", "User, SuperUser, Moderator", "", 6))
 
-                context.Newses.Add(CreateNews(36, new DateTime(2021, 3, 17, 12, 30, 12), true, false, "У роботі пошуковика Google виникли збої", "txt"));
-                context.Newses.Add(CreateNews(42, new DateTime(2021, 3, 20, 16, 30, 12), true, false, "Землю накриє тривала магнітна буря: спеціалісти назвали терміни", "txt"));
-                context.Newses.Add(CreateNews(42, new DateTime(2021, 3, 25, 13, 30, 12), true, false, "На станцію \"Академік Вернадський\" вирушила 26-та антарктична експедиція", "txt"));
-                context.Newses.Add(CreateNews(36, new DateTime(2021, 3, 25, 14, 30, 12), true, false, "Через зміни клімату літо може збільшитися вдвічі - вчені", "txt"));
+                //context.Newses.Add(CreateNews(36, new DateTime(2021, 3, 17, 12, 30, 12), true, false, "У роботі пошуковика Google виникли збої", "txt"));
+                //context.Newses.Add(CreateNews(42, new DateTime(2021, 3, 20, 16, 30, 12), true, false, "Землю накриє тривала магнітна буря: спеціалісти назвали терміни", "txt"));
+                //context.Newses.Add(CreateNews(42, new DateTime(2021, 3, 25, 13, 30, 12), true, false, "На станцію \"Академік Вернадський\" вирушила 26-та антарктична експедиція", "txt"));
+                //context.Newses.Add(CreateNews(36, new DateTime(2021, 3, 25, 14, 30, 12), true, false, "Через зміни клімату літо може збільшитися вдвічі - вчені", "txt"));
 
-
-                context.SaveChanges();
+                //context.SaveChanges();
             }
             host.Run();
         }
 
-        private static EventEntity CreateEvent(int author, DateTime start, DateTime end, bool edited, bool showAuthor, bool notification, string name, string description)
-        {
-            return new EventEntity()
-            {
-                AuthorId = author,
-                Description = description,
-                Edited = edited,
-                EmailNotification = notification,
-                EndDate = end,
-                StartDate = start,
-                Name = name,
-                ShowAuthor = showAuthor, 
+        //private static EventEntity CreateEvent(int author, DateTime start, DateTime end, bool edited, bool showAuthor, bool notification, string name, string description)
+        //{
+        //    return new EventEntity()
+        //    {
+        //        AuthorId = author,
+        //        Description = description,
+        //        Edited = edited,
+        //        EmailNotification = notification,
+        //        EndDate = end,
+        //        StartDate = start,
+        //        Name = name,
+        //        ShowAuthor = showAuthor, 
 
-            };
-        }
+        //    };
+        //}
 
-        private static NewsEntity CreateNews(int author, DateTime date, bool showAuth, bool edited, string header, string text)
-        {
-            NewsEntity news = new NewsEntity()
-            {
-                AuthorId = 1,
-                DateTimeCreation = date,
-                Edited = edited,
-                Header = header,
-                Text = text,
-                ShowAuthor = showAuth
-            };
-            return news;
-        }
+        //private static NewsEntity CreateNews(int author, DateTime date, bool showAuth, bool edited, string header, string text)
+        //{
+        //    NewsEntity news = new NewsEntity()
+        //    {
+        //        AuthorId = 1,
+        //        DateTimeCreation = date,
+        //        Edited = edited,
+        //        Header = header,
+        //        Text = text,
+        //        ShowAuthor = showAuth
+        //    };
+        //    return news;
+        //}
         //private static UserEntity UserCreating(string firstName, string secondName, string lastName, string email, string login, 
         //        string password, string roles, string phone, int? organizationId)
         //{
