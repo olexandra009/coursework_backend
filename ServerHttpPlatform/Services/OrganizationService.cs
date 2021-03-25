@@ -20,8 +20,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
            
         }
 
-
-
-
+        public override Task<Organization> Update(Organization model)
+        {
+            model.Users = null;
+            return base.Update(model);
+        }
     }
 }

@@ -70,6 +70,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         public async Task<User> Registration(User user)
         {
+            user.Login = user.Login.ToLower();
             user.EmailConfirm = false;
             user.Role = "User";
             user.Salt = GenerateUserSalt();
@@ -112,7 +113,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         public async Task<User> GetUserByLogin(string login)
         {
-            var user = (await Repository.ListAsync(new UserByLoginSpecification(login))).FirstOrDefault();
+            var lower = login.ToLower();
+            var user = (await Repository.ListAsync(new UserByLoginSpecification(lower))).FirstOrDefault();
             var result = Mapper.Map<User>(user);
             return result;
         }
@@ -126,7 +128,8 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
 
         public async Task<User> Login(string login, string password, bool isHash)
         {
-            var user = (await Repository.ListAsync(new UserByLoginSpecification(login))).FirstOrDefault();
+            var lower = login.ToLower();
+            var user = (await Repository.ListAsync(new UserByLoginSpecification(lower))).FirstOrDefault();
             if (user == null) return null;
             if (isHash)
             {
@@ -144,6 +147,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             bool confirm = await EmailService.CheckCode(userId, code);
             if (!confirm) return null;
             var user = await Get(userId);
+            user.UserOrganization = null;
             user.EmailConfirm = true;
             var updated = await Update(user);
             return updated;
@@ -159,12 +163,13 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         }
         public async Task<User> ChangeLogin(int userId, string login)
         {
-            var log = await GetUserByLogin(login); 
+            var lower = login.ToLower();
+            var log = await GetUserByLogin(lower); 
             if (log != null) throw new NotSupportedException("There is such login");
             var exist = await Get(userId);
             if (exist == null) throw new KeyNotFoundException("There is no such user");
             exist.UserOrganization = null;
-            exist.Login = login;
+            exist.Login = lower;
             var changed = await Update(exist);
             return changed;
         }
