@@ -40,7 +40,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return base.Update(id, dto);
         }
 
-        [HttpPut("/api/Petition/minimum")]
+        [HttpGet("/api/Petition/minimum")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [AllowAnonymous]
         public ActionResult<int> PetitionCount()

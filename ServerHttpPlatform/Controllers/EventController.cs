@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers.Common;
 using KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.DTO;
@@ -99,15 +98,23 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
 
         [HttpGet("/filterOrganizationTime")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<ListResult<EventDTO>>> FilteredByOrganizationAndTime(int organizationId, string filter, [FromQuery]PagedSortListQuery query)
         {
-            var modelList = await EventService.List(new SortedEventsByOrganizationAndTimeSpecification(organizationId,filter,query));
+            try
+            {
+                var modelList = await EventService.List(new SortedEventsByOrganizationAndTimeSpecification(organizationId,filter,query));
             var result = new ListResult<EventDTO>()
             {
                 Result = Mapper.Map<List<EventDTO>>(modelList),
                 Total = await EventService.Count(new SortedEventsByOrganizationAndTimeSpecification(organizationId, filter, query.TakeAll()))
             };
             return result;
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
 
         }
         #endregion

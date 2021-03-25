@@ -206,6 +206,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             if (user == null) return NotFound(); 
             return Ok();
         }
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public override Task<ActionResult<UserDTO>> Create(UserDTO dto)
+        {
+            return base.Create(dto);
+        }
+
         #endregion
 
         #region Get List
@@ -395,6 +401,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
       
         [HttpPost("/extendRole")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
         public async Task<ActionResult<UserDTO>> ExtendRole(int userId, [FromForm] string inpOrPass, [FromForm] bool isIpn)
