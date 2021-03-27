@@ -30,6 +30,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         public override async Task<ActionResult<PetitionDTO>> Get(int id)
         {
             var petition = await base.Get(id);
+            if (petition.Value == null) return NotFound();
             petition.Value.VotesNumber = petition.Value.UserVotes.Count;
             return petition;
         }
@@ -64,13 +65,14 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             int minimum = PetitionService.SuccessfulMinimumVotesNumber();
             if (votes < minimum) return Forbid();
             var updated = Mapper.Map<Petition>(dto);
-            updated.AuthorId = petition.AuthorId;
-            updated.FinishDate = petition.FinishDate;
-            updated.StarDate = petition.StarDate;
-            updated.Text = petition.Text;
-            updated.Header = petition.Header;
-            await PetitionService.SendEmailAnswer(updated);
-            return await Update(id, Mapper.Map<PetitionDTO>(updated));
+            petition.Answer = updated.Answer;
+            petition.Author = null;
+            foreach (var vote in petition.UserVotes)
+            {
+                vote.User = null;
+            }
+            await PetitionService.SendEmailAnswer(petition);
+            return await Update(id, Mapper.Map<PetitionDTO>(petition));
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]

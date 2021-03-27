@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using Autofac.Extensions.DependencyInjection;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework;
 using KMA.Coursework.CommunicationPlatform.DataBaseEntityFramework.Models;
+using KMA.Coursework.CommunicationPlatform.OuterReadOnlyDatabase.PersonalInfoDataBase;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +21,15 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-              //  var context = services.GetRequiredService<PlatformDbContext>();
+                var context = services.GetRequiredService<PlatformDbContext>();
+
+                //context.Users.Add(UserCreating("Admin", "Admin", "Admin","admin@admin1.ad", "qwertyadmin", "qwerty", "User, SuperUser, NewsAndEvents, Moderator, ApplicationAdmin, UserManager", "", null));
+                //for (int i = 34; i < 47; i++)
+                //{
+                //    context.Votes.Add(new VotesEntity() { PetitionId = 3, UserId = i, DateTimeCreated = DateTime.Now});
+                //}
+
+                //context.SaveChanges();
                 //context.Users.Add(UserCreating("Admin", "Admin", "Admin", "as2ekcm", "admin@admin.ad", "qwRnvod23_ric", "User, SuperUser, NewsAndEvents, Moderator, ApplicationAdmin, UserManager", "", 6));
                 //context.Users.Add(UserCreating("Градислав", "Левович", "Маковецький", "grl@co.ua", "t_log011", "1W3e5p78", "User, SuperUser", "", 3));
                 //context.Users.Add(UserCreating("Радечко", "Владиславович", "Миклуха", "test@adb.b", "t_log012", "1Z3e5p79", "User, SuperUser", "", 2));
@@ -33,7 +42,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 //context.Users.Add(UserCreating("Жозефіна", "", "Заєць", "jozefina@joz", "t_log018", "1SZ3e5p85", "User, SuperUser, NewsAndEvents", "", 2));
                 //context.Users.Add(UserCreating("Юдихва", "Омелянівна", "Томків", "a@w", "t_log019", "1pP3e5p86", "User, SuperUser", "", null));
                 //context.Users.Add(UserCreating("Щедриця", "Левівна", "Довженко", "a@v", "t_log020", "1Y3e5p87", "User, SuperUser, NewsAndEvents", "", 7));
-                //context.Users.Add(UserCreating("Юхим", "", "Федорович", "Поточняк", "r@wc", "t_log022", "rtPTmmwl2", "User, SuperUser, ApplicationAdmin", null));
+               // context.Users.Add(UserCreating("Юхим", "Федорович", "Поточняк", "r@wc", "t_log022", "rtPTmmwl2", "User, SuperUser, ApplicationAdmin", "", null));
                 //context.Users.Add(UserCreating("Соломія", "Азарівна", "Сторож", "as@we", "t_log021", "1i3e5p88", "User, SuperUser", "", 5));
                 //context.Users.Add(UserCreating("Moderator", "Admin", "Admin", "moderator@admin", "ajsp_29", "nsqEnnc_90", "User, SuperUser, Moderator", "", 6))
 
@@ -42,7 +51,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
                 //context.Newses.Add(CreateNews(42, new DateTime(2021, 3, 25, 13, 30, 12), true, false, "На станцію \"Академік Вернадський\" вирушила 26-та антарктична експедиція", "txt"));
                 //context.Newses.Add(CreateNews(36, new DateTime(2021, 3, 25, 14, 30, 12), true, false, "Через зміни клімату літо може збільшитися вдвічі - вчені", "txt"));
 
-                //context.SaveChanges();
+               // context.SaveChanges();
             }
             host.Run();
         }
@@ -76,7 +85,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
         //    };
         //    return news;
         //}
-        //private static UserEntity UserCreating(string firstName, string secondName, string lastName, string email, string login, 
+        //private static UserEntity UserCreating(string firstName, string secondName, string lastName, string email, string login,
         //        string password, string roles, string phone, int? organizationId)
         //{
         //    byte[] salt = new byte[128 / 8];
@@ -84,7 +93,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
         //    {
         //        rng.GetBytes(salt);
         //    }
-        //    string saltStr =  Convert.ToBase64String(salt);
+        //    string saltStr = Convert.ToBase64String(salt);
         //    string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
         //        password: password,
         //        salt: salt,
@@ -100,7 +109,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform
         //        Login = login,
         //        Email = email,
         //        EmailConfirm = true,
-        //        Role = roles, 
+        //        Role = roles,
         //        PhoneNumber = phone,
         //        Password = hashed,
         //        Salt = saltStr,

@@ -42,6 +42,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
         public override async Task<Event> Get(int id)
         {
             var model =  await base.Get(id);
+            if (model == null) return null;
             model.Multimedias = await MultimediaService.List(new MultimediaByEventIdSpecification(model.Id));
             model.Author = await UserService.Get(model.AuthorId);
             return model;

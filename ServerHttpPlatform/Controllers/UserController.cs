@@ -264,6 +264,7 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
         public override async Task<ActionResult<UserDTO>> Get(int id)
         {
             var user = await base.Get(id);
+            if (user.Value == null) return NotFound();
             user.Value.Password = "hidden";
             return user;
 

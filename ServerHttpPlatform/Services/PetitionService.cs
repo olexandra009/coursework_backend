@@ -37,6 +37,10 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Services
             if (petition == null) return null;
             petition.Author = await UserService.Get(petition.AuthorId);
             petition.UserVotes = await VoteService.List(new VotesForPetitionWithIdSpecification(petition.Id));
+            foreach (var vote in petition.UserVotes)
+            {
+                vote.User = await UserService.Get(vote.UserId);
+            }
             return petition;
         }
 

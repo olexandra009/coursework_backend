@@ -46,6 +46,12 @@ namespace KMA.Coursework.CommunicationPlatform.ServerHttpPlatform.Controllers
             return base.GetList(query);
         }
 
+        [Authorize(Roles = "User,SuperUser,NewsAndEvents,Moderator,ApplicationAdmin,UserManager")]
+        public override Task<ActionResult<ApplicationDTO>> Get(int id)
+        {
+            return base.Get(id);
+        }
+
         /// <summary>
         /// Get list of application filtered by status
         /// </summary>
